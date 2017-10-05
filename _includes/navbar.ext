@@ -1,0 +1,53 @@
+<div class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="{{site.baseurl}}/index.html" class="navbar-brand">Patatrack</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="{{site.baseurl}}/index.html" id="activities_menu">Activities<span class="caret"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="activities_menu">
+                 <li><a href="{{site.baseurl}}/events.html">Events</a></li>
+                 <li class="divider"></li>
+                 {% for page in site.pages %}
+                   {% if page.resource == true %}
+                       {% for pc in page.categories %}
+                             {% if pc == "activities" %}
+                             <li><a href="{{site.baseurl}}/{{ page.url }}">{{ page.title }}</a></li>
+                             {% endif %}   <!-- cat-match-p -->
+                       {% endfor %}  <!-- page-category -->
+                   {% endif %}   <!-- resource-p -->
+              {% endfor %}  <!-- page -->
+               </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="/index.html" id="education_menu">Education<span class="caret"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="education_menu">
+                  <li><a href="{{site.baseurl}}/projects_for_students.html">Projects for students</a></li>
+                  <!-- <li><a href="{{site.baseurl}}/training.html">Training</a></li> -->
+                </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="/index.html" id="systems_menu">Systems<span class="caret"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="systems_menu">
+                  <li><a href="{{site.baseurl}}/private/systems/cmg-gpu1080.html">cmg-gpu1080</a></li>
+                </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="/index.html" id="about_menu">About<span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="about_menu">
+                <li><a href="{{ site.baseurl }}/people.html">People</a></li>
+                <li><a href="{{ site.baseurl }}/get_involved.html">Contact us</a></li>
+              </ul>
+          </ul>
+        </div>
+      </div>
+    </div>

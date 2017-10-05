@@ -1,0 +1,72 @@
+---
+title: "Patatrack"
+layout: default
+---
+
+<div class="row">
+  <div class="col-sm-12 blog-main">
+
+<hr>
+        <div class=row>
+          <div class="col-md-4">
+            <img src="{{site.baseurl}}/images/patatrack.png" alt=" " width="30%">
+          </div>
+          <div class="col-md-8">
+            <p class="lead">
+Patatrack
+           </p>
+      </div>
+      </div>
+
+<hr>
+We are involved in several activities from tracking and clustering to machine learning and high-performance computing.
+The motivation is the exploration of innovative software and hardware technologies to bring software closer to the detectors at CERN experiments.
+<!-- Important announcements from announcements/_posts -->
+
+<hr>
+  {% assign sitedate = site.time | date: "%Y-%m-%d"   %}
+  {% for post in site.categories.announcements reversed %}
+    {% assign stopdate = post.until | string_to_date | date: "%Y-%m-%d" %}
+    {% if stopdate > sitedate %}
+<div class="row alert alert-warning">
+  <p class="lead">
+    <span class="glyphicon {{ post.symbol }}" aria-hidden="true"></span> {{ post.title }} (<a href="{{ post.link }}">more info</a>)
+  </p>
+</div>
+    {% endif %}
+  {% endfor %}
+
+<hr>
+
+ <!-- Various boxes with more information -->
+<div class="row">
+
+ <div class="col-lg-4">
+  <h2>Meetings</h2>
+    <ul class="list list-simple">
+{% assign pagedate = site.time | date: "%Y-%m-%d"   %}
+{% for post in site.categories.meetings limit: 3 %}
+    <div>
+    <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+{% endfor %}
+    </ul>
+  </div>
+
+
+
+<div class="col-lg-4">
+ <h2>Events</h2>
+   <ul class="list list-simple">
+{% assign pagedate = site.time | date: "%Y-%m-%d"   %}
+{% for page in site.pages reversed %}
+  {% if page.resource == true %}
+      {% for pc in page.categories %}
+            {% if pc == "events" %}
+            <li><a href="{{site.baseurl}}/{{ page.url }}">{{ page.title }}</a></li>
+            {% endif %}   <!-- cat-match-p -->
+      {% endfor %}  <!-- page-category -->
+  {% endif %}   <!-- resource-p -->
+{% endfor %}  <!-- page -->
+   </ul>
+ </div>
+</div>
