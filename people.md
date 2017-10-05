@@ -1,10 +1,10 @@
 ---
-title: "Events"
+title: "Organization"
 author: "Felice Pantaleo"
 layout: default
 ---
 
-# Events
+# Organization
 
 Patatrack is a collaboration between the following institutes and people:
 
