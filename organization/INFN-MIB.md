@@ -9,7 +9,6 @@ categories: organization
 ### ![INFN]({{site.baseurl}}/images/INFN-logo.jpg){:height="100px"} {{page.title}}
 
 #### Website
+[INFN MIB](https://www.mib.infn.it/main/)
 #### People
-
-
-#### Alumni
+D. Menasce, S. Di Guida

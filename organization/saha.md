@@ -9,7 +9,7 @@ categories: organization
 ### ![SAHA]({{site.baseurl}}/images/saha-logo.gif){:height="100px"}  {{page.title}}
 
 #### Website
+[SINP](http://www.saha.ac.in/web/)
 #### People
 
-
-#### Alumni
+S. Sarkar, S. Dutta, S. Roy Chowdhury, P. Mal​

@@ -6,10 +6,10 @@ resource: true
 categories: organization
 
 ---
-### ![INFN]({{site.baseurl}}/images/UNIPI-logo.jpg){:height="100px"} {{page.title}}
+### ![Unipi]({{site.baseurl}}/images/UNIPI-logo.jpg){:height="100px"} {{page.title}}
 
 #### Website
+[unipi-di](https://www.di.unipi.it/it/didattica)
 #### People
 
-
-#### Alumni
+D. Bacciu, A. Carta​
