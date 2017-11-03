@@ -27,22 +27,23 @@
                </ul>
             </li>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="/index.html" id="education_menu">Education<span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="{{site.baseurl}}/index.html" id="education_menu">Education<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="education_menu">
                   <li><a href="{{site.baseurl}}/projects_for_students.html">Projects for students</a></li>
                   <!-- <li><a href="{{site.baseurl}}/training.html">Training</a></li> -->
                 </ul>
             </li>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="/index.html" id="systems_menu">Systems<span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="{{site.baseurl}}/index.html" id="systems_menu">Systems<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="systems_menu">
                   <li><a href="{{site.baseurl}}/private/systems/cmg-gpu1080.html">cmg-gpu1080</a></li>
                 </ul>
             </li>
           </ul>
+          <a href="{{site.baseurl}}/wiki.html" class="navbar-brand">Wiki</a>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="/index.html" id="about_menu">About<span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="{{site.baseurl}}/index.html" id="about_menu">About<span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="about_menu">
                 <li><a href="{{ site.baseurl }}/people.html">People</a></li>
                 <li><a href="{{ site.baseurl }}/get_involved.html">Contact us</a></li>

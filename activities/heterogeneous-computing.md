@@ -1,5 +1,5 @@
 ---
-title: "Heterogeneous HLT Farm"
+title: "Heterogeneous Computing"
 author: "Felice Pantaleo"
 layout: default
 resource: true
