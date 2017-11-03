@@ -1,7 +1,7 @@
 ---
 title: "Wiki Sample Page"
 author: "Felice Pantaleo"
-layout: default
+layout: wiki
 resource: true
 categories: wiki
 activity:  
