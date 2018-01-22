@@ -45,4 +45,11 @@ https://github.com/felicepantaleo/cmssw/tree/RiemannFit_9_2_3/RecoPixelVertexing
 First step:
 Pull and compile changes from https://github.com/felicepantaleo/cmssw/tree/RiemannFit_9_2_3/RecoPixelVertexing/PixelTrackFitting
 
+Issues fixed:
+  * first issue: File in plugin not named correctly
+  * Some global variables removed
+
+Next up:
+  * add integration tests (CMSSW / FCCSW)
+
 
