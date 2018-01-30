@@ -30,7 +30,7 @@ git push my-cmssw HEAD:my_development
 ```
   - open https://github.com/cms-patatrack/cmssw
   - there should be box with the branch you just created and a green button saying "Compare & pull request":
-    ![Compare & pull request](521481940c5daca92453e46b8de95711/screenshot1.png "Compare & pull request")
+    ![Compare & pull request](screenshot1.png "Compare & pull request")
   - click on it, and create a pull request as usual
-    ![Create a pull request](521481940c5daca92453e46b8de95711/screenshot2.png "Create a request")
+    ![Create a pull request](screenshot2.png "Create a request")
 
