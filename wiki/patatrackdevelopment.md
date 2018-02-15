@@ -40,6 +40,8 @@ git checkout cms-patatrack/CMSSW_10_1_X_Patatrack -b my_development
 ```bash
 cmsenv
 eval $(scram tool info cuda | grep ^CUDA_BASE)
+sed -e's/^<tool name="cuda" version="9.1.85.*">/<tool name="cuda" version="9.1.85-workaround">/' -i $CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/selected/cuda.xml
+scram setup $CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/selected/cuda.xml
 rm -f $CMSSW_BASE/external/$SCRAM_ARCH/bin/nvcc.profile
 cat > $CMSSW_BASE/external/$SCRAM_ARCH/bin/nvcc.profile << @EOF
 
