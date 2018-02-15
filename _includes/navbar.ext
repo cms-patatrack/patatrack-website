@@ -40,7 +40,7 @@
                 </ul>
             </li>
           </ul>
-          <a href="{{site.baseurl}}/wiki.html" class="navbar-brand">Wiki</a>
+          <a href="{{site.baseurl}}/wiki/index.html" target="_blank" class="navbar-brand">Wiki</a>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="{{site.baseurl}}/index.html" id="about_menu">About<span class="caret"></span></a>
