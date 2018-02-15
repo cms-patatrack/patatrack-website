@@ -40,7 +40,7 @@ git checkout cms-patatrack/CMSSW_10_1_X_Patatrack -b my_development
 ```bash
 cmsenv
 eval $(scram tool info cuda | grep ^CUDA_BASE)
-cat > nvcc.profile << @EOF
+cat > $CMSSW_BASE/external/$SCRAM_ARCH/bin/nvcc.profile << @EOF
 
 TOP              = $CUDA_BASE
 
