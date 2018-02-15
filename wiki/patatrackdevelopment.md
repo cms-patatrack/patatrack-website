@@ -12,7 +12,7 @@ The current Patatrack development branch is based on `CMSSW_10_1_0_pre1`, and us
 For a different branch and architatcure, adapt these instructions as needed.
 
 ### Create a local working area as usual
-```
+```bash
 export SCRAM_ARCH=slc7_amd64_gcc630
 cmsrel CMSSW_10_1_0_pre1
 cd CMSSW_10_1_0_pre1/src/
@@ -25,28 +25,50 @@ CMSSW is set up to pick up the NVIDIA drivers and CUDA runtime from the host mac
 If the machine you are using has one or more NVIDIA GPUs with CUDA 9.1 already installed, you don't need to do anything to use them.
 
 If the machine you are using *does not have* a GPU with the NVIDIA drivers and CUDA runtime, set them up in CMSSW:
-```
+```bash
 scram setup nvidia-drivers
 ```
 
 ### Check out the patatrack and development branch
 Add the patatrack repository and create a develpmt branch based on the Patatrack one:
-```
+```bash
 git cms-remote add cms-patatrack
 git checkout cms-patatrack/CMSSW_10_1_X_Patatrack -b my_development
 ```
 
-### Check out the modified packages and their dependencies
-```
-git cms-addpkg $(git diff $CMSSW_VERSION --name-only | cut -d/ -f-2 | sort -u)
-git cms-checkdeps -a
+### Optional: fix `nvcc.profile` to let `nvcc` work on the command line
+```bash
+cmsenv
+eval $(scram tool info cuda | grep ^CUDA_BASE)
+cat > nvcc.profile << @EOF
+
+TOP              = $CUDA_BASE
+
+NVVMIR_LIBRARY_DIR = \$(TOP)/nvvm/libdevice
+
+LD_LIBRARY_PATH += \$(TOP)/lib:
+PATH            += \$(TOP)/nvvm/bin:\$(TOP)/bin:
+
+INCLUDES        +=  "-I\$(TOP)/include" \$(_SPACE_)
+
+LIBRARIES        =+ \$(_SPACE_) "-L\$(TOP)/lib\$(_TARGET_SIZE_)/stubs" "-L\$(TOP)/lib\$(_TARGET_SIZE_)"
+
+CUDAFE_FLAGS    +=
+PTXAS_FLAGS     +=
+@EOF
 ```
 
 ### No longer needed: make `cuda-api-wrappers` available
 The `cuda-api-wrappers` external is already avaliable in the CMSSW 10.1.x
 
-### Write code, compile, debug, commit, and push to your repository
+### Check out the modified packages and their dependencies
+```bash
+git cms-addpkg $(git diff $CMSSW_VERSION --name-only | cut -d/ -f-2 | sort -u)
+git cms-checkdeps -a
 ```
+
+### Write code, compile, debug, commit, and push to your repository
+```bash
 ...
 scram b
 ...
