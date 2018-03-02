@@ -8,13 +8,13 @@ activity:  instructions
 ---
 
 ## Simple recipe for developing with Patatrack
-The current Patatrack development branch is based on `CMSSW_10_1_0_pre1`, and uses the `slc7_amd64_gcc630` architecture.  
+The current Patatrack development branch is based on `CMSSW_10_1_0_pre2`, and uses the `slc7_amd64_gcc630` architecture.  
 For a different branch and architatcure, adapt these instructions as needed.
 
 ### Create a local working area as usual
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc630
-cmsrel CMSSW_10_1_0_pre1
+cmsrel CMSSW_10_1_0_pre2
 cd CMSSW_10_1_0_pre1/src/
 cmsenv
 git cms-init
@@ -36,33 +36,13 @@ git cms-remote add cms-patatrack
 git checkout cms-patatrack/CMSSW_10_1_X_Patatrack -b my_development
 ```
 
-### Optional: fix `nvcc.profile` to let `nvcc` work on the command line
+### Update the default CUDA compiler flags
+Update the default CUDA compiler flags to include `-O3 -std=c++14 --expt-relaxed-constexpr --expt-extended-lambda`
 ```bash
 cmsenv
-eval $(scram tool info cuda | grep ^CUDA_BASE)
-sed -e's/^<tool name="cuda" version="9.1.85.*">/<tool name="cuda" version="9.1.85-workaround">/' -i $CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/selected/cuda.xml
-scram setup $CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/selected/cuda.xml
-rm -f $CMSSW_BASE/external/$SCRAM_ARCH/bin/nvcc.profile
-cat > $CMSSW_BASE/external/$SCRAM_ARCH/bin/nvcc.profile << @EOF
-
-TOP              = $CUDA_BASE
-
-NVVMIR_LIBRARY_DIR = \$(TOP)/nvvm/libdevice
-
-LD_LIBRARY_PATH += \$(TOP)/lib:
-PATH            += \$(TOP)/nvvm/bin:\$(TOP)/bin:
-
-INCLUDES        +=  "-I\$(TOP)/include" \$(_SPACE_)
-
-LIBRARIES        =+ \$(_SPACE_) "-L\$(TOP)/lib\$(_TARGET_SIZE_)/stubs" "-L\$(TOP)/lib\$(_TARGET_SIZE_)"
-
-CUDAFE_FLAGS    +=
-PTXAS_FLAGS     +=
-@EOF
+sed -e's|CUDA_FLAGS="-O2 -std=c++14"|CUDA_FLAGS="-O3 -std=c++14 --expt-relaxed-constexpr --expt-extended-lambda"|' -i $CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/selected/cuda.xml
+scram b
 ```
-
-### No longer needed: make `cuda-api-wrappers` available
-The `cuda-api-wrappers` external is already avaliable in the CMSSW 10.1.x
 
 ### Check out the modified packages and their dependencies
 ```bash
