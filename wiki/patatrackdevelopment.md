@@ -15,7 +15,7 @@ For a different branch and architatcure, adapt these instructions as needed.
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc630
 cmsrel CMSSW_10_1_0_pre2
-cd CMSSW_10_1_0_pre1/src/
+cd CMSSW_10_1_0_pre2/src/
 cmsenv
 git cms-init
 ```
