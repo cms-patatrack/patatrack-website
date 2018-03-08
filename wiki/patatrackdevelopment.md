@@ -29,6 +29,13 @@ If the machine you are using *does not have* a GPU with the NVIDIA drivers and C
 scram setup nvidia-drivers
 ```
 
+### Build the CUDA code
+The standard releases do not build the CUDA-related code (yet); check it out and build it:
+```bash
+git cms-addpkg HeterogeneousCore
+scram b
+```
+
 ### Check out the patatrack and development branch
 Add the patatrack repository and create a develpmt branch based on the Patatrack one:
 ```bash
