@@ -20,13 +20,20 @@ cmsenv
 git cms-init
 ```
 
+### Update externals
+Update the versions of Eigen and CUDA to the latest ones
+```bash
+ls /eos/user/f/fwyzard/www/patatrack/tools/eigen.xml /eos/user/f/fwyzard/www/patatrack/tools/cuda*.xml | xargs -n1 scram setup
+scram b
+```
+
 ### Setup the NVIDIA drivers
 CMSSW is set up to pick up the NVIDIA drivers and CUDA runtime from the host machine.
 If the machine you are using has one or more NVIDIA GPUs with CUDA 9.1 already installed, you don't need to do anything to use them.
 
 If the machine you are using *does not have* a GPU with the NVIDIA drivers and CUDA runtime, set them up in CMSSW:
 ```bash
-scram setup nvidia-drivers
+modprobe -R -q nvidia || scram setup /eos/user/f/fwyzard/www/patatrack/tools/nvidia-drivers.xml
 ```
 
 ### Build the CUDA code
