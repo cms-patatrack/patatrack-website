@@ -20,20 +20,11 @@ cmsenv
 git cms-init
 ```
 
-### Update externals
-Update the versions of Eigen and CUDA to the latest ones
-```bash
-ls /eos/user/f/fwyzard/www/patatrack/tools/eigen.xml /eos/user/f/fwyzard/www/patatrack/tools/cuda*.xml | xargs -n1 scram setup
-scram b
-```
-
 ### Update the externals for Eigen and CUDA
 The external packages for Eigen and CUDA have been updated since the build of CMSSW 10.1.0-pre2.
 In order to use the new versions, you can pick them up from the IBs on CVMFS: 
 ```bash
-cmsenv
-scram setup /eos/user/f/fwyzard/www/patatrack/tools/eigen.xml
-ls /eos/user/f/fwyzard/www/patatrack/tools/cuda*.xml | xargs -n1 scram setup
+ls /eos/user/f/fwyzard/www/patatrack/tools/eigen.xml /eos/user/f/fwyzard/www/patatrack/tools/cuda*.xml | xargs -n1 scram setup
 scram b
 ```
 
