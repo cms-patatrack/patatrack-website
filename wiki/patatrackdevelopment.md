@@ -27,6 +27,16 @@ ls /eos/user/f/fwyzard/www/patatrack/tools/eigen.xml /eos/user/f/fwyzard/www/pat
 scram b
 ```
 
+### Update the externals for Eigen and CUDA
+The external packages for Eigen and CUDA have been updated since the build of CMSSW 10.1.0-pre2.
+In order to use the new versions, you can pick them up from the IBs on CVMFS: 
+```bash
+cmsenv
+scram setup /eos/user/f/fwyzard/www/patatrack/tools/eigen.xml
+ls /eos/user/f/fwyzard/www/patatrack/tools/cuda*.xml | xargs -n1 scram setup
+scram b
+```
+
 ### Setup the NVIDIA drivers
 CMSSW is set up to pick up the NVIDIA drivers and CUDA runtime from the host machine.
 If the machine you are using has one or more NVIDIA GPUs with CUDA 9.1 already installed, you don't need to do anything to use them.
@@ -43,19 +53,17 @@ git cms-addpkg HeterogeneousCore
 scram b
 ```
 
-### Check out the patatrack and development branch
-Add the patatrack repository and create a develpmt branch based on the Patatrack one:
+### Optional: update the `NVProfilerService`
+```bash
+git cms-merge-topic 22574
+scram b
+```
+
+### Check out the patatrack development branch
+Add the patatrack repository and create a development branch based on the Patatrack one:
 ```bash
 git cms-remote add cms-patatrack
 git checkout cms-patatrack/CMSSW_10_1_X_Patatrack -b my_development
-```
-
-### Update the default CUDA compiler flags
-Update the default CUDA compiler flags to include `-O3 -std=c++14 --expt-relaxed-constexpr --expt-extended-lambda`
-```bash
-cmsenv
-sed -e's|CUDA_FLAGS="-O2 -std=c++14"|CUDA_FLAGS="-O3 -std=c++14 --expt-relaxed-constexpr --expt-extended-lambda"|' -i $CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/selected/cuda.xml
-scram b
 ```
 
 ### Check out the modified packages and their dependencies
