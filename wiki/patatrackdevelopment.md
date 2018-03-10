@@ -28,7 +28,7 @@ ls /eos/user/f/fwyzard/www/patatrack/tools/eigen.xml /eos/user/f/fwyzard/www/pat
 scram b
 ```
 
-### Setup the NVIDIA drivers
+### Optional: setup the NVIDIA drivers
 CMSSW is set up to pick up the NVIDIA drivers and CUDA runtime from the host machine.
 If the machine you are using has one or more NVIDIA GPUs with CUDA 9.1 already installed, you don't need to do anything to use them.
 
