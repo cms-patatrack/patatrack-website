@@ -34,7 +34,7 @@ If the machine you are using has one or more NVIDIA GPUs with CUDA 9.1 already i
 
 If the machine you are using *does not have* a GPU with the NVIDIA drivers and CUDA runtime, set them up in CMSSW:
 ```bash
-modprobe -R -q nvidia || scram setup /eos/user/f/fwyzard/www/patatrack/tools/nvidia-drivers.xml
+modprobe -n -q nvidia || scram setup /eos/user/f/fwyzard/www/patatrack/tools/nvidia-drivers.xml
 ```
 
 ### Build the CUDA code
