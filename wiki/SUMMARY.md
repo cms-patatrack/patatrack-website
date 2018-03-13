@@ -3,6 +3,8 @@
 * [Introduction](README.md)
 * [Development for Patatrack](patatrackdevelopment.md)
   * [Empty Release](emptyrelease.md)
+* [Benchmarking]
+  * [Stall Service](benchmarking_stall_service.md)
 * [Accelerated Reconstruction](AcceleratedReconstruction.md)
   * [Pixel Tracks](PixelTracks.md)
     * [RAW to DIGI](RAWtoDIGI.md)
