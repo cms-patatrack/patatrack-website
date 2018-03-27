@@ -8,24 +8,16 @@ activity:  instructions
 ---
 
 ## Simple recipe for developing with Patatrack
-The current Patatrack development branch is based on `CMSSW_10_1_0_pre2`, and uses the `slc7_amd64_gcc630` architecture.  
+The current Patatrack development branch is based on `CMSSW_10_1_0_pre3`, and uses the `slc7_amd64_gcc630` architecture.  
 For a different branch and architatcure, adapt these instructions as needed.
 
 ### Create a local working area as usual
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc630
-cmsrel CMSSW_10_1_0_pre2
-cd CMSSW_10_1_0_pre2/src/
+cmsrel CMSSW_10_1_0_pre3
+cd CMSSW_10_1_0_pre3/src/
 cmsenv
 git cms-init
-```
-
-### Update the externals for Eigen and CUDA
-The external packages for Eigen and CUDA have been updated since the build of CMSSW 10.1.0-pre2.
-In order to use the new versions, you can pick them up from the IBs on CVMFS: 
-```bash
-ls /eos/user/f/fwyzard/www/patatrack/tools/eigen.xml /eos/user/f/fwyzard/www/patatrack/tools/cuda*.xml | xargs -n1 scram setup
-scram b
 ```
 
 ### Optional: setup the NVIDIA drivers
@@ -34,19 +26,13 @@ If the machine you are using has one or more NVIDIA GPUs with CUDA 9.1 already i
 
 If the machine you are using *does not have* a GPU with the NVIDIA drivers and CUDA runtime, set them up in CMSSW:
 ```bash
-modprobe -n -q nvidia || scram setup /eos/user/f/fwyzard/www/patatrack/tools/nvidia-drivers.xml
+modprobe -n -q nvidia || scram setup nvidia-drivers
 ```
 
 ### Build the CUDA code
 The standard releases do not build the CUDA-related code (yet); check it out and build it:
 ```bash
 git cms-addpkg HeterogeneousCore
-scram b
-```
-
-### Optional: update the `NVProfilerService`
-```bash
-git cms-merge-topic 22574
 scram b
 ```
 
