@@ -8,14 +8,14 @@ activity:  instructions
 ---
 
 ## Simple recipe for developing with Patatrack
-The current Patatrack development branch is based on `CMSSW_10_1_0_pre3`, and uses the `slc7_amd64_gcc630` architecture.  
+The current Patatrack development branch is based on `CMSSW_10_1_0`, and uses the `slc7_amd64_gcc630` architecture.  
 For a different branch and architatcure, adapt these instructions as needed.
 
 ### Create a local working area as usual
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc630
-cmsrel CMSSW_10_1_0_pre3
-cd CMSSW_10_1_0_pre3/src/
+cmsrel CMSSW_10_1_0
+cd CMSSW_10_1_0/src/
 cmsenv
 git cms-init
 ```
