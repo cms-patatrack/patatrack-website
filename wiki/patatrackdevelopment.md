@@ -57,7 +57,24 @@ scram b
 git push my-cmssw HEAD:my_development
 ```
 
-### Create a pull request
+## Special instructions for working on `vinavx2`
+On `vinavx2` a special CMSSW release is available, `CMSSW_10_1_0_Patatrack`, built from the `cms-patatrck/cmssw` repository including the current `CMSSW_10_1_X_Patatrack` branch on top of `CMSSW_10_1_0`.  
+To create a local working area, one can do
+```bash
+source /data/cmssw/cmsset_default.sh
+cmsrel CMSSW_10_1_0_Patatrack
+cd CMSSW_10_1_0_Patatrack/src
+cmsenv
+cp -ar $CMSSW_RELEASE_BASE/git .git
+git checkout -- .clang-tidy .gitignore
+```
+
+From here one can work in the `CMSSW_10_1_X_Patatrack`, or create a new topic branch with the usual commands:
+```bash
+git checkout -b my_development
+```
+
+## Create a pull request
   - open https://github.com/cms-patatrack/cmssw
 
   - there should be box with the branch you just created and a green button saying "Compare & pull request":
