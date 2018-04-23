@@ -33,7 +33,7 @@ modprobe -n -q nvidia || scram setup nvidia-drivers
 The standard releases do not build the CUDA-related code (yet); check it out and build it:
 ```bash
 git cms-addpkg HeterogeneousCore
-scram b
+scram b -j`nproc`
 ```
 
 ### Check out the patatrack development branch
@@ -52,7 +52,7 @@ git cms-checkdeps -a
 ### Write code, compile, debug, commit, and push to your repository
 ```bash
 ...
-scram b
+scram b -j`nproc`
 ...
 git push my-cmssw HEAD:my_development
 ```
