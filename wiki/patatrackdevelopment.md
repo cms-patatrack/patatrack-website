@@ -8,14 +8,14 @@ activity:  instructions
 ---
 
 ## Simple recipe for developing with Patatrack
-The current Patatrack development branch is based on `CMSSW_10_1_0`, and uses the `slc7_amd64_gcc630` architecture.  
+The current Patatrack development branch is based on `CMSSW_10_2_X`, and uses the `slc7_amd64_gcc630` architecture.  
 For a different branch and architatcure, adapt these instructions as needed.
 
 ### Create a local working area as usual
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc630
-cmsrel CMSSW_10_1_0
-cd CMSSW_10_1_0/src/
+cmsrel CMSSW_10_2_0_pre1
+cd CMSSW_10_2_0_pre1/src/
 cmsenv
 git cms-init
 ```
@@ -40,7 +40,7 @@ scram b -j`nproc`
 Add the patatrack repository and create a development branch based on the Patatrack one:
 ```bash
 git cms-remote add cms-patatrack
-git checkout cms-patatrack/CMSSW_10_1_X_Patatrack -b my_development
+git checkout cms-patatrack/CMSSW_10_2_X_Patatrack -b my_development
 ```
 
 ### Check out the modified packages and their dependencies
@@ -57,7 +57,7 @@ scram b -j`nproc`
 git push my-cmssw HEAD:my_development
 ```
 
-## Special instructions for working on `vinavx2`
+## Out of date: special instructions for working on `vinavx2` with `CMSSW_10_1_0_Patatrack`
 On `vinavx2` a special CMSSW release is available, `CMSSW_10_1_0_Patatrack`, built from the `cms-patatrck/cmssw` repository including the current `CMSSW_10_1_X_Patatrack` branch on top of `CMSSW_10_1_0`.  
 To create a local working area, one can do
 ```bash
