@@ -57,7 +57,10 @@ scram b -j`nproc`
 git push my-cmssw HEAD:my_development
 ```
 
-## Out of date: special instructions for working on `vinavx2` with `CMSSW_10_1_0_Patatrack`
+## Special instructions for working on `vinavx2` with `CMSSW_10_1_0_Patatrack`
+<details><summary>Out of date - click to show
+</summary>
+
 On `vinavx2` a special CMSSW release is available, `CMSSW_10_1_0_Patatrack`, built from the `cms-patatrck/cmssw` repository including the current `CMSSW_10_1_X_Patatrack` branch on top of `CMSSW_10_1_0`.  
 To create a local working area, one can do
 ```bash
@@ -73,6 +76,7 @@ From here one can work in the `CMSSW_10_1_X_Patatrack`, or create a new topic br
 ```bash
 git checkout -b my_development
 ```
+</details>
 
 ## Create a pull request
   - open https://github.com/cms-patatrack/cmssw
