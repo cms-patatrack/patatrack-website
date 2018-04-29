@@ -9,31 +9,27 @@ activity:  instructions
 
 ## Simple recipe for developing with Patatrack
 The current Patatrack development branch is based on `CMSSW_10_2_X`, and uses the `slc7_amd64_gcc630` architecture.  
-For a different branch and architatcure, adapt these instructions as needed.
+For a different branch and architatcure, adapt these instructions as needed.  
+
+Starting with `CMSSW_10_2_X_2018-04-29-0000`, the architecture `slc7_amd64_gcc700` is also tentaviely supported.  
+`CMSSW_10_2_0_pre2` can be used with GCC 7.x following the instructions below.
 
 ### Create a local working area as usual
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc630
-cmsrel CMSSW_10_2_0_pre1
-cd CMSSW_10_2_0_pre1/src/
+cmsrel CMSSW_10_2_0_pre2
+cd CMSSW_10_2_0_pre2/src/
 cmsenv
 git cms-init
 ```
 
-### Optional: setup the NVIDIA drivers
-CMSSW is set up to pick up the NVIDIA drivers and CUDA runtime from the host machine.
-If the machine you are using has one or more NVIDIA GPUs with CUDA 9.1 already installed, you don't need to do anything to use them.
-
-If the machine you are using *does not have* a GPU with the NVIDIA drivers and CUDA runtime, set them up in CMSSW:
+### Update SCRAM and CUDA to support GCC 7.x
+Starting with `CMSSW_10_2_X_2018-04-29-0000`, the architecture `slc7_amd64_gcc700` is also tentaviely supported.  
+If using `CMSSW_10_2_0_pre2`, update it to be compatible with GCC 7.x:
 ```bash
-modprobe -n -q nvidia || scram setup nvidia-drivers
-```
-
-### Build the CUDA code
-The standard releases do not build the CUDA-related code (yet); check it out and build it:
-```bash
-git cms-addpkg HeterogeneousCore
-scram b -j`nproc`
+curl -s http://fwyzard.web.cern.ch/fwyzard/patatrack/CMSSW_10_2_0_pre2/config.tgz | tar xz -C $CMSSW_BASE
+cmsenv
+scram b -j0
 ```
 
 ### Check out the patatrack development branch
