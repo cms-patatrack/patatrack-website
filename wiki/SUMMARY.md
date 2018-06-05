@@ -2,6 +2,7 @@
 
 * [Introduction](README.md)
 * [Development for Patatrack](patatrackdevelopment.md)
+  * [Working with CUDA in CMSSW](CUDAinCMSSW.md)
   * [Empty Release](emptyrelease.md)
 * [Benchmarking]
   * [Stall Service](benchmarking_stall_service.md)
