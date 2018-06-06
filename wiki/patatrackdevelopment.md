@@ -119,12 +119,13 @@ git checkout cms-patatrack/CMSSW_10_2_X_Patatrack -b my_development
 # check out the modified packages and their dependencies
 git cms-addpkg $(git diff $CMSSW_VERSION --name-only | cut -d/ -f-2 | sort -u)
 git cms-checkdeps -a
+scram b -j
 ```
 
 ### Write code, compile, debug, commit, and push to your repository
 ```bash
 ...
-scram b -j`nproc`
+scram b -j
 ...
 git add ...
 git commit
