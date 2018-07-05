@@ -20,5 +20,7 @@
   * [HGCAL](HGCAL.md)
   * [CUDA Utilities](CUDA_Utilities.md)
 
+* [External libraries](libraries.md)
+
 * [Machine Learning](ML.md)
     * [Cluster Shape filter](ClusterShape.md)
