@@ -40,25 +40,25 @@ $VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 install -y cms+cmssw+CMSSW_10_
 ### Install the dependencies and `CMSSW_10_2_0_pre6_Patatrack`
 ```bash
 $VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 -- rpm --prefix=$VO_CMS_SW_DIR --nodeps -i \
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+cuda-toolfile+2.1-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+eigen+64060da8461a627eb25b5a7bc0616776068db58b-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+eigen-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+gbl+V02-01-03-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+gbl-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+lwtnn+2.4-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+lwtnn-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+professor2+2.2.1-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+professor2-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+py2-tensorflow+1.6.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+py2-tensorflow-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+python_tools+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+tensorflow+1.6.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+tensorflow-python3-sources+1.6.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+tensorflow-sources+1.6.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+tensorflow-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+coral-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/cms+coral+CORAL_2_3_21-patatrack-1-1.slc7_amd64_gcc700.rpm
-  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/cms+cmssw-tool-conf+44.0-patatrack-1-1.slc7_amd64_gcc700.rpm
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+cuda-toolfile+2.1-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+eigen+64060da8461a627eb25b5a7bc0616776068db58b-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+eigen-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+gbl+V02-01-03-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+gbl-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+lwtnn+2.4-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+lwtnn-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+professor2+2.2.1-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+professor2-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+py2-tensorflow+1.6.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+py2-tensorflow-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+python_tools+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+tensorflow+1.6.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+tensorflow-python3-sources+1.6.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+tensorflow-sources+1.6.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+tensorflow-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/external+coral-toolfile+1.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/cms+coral+CORAL_2_3_21-patatrack-1-1.slc7_amd64_gcc700.rpm \
+  http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/cms+cmssw-tool-conf+44.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
   http://cern.ch/fwyzard/patatrack/rpms/cmssw_1020pre6/slc7_amd64_gcc700/cms+cmssw+CMSSW_10_2_0_pre6_Patatrack-1-1.slc7_amd64_gcc700.rpm
 ```
 
