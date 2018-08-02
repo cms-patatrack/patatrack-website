@@ -11,10 +11,7 @@ activity:  instructions
 The current Patatrack development branch is based on `CMSSW_10_2_X`, and supports the architecture `slc7_amd64_gcc700`.
 
 ## Installing `CMSSW_10_2_0_Patatrack`
-While it is possible to start from the vanilla `CMSSW_10_2_0`, using this dedicated release has few advantages
-  - uses the latest version of the relevant externals (llvm/clang, and eigen)
-  - includes the latest build rules for CUDA code, that should allow linking device code across different libraries
-  - includes the latest upstream updates to Eigen, that improve support for AVX and CUDA
+While it is possible to start from the vanilla `CMSSW_10_2_0`, using this dedicated release has the advantage of not having to rebuild many packages.
 
 If you are working on **vinavx2** you can skip these steps, as the release is already available.
 
