@@ -111,7 +111,7 @@ git push -u my-cmssw HEAD:my_development
   - before your PR can be submitted, you should kindly run a couple of checks to make the integration process much smoother:
   ```bash
   #recompile using debug
-  USER_CXXFLAGS="-g -rdynamic" USER_CUDA_FLAGS="-g -G" scram b -j
+  scram b clean && USER_CXXFLAGS="-g -rdynamic" USER_CUDA_FLAGS="-g -G" scram b -j
   ...
   #run your code under cuda-memcheck
   cuda-memcheck --tool initcheck --print-limit 1 cmsRun step3.py
