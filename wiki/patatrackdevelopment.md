@@ -42,7 +42,7 @@ $VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 -- rpm --prefix=$VO_CMS_SW_DIR
 
 ## Create a working area for `CMSSW_10_2_0_Patatrack`
 
-On **vnavx2** set `VO_CMS_SW_DIR=/data/cmssw`.
+On **vinavx2** set `VO_CMS_SW_DIR=/data/cmssw`.
 
 ### Source the local installation
 ```bash
