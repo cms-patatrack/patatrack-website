@@ -28,4 +28,5 @@ For this reason you're kindly asked to use
 
 before any import that will use a GPU (e.g. tensorflow). This will assign to you the least loaded GPU on the system.
 
-It is strictly forbidden to use GPUs from within your notebook. Please export your notebook to a python program and execute it. The access to the machine will be revoked when failing to comply to this rule.
+It is strictly forbidden to use GPUs from within your jupyter notebook. Please export your notebook to a python program and execute it. 
+The access to the machine will be revoked when failing to comply to this rule.
