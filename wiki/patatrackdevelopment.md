@@ -103,6 +103,16 @@ cmsenv
 ```
 
 ### Set up the `git` repository
+#### Experimental instructions for **vinavx2**
+```bash
+cp -ar $CMSSW_RELEASE_BASE/git .git
+git reset --hard $CMSSW_VERSION
+
+# enable the developer's repository
+git cms-init
+```
+
+#### Standard instructions
 ```bash
 git cms-init --upstream-only || true
 # you will see the error
