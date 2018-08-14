@@ -1,7 +1,8 @@
 # Summary
 
 * [Introduction](README.md)
-* [Development for Patatrack](patatrackdevelopment.md)
+* [Development for Patatrack](PatatrackDevelopment.md)
+  * [Installing Patatrack releases](PatatrackReleases.md)
   * [Working with CUDA in CMSSW](CUDAinCMSSW.md)
   * [Empty Release](emptyrelease.md)
 * [Benchmarking]
