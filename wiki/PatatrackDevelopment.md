@@ -111,6 +111,8 @@ git push -u my-cmssw HEAD:my_development
   cuda-memcheck --tool synccheck --print-limit 1 cmsRun step3.py
   ```
 
+  - it is also possible to run more thorough, semi-automatic checks: see [Running the validation](PatatrackValidation.md)
+
   - open https://github.com/cms-patatrack/cmssw
 
   - there should be box with the branch you just created and a green button saying "Compare & pull request":

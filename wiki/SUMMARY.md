@@ -3,9 +3,10 @@
 * [Introduction](README.md)
 * [Development for Patatrack](PatatrackDevelopment.md)
   * [Installing Patatrack releases](PatatrackReleases.md)
+  * [Running the validation](PatatrackValidation.md)
   * [Working with CUDA in CMSSW](CUDAinCMSSW.md)
   * [Empty Release](emptyrelease.md)
-* [Benchmarking]
+* Benchmarking
   * [Stall Service](benchmarking_stall_service.md)
   * [CMSSW Scalability](cmssw_scalability.md)
 * [Accelerated Reconstruction](AcceleratedReconstruction.md)
