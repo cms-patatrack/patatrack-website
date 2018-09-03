@@ -71,3 +71,4 @@ real	0m39.366s
 user	0m19.939s
 sys	0m17.048s
 ```
+ That makes the MPS version 15% faster than the one not using MPS. Trying to add more child processes (with 8 of them) increases the gap between the two to 25%.
