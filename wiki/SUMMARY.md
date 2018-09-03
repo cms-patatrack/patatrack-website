@@ -7,6 +7,7 @@
   * [Working with CUDA in CMSSW](CUDAinCMSSW.md)
   * [Empty Release](emptyrelease.md)
 * Benchmarking
+  * [Workflows](workflows.md)
   * [Stall Service](benchmarking_stall_service.md)
   * [CMSSW Scalability](cmssw_scalability.md)
 * [Accelerated Reconstruction](AcceleratedReconstruction.md)
