@@ -10,7 +10,7 @@ activity:  instructions
 ## Installing `CMSSW_10_2_4_Patatrack`
 While it is possible to start from the vanilla `CMSSW_10_2_4`, using this dedicated release has few advantages:
   - include support for Volta-class GPUs;
-  - include the changes from the CMSSW_10_2_X branch.
+  - include the changes from the CMSSW_10_2_X_Patatrack branch.
 
 If you are working on **vinavx2** you can skip these steps, as the release is already available.
 
