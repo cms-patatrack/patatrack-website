@@ -22,6 +22,7 @@
   * [ECAL](ECAL.md)
   * [HGCAL](HGCAL.md)
   * [CUDA Utilities](CUDA_Utilities.md)
+    * [MPS set up](MPS-setup.md)
 
 * [External libraries](libraries.md)
 
