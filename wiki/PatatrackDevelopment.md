@@ -10,18 +10,16 @@ activity:  instructions
 ## Simple recipe for developing with Patatrack
 The current Patatrack development branch is based on `CMSSW_10_2_X`, and supports the architecture `slc7_amd64_gcc700`.
 
-## Installing `CMSSW_10_2_2_Patatrack`
-While it is possible to start from the vanilla `CMSSW_10_2_2`, using this dedicated release has few advantages:
-  - update CUDA to version 9.2.148, patch 1;
-  - include the Boost.MPI library;
-  - include the changes from CMSSW_10_2_2_patch1;
+## Installing `CMSSW_10_2_4_Patatrack`
+While it is possible to start from the vanilla `CMSSW_10_2_4`, using this dedicated release has few advantages:
+  - include support for Volta-class GPUs;
   - include the changes from the CMSSW_10_2_X branch.
 
 If you are working on **vinavx2**, the release is already available.
 
-Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_2_2_Patatrack` on your machine.
+Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_2_4_Patatrack` on your machine.
 
-## Create a working area for `CMSSW_10_2_2_Patatrack`
+## Create a working area for `CMSSW_10_2_4_Patatrack`
 
 ### Source the local installation
 Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases.  
@@ -34,47 +32,30 @@ source /data/cmssw/cmsset_default.sh
 
 ### Set up a working area
 ```bash
-scram list CMSSW_10_2_2
-cmsrel CMSSW_10_2_2_Patatrack
-cd CMSSW_10_2_2_Patatrack/src
+scram list CMSSW_10_2_4
+cmsrel CMSSW_10_2_4_Patatrack
+cd CMSSW_10_2_4_Patatrack/src
 cmsenv
 ```
 
 ### Set up the local `git` repository
-#### Experimental instructions for **vinavx2**
-```bash
-rsync -ar $CMSSW_RELEASE_BASE/git/ $CMSSW_BASE/src/.git
-git reset --hard $CMSSW_VERSION
-
-# enable the developer's repository
-git cms-init
-```
-
-#### Standard instructions
 ```bash
 git cms-init --upstream-only || true
 # you will see the error
-#     fatal: Not a valid object name: 'CMSSW_10_2_2_Patatrack'.
+#     fatal: 'CMSSW_10_2_4_Patatrack' is not a commit and a branch 'from-CMSSW_10_2_4_Patatrack' cannot be created from it
 # it is expected, just follow the rest of the instructions
-git config core.sparsecheckout true
-{
-  echo "/.gitignore"
-  echo "/.clang-tidy"
-  echo "/.clang-format"
-} > $CMSSW_BASE/src/.git/info/sparse-checkout
-git read-tree -mu HEAD
 
 # add the Patatrack remote and branches
 git cms-remote add cms-patatrack
-git checkout CMSSW_10_2_2_Patatrack -b CMSSW_10_2_X_Patatrack
+git checkout CMSSW_10_2_4_Patatrack -b CMSSW_10_2_X_Patatrack
 git branch -u cms-patatrack/CMSSW_10_2_X_Patatrack
-git checkout CMSSW_10_2_2_Patatrack -b from-CMSSW_10_2_2_Patatrack
+git checkout CMSSW_10_2_4_Patatrack -b from-CMSSW_10_2_4_Patatrack
 
 # enable the developer's repository
 git cms-init
 ```
 
-Now you should be able to work in the `from-CMSSW_10_2_2_Patatrack` branch as you would in a normal CMSSW development area.
+Now you should be able to work in the `from-CMSSW_10_2_4_Patatrack` branch as you would in a normal CMSSW development area.
 
 ### Check out the patatrack development branch
 To work on further developments, it is advised to start from the HEAD of the patatrack branch.
@@ -113,7 +94,7 @@ git push -u my-cmssw HEAD:my_development
 
   - it is also possible to run more thorough, semi-automatic checks: see [Running the validation](PatatrackValidation.md)
 
-  - open https://github.com/cms-patatrack/cmssw
+  - open https://github.com/cms-patatrack/cmssw/
 
   - there should be box with the branch you just created and a green button saying "Compare & pull request":
     ![Compare & pull request](screenshot1.png "Compare & pull request")
