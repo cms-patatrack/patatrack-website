@@ -14,10 +14,10 @@ Also create a script to shut the MPS server down:
 #!/bin/bash
 echo quit | nvidia-cuda-mps-control
 nvidia-smi -i 2 -c DEFAULT
+```
 
 ## Profilling the CUDA sample code:
 
-```
 Then for profiling and check to see the difference between running GPU workload with and without having MPS running:
 
 One can profile using nvprof from the CLI, or use the Visual profiler `nvvp &`.
