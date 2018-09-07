@@ -45,6 +45,8 @@ Set there "Profile child processes" option in order to be able to select the scr
 
 The results of the example, which launches two simple CUDA sample code (0_Simple/matrixmul) achieved the following results (after checking in the visual profiler that indeed the kernels were being parallelized in the profiler's timeline):
 
+The tests were done in a NVIDIA GTX1080Ti GPU (driver version: 396.54), CUDA v9.0. 
+
 WITH MPS server ON
 
 ```
@@ -72,3 +74,13 @@ user	0m19.939s
 sys	0m17.048s
 ```
  That makes the MPS version 15% faster than the one not using MPS. Trying to add more child processes (with 8 of them) increases the gap between the two to 25%.
+
+## Constraints
+
+There is a constraint in pre-Volta based architecures, the number of child processes allowed to run is restricted to 16 (and also in Volta architecure, but as this has been improved in the new architecture to 48 concurrent child processes). Above that number one starts getting cudaMalloc errors by the number of additional child processes the user has run (meaning that, if you try to run 32 child processes in a Pascal based GPU, you will get 16 errors and the rest of child processes ,also 16 in this case, will go on running).
+
+The new features introduced by Volta architecure can be read in the following paper:
+http://composter.com.ua/documents/Volta-Architecture-Whitepaper.pdf
+Where you can search for MPS, in order to checkout improvements done in MPS in the new architecure.
+
+For Pascal architecture based GPUs the number of child proceses allowed is 16, but since MPS was introduced in the Kepler architecure, that one and Maxwell number of child processes has not been checked, which could be even lower.
