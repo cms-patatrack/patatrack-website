@@ -8,6 +8,9 @@ export CUDA_VISIBLE_DEVICES="2"
 nvidia-smi -i 2 -c EXCLUSIVE_PROCESS
 nvidia-cuda-mps-control -d
 ```
+Exclusive Process is recommended to be used by NVidia in order to assure that the only service using the GPU is MPS, so that it is the single point of arbitration between all CUDA processes for that GPU.
+Explained in page 6, in https://docs.nvidia.com/deploy/pdf/CUDA_Multi_Process_Service_Overview.pdf
+
 Also create a script to shut the MPS server down:
 ```
 # cat stop_mps_daemon.sh 
@@ -80,7 +83,7 @@ sys	0m17.048s
 There is a constraint in pre-Volta based architecures, the number of child processes allowed to run is restricted to 16 (and also in Volta architecure, but as this has been improved in the new architecture to 48 concurrent child processes). Above that number one starts getting cudaMalloc errors by the number of additional child processes the user has run (meaning that, if you try to run 32 child processes in a Pascal based GPU, you will get 16 errors and the rest of child processes ,also 16 in this case, will go on running).
 
 The new features introduced by Volta architecure can be read in the following paper:
-http://composter.com.ua/documents/Volta-Architecture-Whitepaper.pdf
-Where you can search for MPS, in order to checkout improvements done in MPS in the new architecure.
+http://composter.com.ua/documents/Volta-Architecture-Whitepaper.pdf,
+where you can search for MPS, in order to checkout improvements done in MPS in the new architecure.
 
 For Pascal architecture based GPUs the number of child proceses allowed is 16, but since MPS was introduced in the Kepler architecure, that one and Maxwell number of child processes has not been checked, which could be even lower.
