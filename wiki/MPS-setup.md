@@ -1,6 +1,6 @@
 # Setting up MPS server:
 
-In a system with GPU resource(s), as root to for setting up the MPS server:
+In a system with GPU resource(s), create a script for setting up the MPS server:
 ```
 # cat start_mps_daemon.sh 
 #!/bin/bash
@@ -9,7 +9,7 @@ nvidia-smi -i 2 -c EXCLUSIVE_PROCESS
 nvidia-cuda-mps-control -d
 ```
 Exclusive Process is recommended to be used by NVidia in order to assure that the only service using the GPU is MPS, so that it is the single point of arbitration between all CUDA processes for that GPU.
-Explained in page 6, in https://docs.nvidia.com/deploy/pdf/CUDA_Multi_Process_Service_Overview.pdf
+Explained in [CUDA Multi-Process Service Overview](https://docs.nvidia.com/deploy/pdf/CUDA_Multi_Process_Service_Overview.pdf), page 6.
 
 Also create a script to shut the MPS server down:
 ```
@@ -19,25 +19,33 @@ echo quit | nvidia-cuda-mps-control
 nvidia-smi -i 2 -c DEFAULT
 ```
 
-## Profilling the CUDA sample code:
+These scripts need to be run as root.
 
-Then for profiling and check to see the difference between running GPU workload with and without having MPS running:
 
-One can profile using nvprof from the CLI, or use the Visual profiler `nvvp &`.
-with nvprof you can profile a script similar to the following:
+## Profilling the CUDA sample code
+
+For profiling and to check the impact of running a GPU workload with MPS, one can use `nvprof` from the command line, or the Visual Profiler `nvvp &`.
+
+Create a script similar to the following, to spawn two or more child processes to prifle:
 ```
 $ cat mps_test_run.sh 
 #!/bin/bash
 /usr/local/cuda/samples/0_Simple/matrixMul/matrixMul &
-/usr/local/cuda/samples/0_Simple/matrixMul/matrixMul
+/usr/local/cuda/samples/0_Simple/matrixMul/matrixMul &
+wait
 ```
-In order to create two different child processes, which should be checked if their kernels are being parallelized or not. For that launch the profiler, and it will generate one file per child process.
+
+Launch the profiler, instructing it to profile all child processes, and to create one `.nvvp` file for each of them:
 ```
 nvprof --profile-child-processes -o test_mps_%p.nvvp ./mps_test_run.sh 
 ```
-This will generate different files, so it`s not really convenient to check if the kernels are actually being overlapped or not.
 
-## Profilling with the Visual profiler:
+To check whether the kernels from the different processes are running in parallel or not, import all the `.nvvp` files into a single session in the Visual Profiler:
+```
+nvvp test_mps_*.nvvp
+```
+
+## Profilling with the Visual profiler
 
 For being able to check it more visually, one can do it interactively from the Visual Profiler:
 
@@ -80,7 +88,7 @@ sys	0m17.048s
 
 ## Constraints
 
-There is a constraint in pre-Volta based architecures, the number of child processes allowed to run is restricted to 16 (and also in Volta architecure, but as this has been improved in the new architecture to 48 concurrent child processes). Above that number one starts getting cudaMalloc errors by the number of additional child processes the user has run (meaning that, if you try to run 32 child processes in a Pascal based GPU, you will get 16 errors and the rest of child processes ,also 16 in this case, will go on running).
+There is a constraint in pre-Volta based architecures, the number of child processes allowed to run is restricted to 16 (and also in Volta architecure, but as this has been improved in the new architecture to 48 concurrent child processes). Above that number one starts getting cudaMalloc errors by the number of additional child processes the user has run (meaning that, if you try to run 32 child processes in a Pascal based GPU, you will get 16 errors and the rest of child processes, also 16 in this case, will go on running).
 
 The new features introduced by Volta architecure can be read in the following paper:
 http://composter.com.ua/documents/Volta-Architecture-Whitepaper.pdf,
