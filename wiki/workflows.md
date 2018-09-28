@@ -37,7 +37,7 @@ and pick the reconstruction (and harvesting) configuration files from the create
 | -------- | ----------- |
 | 10824.5  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction running in CPU |
 | 10824.7  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction with Riemann fit running in CPU |
-| 10824.8  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction running in CPU |
+| 10824.8  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction running in GPU |
 | 10824.9  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction running in CPU, with Riemann fit run in GPU |
 
 ### Customization for profiling
