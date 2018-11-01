@@ -7,8 +7,8 @@ categories: wiki
 activity:  instructions
 ---
 
-## Installing `CMSSW_10_2_5_Patatrack`
-While it is possible to start from the vanilla `CMSSW_10_2_5`, using this dedicated release has few advantages:
+## Installing `CMSSW_10_2_6_Patatrack`
+While it is possible to start from the vanilla `CMSSW_10_2_6`, using this dedicated release has few advantages:
   - include support for Volta-class GPUs (sm_70);
   - update Eigen and improve compatibility with CUDA:
     - update to the master branch as of Tue Sep 25 20:26:16 2018 +0200,
@@ -36,17 +36,18 @@ chmod a+x $VO_CMS_SW_DIR/bootstrap.sh
 $VO_CMS_SW_DIR/bootstrap.sh -a slc7_amd64_gcc700 -r cms -path $VO_CMS_SW_DIR setup
 ```
 
-### Install locally CMSSW_10_2_5
+### Install locally CMSSW_10_2_6
 ```bash
-$VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 install -y cms+cmssw+CMSSW_10_2_5
+$VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 install -y cms+cmssw+CMSSW_10_2_6
 ```
 
-### Install the dependencies and `CMSSW_10_2_5_Patatrack`
+### Install the dependencies of `CMSSW_10_2_6_Patatrack`
+
+
+If `CMSSW_10_2_5_Patatrack` had been previously installed, skip this step.
 ```
-$VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 -- rpm --prefix=$VO_CMS_SW_DIR --upgrade --nodeps --replacepkgs \
+$VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 -- rpm --prefix=$VO_CMS_SW_DIR --install \
     https://cern.ch/fwyzard/patatrack/rpms/slc7_amd64_gcc700/cms+cms-git-tools+180901.0-1-1.slc7_amd64_gcc700.rpm \
-    https://cern.ch/fwyzard/patatrack/rpms/slc7_amd64_gcc700/cms+cmssw+CMSSW_10_2_5_Patatrack-1-1.slc7_amd64_gcc700.rpm \
-    https://cern.ch/fwyzard/patatrack/rpms/slc7_amd64_gcc700/cms+cmssw-tool-conf+44.0-patatrack3-1-1.slc7_amd64_gcc700.rpm \
     https://cern.ch/fwyzard/patatrack/rpms/slc7_amd64_gcc700/cms+coral+CORAL_2_3_21-patatrack2-1-1.slc7_amd64_gcc700.rpm \
     https://cern.ch/fwyzard/patatrack/rpms/slc7_amd64_gcc700/cms+coral-tool-conf+2.1-patatrack2-1-1.slc7_amd64_gcc700.rpm \
     https://cern.ch/fwyzard/patatrack/rpms/slc7_amd64_gcc700/cms+distcc-gcc-toolfile+2.0-patatrack-1-1.slc7_amd64_gcc700.rpm \
@@ -69,6 +70,17 @@ $VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 -- rpm --prefix=$VO_CMS_SW_DIR
     https://cern.ch/fwyzard/patatrack/rpms/slc7_amd64_gcc700/external+python_tools+1.0-patatrack2-1-1.slc7_amd64_gcc700.rpm \
     https://cern.ch/fwyzard/patatrack/rpms/slc7_amd64_gcc700/external+tensorflow+1.6.0-patatrack-1-1.slc7_amd64_gcc700.rpm
 ```
+
+If it fails because some packages ar already installed, try replacing `--install` with `--upgrade --nodeps --replacepkgs`.
+
+
+### Install `CMSSW_10_2_6_Patatrack`
+```
+$VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 -- rpm --prefix=$VO_CMS_SW_DIR --install \
+    https://cern.ch/fwyzard/patatrack/rpms/slc7_amd64_gcc700/cms+cmssw-tool-conf+44.0-patatrack4-1-1.slc7_amd64_gcc700.rpm \
+    https://cern.ch/fwyzard/patatrack/rpms/slc7_amd64_gcc700/cms+cmssw+CMSSW_10_2_6_Patatrack-1-1.slc7_amd64_gcc700.rpm
+```
+
 
 ### Install CUDA 10.0 (optional)
 ```
