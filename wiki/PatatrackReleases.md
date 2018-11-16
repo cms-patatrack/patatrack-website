@@ -44,3 +44,9 @@ Patatrack releases can now be installed by `cmspkg`, using the dedicated reposit
 ```bash
 $VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 -r cms.patatrack install -y cms+cmssw+CMSSW_10_4_0_pre2_Patatrack
 ```
+
+### Optional: update CMS Git Tools
+Setting up a developer area can be greatly simplified with an updated version of the CMS git tools:
+```bash
+$VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 -r cms.patatrack install -y cms+cms-git-tools+181115.0-patatrack
+```
