@@ -48,6 +48,12 @@ cmsenv
 
 
 ### Set up the local `git` repository
+If the optional update of the CMS Git Tools has been installed, you can try the experimental approach:
+```bash
+git cms-init -x cms-patatrack
+```
+
+Otherwise, you can use the trditional approach:
 ```bash
 git cms-init --upstream-only || true
 # you will see the error
