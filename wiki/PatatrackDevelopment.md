@@ -51,6 +51,8 @@ cmsenv
 If the optional update of the CMS Git Tools has been installed, you can try the experimental approach:
 ```bash
 git cms-init -x cms-patatrack
+# add the CMSSW_10_4_X_Patatrack branch
+git branch CMSSW_10_4_X_Patatrack --track cms-patatrack/CMSSW_10_4_X_Patatrack
 ```
 
 Otherwise, you can use the trditional approach:
