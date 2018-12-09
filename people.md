@@ -46,7 +46,7 @@ S. Sarkar, S. Dutta, S. Roy Chowdhury, P. Mal​
 | ![Yikai]({{site.baseurl}}/images/headshots/2018_Hikai.jpg){:height="200px"}  | Yikai Huo - Zhiyuan College, SJTU, Shanghai, China | Multiple Scattering for the Riemann Fit at the CMS Experiment | |
 | ![Sabina]({{site.baseurl}}/images/headshots/2018_Sabina.jpg){:height="200px"}  | Sabina Manafli | Understanding Neural Network Performance on Modern Processors | |
 | ![Gimmy]({{site.baseurl}}/images/headshots/2018_Gimmy.jpg){:height="200px"}  | Giovanni Maria Tomaselli - Scuola Normale Superiore, Pisa, Italy | Broken Line Fit for the CMS Tracks Reconstruction | |
-| ![Serena]({{site.baseurl}}/images/headshots/2018_Serena_Ziviani.jpg){:height="200px"}  | Serena Ziviani - University of Modena and Reggio Emilia, Italy | Enabling Remote Offload in CMSSW  | |
+| ![Serena]({{site.baseurl}}/images/headshots/2018_Serena_Ziviani.jpg){:height="200px"}  | Serena Ziviani - University of Modena and Reggio Emilia, Italy | Enabling Remote Offload in CMSSW  | [pdf]({{site.baseurl}}/students_reports/Serena_Ziviani_remote_offload_in_cmssw.pdf)|
 
 
 ## 2017

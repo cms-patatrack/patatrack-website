@@ -11,22 +11,19 @@ activity:  instructions
 The current Patatrack development branch is based on `CMSSW_10_4_X`, and supports the architecture `slc7_amd64_gcc700`.
 
 
-## Installing `CMSSW_10_4_0_pre2_Patatrack`
-While it is possible to start from the vanilla `CMSSW_10_4_0_pre2`, using this dedicated release has few advantages:
+## Installing `CMSSW_10_4_0_pre3_Patatrack`
+While it is possible to start from the vanilla `CMSSW_10_4_0_pre3`, using this dedicated release has few advantages:
   - update Eigen and improve compatibility with CUDA:
-    - update to the master branch as of Tue Sep 25 20:26:16 2018 +0200,
-    - patch Tensorflow accordingly,
-    - extend support for matrix inversion and diagonal matrices in CUDA code,
-    - fix deprecation warnings for CUDA 10.0;
-  - avoid deprecation warnings for CUDA 10.0 in the CUDA API Wrapper;
+    - extend support for self-adjoint matrices in CUDA code;
+  - enable `cub` error reporting for CUDA library calls;
   - include the changes from the CMSSW_10_4_X_Patatrack development branch.
 
 If you are working on **vinavx2**, the release is already available.
 
-Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_4_0_pre2_Patatrack` on your machine.
+Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_4_0_pre3_Patatrack` on your machine.
 
 
-## Create a working area for `CMSSW_10_4_0_pre2_Patatrack`
+## Create a working area for `CMSSW_10_4_0_pre3_Patatrack`
 
 ### Source the local installation
 Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases.  
@@ -40,9 +37,9 @@ source /data/cmssw/cmsset_default.sh
 
 ### Set up a working area
 ```bash
-scram list CMSSW_10_4_0_pre2
-cmsrel CMSSW_10_4_0_pre2_Patatrack
-cd CMSSW_10_4_0_pre2_Patatrack/src
+scram list CMSSW_10_4_0_pre3
+cmsrel CMSSW_10_4_0_pre3_Patatrack
+cd CMSSW_10_4_0_pre3_Patatrack/src
 cmsenv
 ```
 
@@ -51,26 +48,28 @@ cmsenv
 If the optional update of the CMS Git Tools has been installed, you can try the experimental approach:
 ```bash
 git cms-init -x cms-patatrack
+# add the CMSSW_10_4_X_Patatrack branch
+git branch CMSSW_10_4_X_Patatrack --track cms-patatrack/CMSSW_10_4_X_Patatrack
 ```
 
 Otherwise, you can use the trditional approach:
 ```bash
 git cms-init --upstream-only || true
 # you will see the error
-#     fatal: 'CMSSW_10_4_0_pre2_Patatrack' is not a commit and a branch 'from-CMSSW_10_4_0_pre2_Patatrack' cannot be created from it
+#     fatal: 'CMSSW_10_4_0_pre3_Patatrack' is not a commit and a branch 'from-CMSSW_10_4_0_pre3_Patatrack' cannot be created from it
 # it is expected, just follow the rest of the instructions
 
 # add the Patatrack remote and branches
 git cms-remote add cms-patatrack
-git checkout CMSSW_10_4_0_pre2_Patatrack -b CMSSW_10_4_X_Patatrack
+git checkout CMSSW_10_4_0_pre3_Patatrack -b CMSSW_10_4_X_Patatrack
 git branch -u cms-patatrack/CMSSW_10_4_X_Patatrack
-git checkout CMSSW_10_4_0_pre2_Patatrack -b from-CMSSW_10_4_0_pre2_Patatrack
+git checkout CMSSW_10_4_0_pre3_Patatrack -b from-CMSSW_10_4_0_pre3_Patatrack
 
 # enable the developer's repository
 git cms-init
 ```
 
-Now you should be able to work in the `from-CMSSW_10_4_0_pre2_Patatrack` branch as you would in a normal CMSSW development area.
+Now you should be able to work in the `from-CMSSW_10_4_0_pre3_Patatrack` branch as you would in a normal CMSSW development area.
 
 
 ### Check out the patatrack development branch
