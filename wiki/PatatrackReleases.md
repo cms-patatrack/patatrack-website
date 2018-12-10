@@ -30,8 +30,8 @@ chmod a+x $VO_CMS_SW_DIR/bootstrap.sh
 $VO_CMS_SW_DIR/bootstrap.sh -a slc7_amd64_gcc700 -r cms -path $VO_CMS_SW_DIR setup
 ```
 
-### Optional: install locally `CMSSW_10_4_0_pre3`
-This step is not necessary, but I often found it useful to have a local installation of the base release alongside with the Patatrack one:
+### Install `CMSSW_10_4_0_pre3` and its dependencies
+Most of the externals for `CMSSW_10_4_0_pre3_Patatrack` need to be installed from the official repository; the easiest approach is to install them automatically together with `CMSSW_10_4_0_pre3`:
 ```bash
 $VO_CMS_SW_DIR/common/cmspkg -a slc7_amd64_gcc700 install -y cms+cmssw+CMSSW_10_4_0_pre3
 ```
