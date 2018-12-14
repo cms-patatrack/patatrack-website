@@ -11,8 +11,8 @@ activity:  instructions
 The current Patatrack development branch is based on `CMSSW_10_4_X`, and supports the architecture `slc7_amd64_gcc700`.
 
 
-## Installing `CMSSW_10_4_0_pre3_Patatrack`
-While it is possible to start from the vanilla `CMSSW_10_4_0_pre3`, using this dedicated release has few advantages:
+## Installing `CMSSW_10_4_0_pre4_Patatrack`
+While it is possible to start from the vanilla `CMSSW_10_4_0_pre4`, using this dedicated release has few advantages:
   - update Eigen and improve compatibility with CUDA:
     - extend support for self-adjoint matrices in CUDA code;
   - enable `cub` error reporting for CUDA library calls;
@@ -20,10 +20,10 @@ While it is possible to start from the vanilla `CMSSW_10_4_0_pre3`, using this d
 
 If you are working on **vinavx2**, the release is already available.
 
-Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_4_0_pre3_Patatrack` on your machine.
+Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_4_0_pre4_Patatrack` on your machine.
 
 
-## Create a working area for `CMSSW_10_4_0_pre3_Patatrack`
+## Create a working area for `CMSSW_10_4_0_pre4_Patatrack`
 
 ### Source the local installation
 Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases.  
@@ -37,9 +37,9 @@ source /data/cmssw/cmsset_default.sh
 
 ### Set up a working area
 ```bash
-scram list CMSSW_10_4_0_pre3
-cmsrel CMSSW_10_4_0_pre3_Patatrack
-cd CMSSW_10_4_0_pre3_Patatrack/src
+scram list CMSSW_10_4_0_pre4
+cmsrel CMSSW_10_4_0_pre4_Patatrack
+cd CMSSW_10_4_0_pre4_Patatrack/src
 cmsenv
 ```
 
@@ -56,20 +56,20 @@ Otherwise, you can use the trditional approach:
 ```bash
 git cms-init --upstream-only || true
 # you will see the error
-#     fatal: 'CMSSW_10_4_0_pre3_Patatrack' is not a commit and a branch 'from-CMSSW_10_4_0_pre3_Patatrack' cannot be created from it
+#     fatal: 'CMSSW_10_4_0_pre4_Patatrack' is not a commit and a branch 'from-CMSSW_10_4_0_pre4_Patatrack' cannot be created from it
 # it is expected, just follow the rest of the instructions
 
 # add the Patatrack remote and branches
 git cms-remote add cms-patatrack
-git checkout CMSSW_10_4_0_pre3_Patatrack -b CMSSW_10_4_X_Patatrack
+git checkout CMSSW_10_4_0_pre4_Patatrack -b CMSSW_10_4_X_Patatrack
 git branch -u cms-patatrack/CMSSW_10_4_X_Patatrack
-git checkout CMSSW_10_4_0_pre3_Patatrack -b from-CMSSW_10_4_0_pre3_Patatrack
+git checkout CMSSW_10_4_0_pre4_Patatrack -b from-CMSSW_10_4_0_pre4_Patatrack
 
 # enable the developer's repository
 git cms-init
 ```
 
-Now you should be able to work in the `from-CMSSW_10_4_0_pre3_Patatrack` branch as you would in a normal CMSSW development area.
+Now you should be able to work in the `from-CMSSW_10_4_0_pre4_Patatrack` branch as you would in a normal CMSSW development area.
 
 
 ### Check out the patatrack development branch
