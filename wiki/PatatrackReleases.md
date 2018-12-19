@@ -25,7 +25,7 @@ cd <...>
 export VO_CMS_SW_DIR=$PWD
 export SCRAM_ARCH=slc7_amd64_gcc700
 export LANG=C
-wget http://cmsrep.cern.ch/cmssw/repos/bootstrap.sh -O $VO_CMS_SW_DIR/bootstrap.sh
+wget http://cmsrep.cern.ch/cmssw/bootstrap.sh -O $VO_CMS_SW_DIR/bootstrap.sh
 chmod a+x $VO_CMS_SW_DIR/bootstrap.sh
 $VO_CMS_SW_DIR/bootstrap.sh -a slc7_amd64_gcc700 -r cms -path $VO_CMS_SW_DIR setup
 ```
