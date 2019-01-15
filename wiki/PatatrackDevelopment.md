@@ -11,23 +11,21 @@ activity:  instructions
 The current Patatrack development branch is based on `CMSSW_10_4_X`, and supports the architecture `slc7_amd64_gcc700`.
 
 
-## Installing `CMSSW_10_4_0_pre4_Patatrack`
-While it is possible to start from the vanilla `CMSSW_10_4_0_pre4`, using this dedicated release has few advantages:
-  - update Eigen and improve compatibility with CUDA:
-    - extend support for self-adjoint matrices in CUDA code;
-  - enable `cub` error reporting for CUDA library calls;
+## Installing `CMSSW_10_4_0_Patatrack`
+While it is possible to start from the vanilla `CMSSW_10_4_0`, using this dedicated release has few advantages:
+  - fix the installation of Nsight Compute CLI profiler
   - include the changes from the CMSSW_10_4_X_Patatrack development branch.
 
-If you are working on **vinavx2**, the release is already available.
+On **vinavx2** the release is available after `source /data/cmssw/cmsset_default.sh`.
+On **cmg-gpu1080** the release is available after `source /data/patatrack/cmssw/cmsset_default.sh`.
 
-Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_4_0_pre4_Patatrack` on your machine.
+Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_4_0_Patatrack` on your machine.
 
 
-## Create a working area for `CMSSW_10_4_0_pre4_Patatrack`
+## Create a working area for `CMSSW_10_4_0_Patatrack`
 
 ### Source the local installation
-Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases.  
-On **vinavx2** this is `/data/cmssw`:
+Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases, e.g.:
 
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc700
@@ -37,9 +35,9 @@ source /data/cmssw/cmsset_default.sh
 
 ### Set up a working area
 ```bash
-scram list CMSSW_10_4_0_pre4
-cmsrel CMSSW_10_4_0_pre4_Patatrack
-cd CMSSW_10_4_0_pre4_Patatrack/src
+scram list CMSSW_10_4_0
+cmsrel CMSSW_10_4_0_Patatrack
+cd CMSSW_10_4_0_Patatrack/src
 cmsenv
 ```
 
@@ -56,20 +54,20 @@ Otherwise, you can use the trditional approach:
 ```bash
 git cms-init --upstream-only || true
 # you will see the error
-#     fatal: 'CMSSW_10_4_0_pre4_Patatrack' is not a commit and a branch 'from-CMSSW_10_4_0_pre4_Patatrack' cannot be created from it
+#     fatal: 'CMSSW_10_4_0_Patatrack' is not a commit and a branch 'from-CMSSW_10_4_0_Patatrack' cannot be created from it
 # it is expected, just follow the rest of the instructions
 
 # add the Patatrack remote and branches
 git cms-remote add cms-patatrack
-git checkout CMSSW_10_4_0_pre4_Patatrack -b CMSSW_10_4_X_Patatrack
+git checkout CMSSW_10_4_0_Patatrack -b CMSSW_10_4_X_Patatrack
 git branch -u cms-patatrack/CMSSW_10_4_X_Patatrack
-git checkout CMSSW_10_4_0_pre4_Patatrack -b from-CMSSW_10_4_0_pre4_Patatrack
+git checkout CMSSW_10_4_0_Patatrack -b from-CMSSW_10_4_0_Patatrack
 
 # enable the developer's repository
 git cms-init
 ```
 
-Now you should be able to work in the `from-CMSSW_10_4_0_pre4_Patatrack` branch as you would in a normal CMSSW development area.
+Now you should be able to work in the `from-CMSSW_10_4_0_Patatrack` branch as you would in a normal CMSSW development area.
 
 
 ### Check out the patatrack development branch
@@ -99,7 +97,7 @@ git push -u my-cmssw HEAD:my_development
 ## Create a pull request
   - before your PR can be submitted, you should run a couple of checks to make the integration process much smoother:
   ```bash
-  # recompile with debug information (for host code) and line-number information (for device code) 
+  # recompile with debug information (for host code) and line-number information (for device code)
   scram b clean
   USER_CXXFLAGS="-g -rdynamic" USER_CUDA_FLAGS="-g -lineinfo" scram b -j
   
@@ -120,4 +118,4 @@ git push -u my-cmssw HEAD:my_development
     ![Create a pull request](screenshot2.png "Create a request")
 
   - make sure to choose `CMSSW_10_4_X_Patatrack` as the target branch
-  
+
