@@ -20,4 +20,4 @@
     * [Cluster Shape filter](ClusterShape.md)
 
 * [HGCAL]
-  * [TICL Instructions](TICL.md)
+  * [TICL Instructions](hgcal_ticl.md)
