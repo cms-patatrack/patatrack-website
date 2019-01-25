@@ -18,3 +18,6 @@
 
 * [Machine Learning](ML.md)
     * [Cluster Shape filter](ClusterShape.md)
+
+* [HGCAL]
+  * [TICL Instructions](TICL.md)
