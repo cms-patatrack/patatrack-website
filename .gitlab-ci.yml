@@ -7,7 +7,7 @@ stages:
   - build-wiki
   - deploy
 
-
+CI_DEBUG_TRACE: "true"
 
 compilation-website:
   stage: build-website
