@@ -5,19 +5,9 @@ variables:
 stages:
   - build-website
   - build-wiki
-  - test
   - deploy
 
 
-# test:
-#   stage: test
-#   script:
-#   - bundle exec jekyll build -d test
-#   artifacts:
-#     paths:
-#     - test
-#   except:
-#   - master
 
 compilation-website:
   stage: build-website
