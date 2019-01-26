@@ -42,7 +42,5 @@ pages:
   dependencies:
     - compilation-website
     - compilation-wiki
-  only:
-  - master
-  variables:
-    CI_DEBUG_TRACE: "true"
+  #variables:
+    #CI_DEBUG_TRACE: "true"
