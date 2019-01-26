@@ -1,0 +1,38 @@
+image: ruby:2.3
+
+variables:
+  JEKYLL_ENV: production
+
+
+
+# test:
+#   stage: test
+#   script:
+#   - bundle exec jekyll build -d test
+#   artifacts:
+#     paths:
+#     - test
+#   except:
+#   - master
+
+compilation:
+  stage: build
+  before_script:
+  - bundle install
+  script:
+  - bundle exec jekyll build -d public
+  artifacts:
+    paths:
+    - public
+
+
+pages:
+  stage: deploy
+  # Docker image with tools to deploy to EOS
+  image: gitlab-registry.cern.ch/ci-tools/ci-web-deployer:latest
+  script:
+  - deploy-eos
+  dependencies:
+    - compilation
+  only:
+  - master
