@@ -16,7 +16,7 @@ variables:
 #   - master
 
 compilation:
-  stage: build
+  stage: build-website
   before_script:
   - bundle install
   script:
@@ -24,6 +24,20 @@ compilation:
   artifacts:
     paths:
     - public
+    
+compilation:
+  stage: build-wiki
+  image: node:latest
+  before_script:
+  - npm install -g gitbook-cli
+  - gitbook install
+  script:
+  - gitbook build wiki public/wiki
+  artifacts:
+    paths:
+    - public/wiki
+
+ 
 
 
 pages:
