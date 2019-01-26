@@ -15,8 +15,8 @@ variables:
 #   except:
 #   - master
 
-compilation:
-  stage: build-website
+compilation-website:
+  stage: build
   before_script:
   - bundle install
   script:
@@ -25,14 +25,16 @@ compilation:
     paths:
     - public
     
-compilation:
-  stage: build-wiki
+compilation-wiki:
+  stage: build
   image: node:latest
   before_script:
   - npm install -g gitbook-cli
   - gitbook install
   script:
   - gitbook build wiki public/wiki
+  dependencies:
+    - compilation-website
   artifacts:
     paths:
     - public/wiki
@@ -47,6 +49,7 @@ pages:
   script:
   - deploy-eos
   dependencies:
-    - compilation
+    - compilation-website
+    - compilation-wiki
   only:
   - master
