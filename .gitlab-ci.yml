@@ -2,7 +2,11 @@ image: ruby:2.3
 
 variables:
   JEKYLL_ENV: production
-
+stages:
+  - build-website
+  - build-wiki
+  - test
+  - deploy
 
 
 # test:
@@ -16,7 +20,7 @@ variables:
 #   - master
 
 compilation-website:
-  stage: build
+  stage: build-website
   before_script:
   - bundle install
   script:
@@ -26,15 +30,13 @@ compilation-website:
     - public
     
 compilation-wiki:
-  stage: build
+  stage: build-wiki
   image: node:latest
   before_script:
   - npm install -g gitbook-cli
   - gitbook install
   script:
   - gitbook build wiki public/wiki
-  dependencies:
-    - compilation-website
   artifacts:
     paths:
     - public/wiki
