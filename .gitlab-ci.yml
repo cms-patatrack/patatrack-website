@@ -30,8 +30,6 @@ compilation-wiki:
     paths:
     - public/wiki
 
- 
-
 
 pages:
   stage: deploy
