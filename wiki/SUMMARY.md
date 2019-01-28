@@ -19,5 +19,5 @@
 * [Machine Learning](ML.md)
     * [Cluster Shape filter](ClusterShape.md)
 
-* [HGCAL]
+* HGCAL
   * [TICL Instructions](hgcal_ticl.md)

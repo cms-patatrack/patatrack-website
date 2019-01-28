@@ -107,8 +107,8 @@ starting from one the `RunTheMatrix` workflows listed above and then edit the
 `step3` file and add the following code snippet:
 
 ```python
-+#from ticl_iterations import TICL_iterations
-+from ticl_iterations import TICL_iterations_withReco
+#from ticl_iterations import TICL_iterations
+from ticl_iterations import TICL_iterations_withReco
 process = TICL_iterations(process)
 ```
 
