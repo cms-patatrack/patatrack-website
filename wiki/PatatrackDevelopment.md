@@ -8,21 +8,21 @@ activity:  instructions
 ---
 
 ## Simple recipe for developing with Patatrack
-The current Patatrack development branch is based on `CMSSW_10_4_X`, and supports the architecture `slc7_amd64_gcc700`.
+The current Patatrack development branch is based on `CMSSW_10_5_X`, and supports the architecture `slc7_amd64_gcc700`.
 
 
-## Installing `CMSSW_10_4_0_Patatrack`
-While it is possible to start from the vanilla `CMSSW_10_4_0`, using this dedicated release has few advantages:
-  - fix the installation of Nsight Compute CLI profiler
-  - include the changes from the CMSSW_10_4_X_Patatrack development branch.
+## Installing `CMSSW_10_5_0_pre1_Patatrack`
+While it is possible to start from the vanilla `CMSSW_10_5_0_pre1`, using this dedicated release has few advantages:
+  - extend Eigen's support for matrix decomposition (QR, LLT, LDLT) with CUDA
+  - include the changes from the CMSSW_10_5_X_Patatrack development branch.
 
 On **vinavx2** the release is available after `source /data/cmssw/cmsset_default.sh`.
 On **cmg-gpu1080** the release is available after `source /data/patatrack/cmssw/cmsset_default.sh`.
 
-Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_4_0_Patatrack` on your machine.
+Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_5_0_pre1_Patatrack` on your machine.
 
 
-## Create a working area for `CMSSW_10_4_0_Patatrack`
+## Create a working area for `CMSSW_10_5_0_pre1_Patatrack`
 
 ### Source the local installation
 Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases, e.g.:
@@ -35,39 +35,20 @@ source /data/cmssw/cmsset_default.sh
 
 ### Set up a working area
 ```bash
-scram list CMSSW_10_4_0
-cmsrel CMSSW_10_4_0_Patatrack
-cd CMSSW_10_4_0_Patatrack/src
+scram list CMSSW_10_5_0_pre1
+cmsrel CMSSW_10_5_0_pre1_Patatrack
+cd CMSSW_10_5_0_pre1_Patatrack/src
 cmsenv
 ```
 
 
 ### Set up the local `git` repository
-If the optional update of the CMS Git Tools has been installed, you can try the experimental approach:
 ```bash
 git cms-init -x cms-patatrack
-# add the CMSSW_10_4_X_Patatrack branch
-git branch CMSSW_10_4_X_Patatrack --track cms-patatrack/CMSSW_10_4_X_Patatrack
+git branch CMSSW_10_5_X_Patatrack --track cms-patatrack/CMSSW_10_5_X_Patatrack
 ```
 
-Otherwise, you can use the trditional approach:
-```bash
-git cms-init --upstream-only || true
-# you will see the error
-#     fatal: 'CMSSW_10_4_0_Patatrack' is not a commit and a branch 'from-CMSSW_10_4_0_Patatrack' cannot be created from it
-# it is expected, just follow the rest of the instructions
-
-# add the Patatrack remote and branches
-git cms-remote add cms-patatrack
-git checkout CMSSW_10_4_0_Patatrack -b CMSSW_10_4_X_Patatrack
-git branch -u cms-patatrack/CMSSW_10_4_X_Patatrack
-git checkout CMSSW_10_4_0_Patatrack -b from-CMSSW_10_4_0_Patatrack
-
-# enable the developer's repository
-git cms-init
-```
-
-Now you should be able to work in the `from-CMSSW_10_4_0_Patatrack` branch as you would in a normal CMSSW development area.
+You should be able to work in the `from-CMSSW_10_5_0_pre1_Patatrack` branch as you would in a normal CMSSW development area.
 
 
 ### Check out the patatrack development branch
@@ -75,7 +56,7 @@ To work on further developments, it is advised to start from the HEAD of the pat
 
 ```bash
 cmsenv
-git checkout cms-patatrack/CMSSW_10_4_X_Patatrack -b my_development
+git checkout cms-patatrack/CMSSW_10_5_X_Patatrack -b my_development_branch
 # check out the modified packages and their dependencies
 git cms-addpkg $(git diff $CMSSW_VERSION --name-only | cut -d/ -f-2 | sort -u)
 git cms-checkdeps -a
@@ -90,7 +71,7 @@ scram b -j
 ...
 git add ...
 git commit
-git push -u my-cmssw HEAD:my_development
+git push -u my-cmssw HEAD:my_development_branch
 ```
 
 
@@ -117,5 +98,5 @@ git push -u my-cmssw HEAD:my_development
   - click on it, and create a pull request as usual:
     ![Create a pull request](screenshot2.png "Create a request")
 
-  - make sure to choose `CMSSW_10_4_X_Patatrack` as the target branch
+  - make sure to choose `CMSSW_10_5_X_Patatrack` as the target branch
 
