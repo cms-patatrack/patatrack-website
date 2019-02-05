@@ -13,13 +13,13 @@ activity:  instructions
 
 Below is a table for all the workflows of interest defined in CMSSW. The workflows can be run with `runTheMatrix.py` along
 ```bash
-$ runTheMatrix.py -l 10824.5,10824.8 -j 2
+$ runTheMatrix.py -l 10824.5,10824.52 -j 2
 ```
 See `runTheMatrix.py --help` for more information on the parameters.
 
 These workflows can be used also as a configuration generation, e.g. to run on a different data (some other run, local files, MC with pileup). To only generate configurations, pass `-j 0` argument along
 ```bash
-$ runTheMatrix.py -l 10824.5,10824.8 -j 0
+$ runTheMatrix.py -l 10824.5,10824.52 -j 0
 ```
 and pick the reconstruction (and harvesting) configuration files from the created directories.
 
@@ -29,16 +29,16 @@ and pick the reconstruction (and harvesting) configuration files from the create
 | Workflow | Description |
 | -------- | ----------- |
 | 136.8645 | 2018B JetHT data, `pixelTrackingOnly` reconstruction running in CPU |
-| 136.8648 | 2018B JetHT data, `pixelTrackingOnly` reconstruction running in GPU |
+| 136.86452 | 2018B JetHT data, `pixelTrackingOnly` reconstruction running in GPU |
 
 #### MC
 
 | Workflow | Description |
 | -------- | ----------- |
 | 10824.5  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction running in CPU |
-| 10824.7  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction with Riemann fit running in CPU |
-| 10824.8  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction running in GPU |
-| 10824.9  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction running in CPU, with Riemann fit run in GPU |
+| 10824.51  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction with Riemann fit running in CPU |
+| 10824.52  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction running in GPU |
+| 10824.53  | 2018 TTbar noPU, `pixelTrackingOnly` reconstruction running in GPU, with Riemann fit run in GPU |
 
 ### Customization for profiling
 
