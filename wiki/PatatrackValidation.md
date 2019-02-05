@@ -24,9 +24,9 @@ To run on a different machine, see "Running on a different machine" below.
 
 This will create the workflows
   - 10824.5: pixel-only reconstruction, running on the CPU
-  - 10824.8: pixel-only reconstruction, running on the GPU
-  - 10824.7: pixel-only reconstruction with Riemann fit, running on the CPU
-  - 10824.9: pixel-only reconstruction running on the CPU, with Riemann fit running on the GPU
+  - 10824.52: pixel-only reconstruction, running on the GPU
+  - 10824.51: pixel-only reconstruction with Riemann fit, running on the CPU
+  - 10824.53: pixel-only reconstruction running on the CPU, with Riemann fit running on the GPU
 
 and run them over
   - 200 events from a Zmumu sample without pileup
@@ -40,7 +40,7 @@ The "step4" (HARVESTING) job is then run to produce the final DQM results.
 Then, for each sample, the `makeTrackValidationPlots.py` is used to create the standard tracking validation plots in the
 `$CMSSW_BASE/plots` directory.
 
-For the CUDA-enabled workflows (10824.8 and 10824.9) the "step3" job is also run multiple times under `cuda-memcheck`, with
+For the CUDA-enabled workflows (10824.52 and 10824.53) the "step3" job is also run multiple times under `cuda-memcheck`, with
 different options:
   - `cuda-memcheck --tool initcheck`
   - `cuda-memcheck --tool memcheck --leak-check full --report-api-errors all`
@@ -49,7 +49,7 @@ different options:
 The results are saved in `cuda-initcheck.log`, `cuda-memcheck.log` and `cuda-synccheck.log`.
 
 As these workflow include the DQM and Validation steps, they are not suited for profiling and benchmarks.  
-For the 10824.5 and 10824.8 workflows a simplified configuration is created: `profile.py`.  
+For the 10824.5 and 10824.52 workflows a simplified configuration is created: `profile.py`.  
 This includes the same customisations for the `NVProfilerService` and `CUDAService`, and is run in the same way under `nvprof`;
 the summary is saved in `profile.profile` and the NVVP report in `profile.nvvp`.
 
@@ -60,7 +60,7 @@ The `validate` script can be used to run the same tests, with more extensive com
 
 By default, it will create a new directory, where it will generate and run
   - the 10824.5 workflow in a "reference" release (e.g. `CMSSW_10_2_1`);
-  - all 10824.5, 10824.8, 10824.7, 10824.9 workflows on a "development" release (e.g. CMSSW_10_2_1_Patatrack, updated to
+  - all 10824.5, 10824.52, 10824.51, 10824.53 workflows on a "development" release (e.g. CMSSW_10_2_1_Patatrack, updated to
   the HEAD of the CMSSW_10_2_X_Patatrack branch).
 
 If one or more [pull reqest](https://github.com/cms-patatrack/cmssw/pulls/) numbers are passed on the command line, an

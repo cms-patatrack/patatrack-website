@@ -46,13 +46,13 @@ Below is a table for some of the workflows of interest defined in CMSSW that use
 **D28** geometry. The workflows can be run with `runTheMatrix.py` along
 
 ```bash
-$ runTheMatrix.py -l 10824.5,10824.8 -j 2
+$ runTheMatrix.py -l 10824.5,10824.52 -j 2
 ```
 See `runTheMatrix.py --help` for more information on the parameters.
 
 These workflows can be used also as a configuration generation, e.g. to run on a different data (some other run, local files, MC with pileup). To only generate configurations, pass `-j 0` argument along
 ```bash
-$ runTheMatrix.py -l 10824.5,10824.8 -j 0
+$ runTheMatrix.py -l 10824.5,10824.52 -j 0
 ```
 and pick the digitization and reconstruction configuration files from the created directories.
 
