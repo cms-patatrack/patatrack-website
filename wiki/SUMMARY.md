@@ -5,8 +5,8 @@
   * [Installing Patatrack releases](PatatrackReleases.md)
   * [Running the validation](PatatrackValidation.md)
   * [An introduction to CUDA in CMSSW](CUDAinCMSSW.md)
-  * [Profiling cmsRun on a remote macnine with the NVIDIA Visual Profiler](Remote_profiling_with_NVVP/Remote_profiling_with_NVVP.md)
-  * [Creating an "emoty" CMSSW release](emptyrelease.md)
+  * [Profiling cmsRun on a remote machine with the NVIDIA Visual Profiler](Remote_profiling_with_NVVP/Remote_profiling_with_NVVP.md)
+  * [Creating an "empty" CMSSW release](emptyrelease.md)
   * [CUDA to HIP](CUDAtoHIP.md)
 * Benchmarking
   * [Workflows](workflows.md)
