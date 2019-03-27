@@ -8,20 +8,32 @@ activity:  instructions
 ---
 
 ## Simple recipe for developing with Patatrack
-The current Patatrack development branch is based on `CMSSW_10_5_X`, and supports the architecture `slc7_amd64_gcc700`.
+The current Patatrack development branch is based on `CMSSW_10_6_X`, and supports the architectures `slc7_amd64_gcc700`
+(with CUDA 10.0), `slc7_amd64_gcc820` (with CUDA 10.1), and `slc7_aarch64_gcc700` (ARMv8, with CUDS 10.0).
 
 
-## Installing `CMSSW_10_5_0_Patatrack`
-While it is possible to start from the vanilla `CMSSW_10_5_0`, using this dedicated release has few advantages:
-  - include the changes from the `CMSSW_10_5_X_Patatrack` development branch.
+## Installing "Patatrack" CMSSW releases
+While it is possible to start from the vanilla `CMSSW_10_5_0` or `CMSSW_10_6_0_pre2` releses, using a dedicated release has few advantages:
+  - support for different CUDA versions in different architectures;
+  - include the changes from the "Patatrack" development branch.
 
-On **vinavx2** the release is available after `source /data/cmssw/cmsset_default.sh`.
-On **cmg-gpu1080** the release is available after `source /data/patatrack/cmssw/cmsset_default.sh`.
+`CMSSW_10_5_0_Patatrack` is available for
+  - `slc7_amd64_gcc700` with CUDA 10.0.130.
 
-Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_5_0_Patatrack` on your machine.
+`CMSSW_10_6_0_pre2_Patatrack` is available for
+  - `slc7_amd64_gcc700` with CUDA 10.0.130;
+  - `slc7_amd64_gcc820` with CUDA 10.1.105;
+  - `slc7_aarch64_gcc700` with CUDA 10.0.166.
+
+On **vinavx2** the releases are available after `source /data/cmssw/cmsset_default.sh`.
+On **cmg-gpu1080** the releases are available after `source /data/patatrack/cmssw/cmsset_default.sh`.
+
+Otherwise, see [the instructions](PatatrackReleases.md) for installing these releases on your machine.
 
 
-## Create a working area for `CMSSW_10_5_0_Patatrack`
+## Create a working area for `CMSSW_10_6_0_pre2_Patatrack`
+
+The following instructions assume the `slc7_amd64_gcc700` architecture; to use a different one simply replace the desired architecture.
 
 ### Source the local installation
 Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases, e.g.:
@@ -31,12 +43,11 @@ export SCRAM_ARCH=slc7_amd64_gcc700
 source /data/cmssw/cmsset_default.sh
 ```
 
-
 ### Set up a working area
 ```bash
-scram list CMSSW_10_5_0
-cmsrel CMSSW_10_5_0_Patatrack
-cd CMSSW_10_5_0_Patatrack/src
+scram list CMSSW_10_6_0_pre2
+cmsrel CMSSW_10_6_0_pre2_Patatrack
+cd CMSSW_10_6_0_pre2_Patatrack/src
 cmsenv
 ```
 
@@ -44,10 +55,10 @@ cmsenv
 ### Set up the local `git` repository
 ```bash
 git cms-init -x cms-patatrack
-git branch CMSSW_10_5_X_Patatrack --track cms-patatrack/CMSSW_10_5_X_Patatrack
+git branch CMSSW_10_6_X_Patatrack --track cms-patatrack/CMSSW_10_6_X_Patatrack
 ```
 
-You should be able to work in the `from-CMSSW_10_5_0_Patatrack` branch as you would in a normal CMSSW development area.
+You should be able to work in the `from-CMSSW_10_6_0_pre2_Patatrack` branch as you would in a normal CMSSW development area.
 
 
 ### Check out the patatrack development branch
@@ -55,7 +66,7 @@ To work on further developments, it is advised to start from the HEAD of the pat
 
 ```bash
 cmsenv
-git checkout cms-patatrack/CMSSW_10_5_X_Patatrack -b my_development_branch
+git checkout cms-patatrack/CMSSW_10_6_X_Patatrack -b my_development_branch
 # check out the modified packages and their dependencies
 git cms-addpkg $(git diff $CMSSW_VERSION --name-only | cut -d/ -f-2 | sort -u)
 git cms-checkdeps -a
@@ -97,4 +108,4 @@ git push -u my-cmssw HEAD:my_development_branch
   - click on it, and create a pull request as usual:
     ![Create a pull request](screenshot2.png "Create a request")
 
-  - make sure to choose `CMSSW_10_5_X_Patatrack` as the target branch, **not** the `master` branch
+  - make sure to choose `CMSSW_10_6_X_Patatrack` as the target branch, **not** the `master` branch
