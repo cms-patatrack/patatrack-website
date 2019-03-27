@@ -11,27 +11,17 @@ activity:  instructions
 The current Patatrack development branch is based on `CMSSW_10_5_X`, and supports the architecture `slc7_amd64_gcc700`.
 
 
-## Installing `CMSSW_10_5_0_pre2_Patatrack`
-While it is possible to start from the vanilla `CMSSW_10_5_0_pre2`, using this dedicated release has few advantages:
-  - update CUDA to version 10.1.105;
+## Installing `CMSSW_10_5_0_Patatrack`
+While it is possible to start from the vanilla `CMSSW_10_5_0`, using this dedicated release has few advantages:
   - include the changes from the `CMSSW_10_5_X_Patatrack` development branch.
 
 On **vinavx2** the release is available after `source /data/cmssw/cmsset_default.sh`.
 On **cmg-gpu1080** the release is available after `source /data/patatrack/cmssw/cmsset_default.sh`.
 
-Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_5_0_pre2_Patatrack` on your machine.
+Otherwise, see [the instructions](PatatrackReleases.md) for installing `CMSSW_10_5_0_Patatrack` on your machine.
 
 
-### Older CUDA versions
-`CMSSW_10_5_0_pre2` has been built with CUDA 10.1.105, that requires NVIDIA drivers version 418.39 or newer.
-To support older systems, two alternate builds are available:
-  - `CMSSW_10_5_0_pre2_Patatrack_CUDA_10_0`, built with CUDA version 10.0.130, requiring drivers version 410.48 or newer;
-  - `CMSSW_10_5_0_pre2_Patatrack_CUDA_9_2`, build with CUDA version 9.2.148 Update 1, requiring drivers version 396.37 or newer.
-
-They can be installed (see above) and used (see below) in the usual way.
-
-
-## Create a working area for `CMSSW_10_5_0_pre2_Patatrack`
+## Create a working area for `CMSSW_10_5_0_Patatrack`
 
 ### Source the local installation
 Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases, e.g.:
@@ -44,9 +34,9 @@ source /data/cmssw/cmsset_default.sh
 
 ### Set up a working area
 ```bash
-scram list CMSSW_10_5_0_pre2
-cmsrel CMSSW_10_5_0_pre2_Patatrack
-cd CMSSW_10_5_0_pre2_Patatrack/src
+scram list CMSSW_10_5_0
+cmsrel CMSSW_10_5_0_Patatrack
+cd CMSSW_10_5_0_Patatrack/src
 cmsenv
 ```
 
@@ -57,7 +47,7 @@ git cms-init -x cms-patatrack
 git branch CMSSW_10_5_X_Patatrack --track cms-patatrack/CMSSW_10_5_X_Patatrack
 ```
 
-You should be able to work in the `from-CMSSW_10_5_0_pre2_Patatrack` branch as you would in a normal CMSSW development area.
+You should be able to work in the `from-CMSSW_10_5_0_Patatrack` branch as you would in a normal CMSSW development area.
 
 
 ### Check out the patatrack development branch
