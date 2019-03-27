@@ -17,7 +17,6 @@ While it is possible to start from the vanilla `CMSSW_10_5_0` or `CMSSW_10_6_0_p
 
 `CMSSW_10_6_0_pre2_Patatrack` is available for
   - `slc7_amd64_gcc700` with CUDA 10.0.130;
-  - `slc7_amd64_gcc820` with CUDA 10.1.105;
   - `slc7_aarch64_gcc700` with CUDA 10.0.166.
 
 

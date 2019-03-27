@@ -8,8 +8,8 @@ activity:  instructions
 ---
 
 ## Simple recipe for developing with Patatrack
-The current Patatrack development branch is based on `CMSSW_10_6_X`, and supports the architectures `slc7_amd64_gcc700`
-(with CUDA 10.0), `slc7_amd64_gcc820` (with CUDA 10.1), and `slc7_aarch64_gcc700` (ARMv8, with CUDS 10.0).
+The current Patatrack development branch is based on `CMSSW_10_6_X`, and supports CUDA 10.0 and the architectures
+`slc7_amd64_gcc700` and `slc7_aarch64_gcc700` (ARMv8).
 
 
 ## Installing "Patatrack" CMSSW releases
@@ -22,7 +22,6 @@ While it is possible to start from the vanilla `CMSSW_10_5_0` or `CMSSW_10_6_0_p
 
 `CMSSW_10_6_0_pre2_Patatrack` is available for
   - `slc7_amd64_gcc700` with CUDA 10.0.130;
-  - `slc7_amd64_gcc820` with CUDA 10.1.105;
   - `slc7_aarch64_gcc700` with CUDA 10.0.166.
 
 On **vinavx2** the releases are available after `source /data/cmssw/cmsset_default.sh`.
