@@ -1,6 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
+
 * [Development for Patatrack](PatatrackDevelopment.md)
   * [Installing Patatrack releases](PatatrackReleases.md)
   * [Running the validation](PatatrackValidation.md)
@@ -8,8 +9,12 @@
   * [Profiling cmsRun on a remote machine with the NVIDIA Visual Profiler](Remote_profiling_with_NVVP/Remote_profiling_with_NVVP.md)
   * [Creating an "empty" CMSSW release](emptyrelease.md)
   * [CUDA to HIP](CUDAtoHIP.md)
-* Benchmarking
+
+* CPU and GPU Workflows
   * [Workflows](workflows.md)
+  * [Workflows for Connecting The Dots 2019](workflows_CTD19.md)
+
+* Benchmarking
   * [Stall Service](benchmarking_stall_service.md)
   * [CMSSW Scalability](cmssw_scalability.md)
   * [CUDA Utilities](CUDA_Utilities.md)
