@@ -71,7 +71,7 @@ cmsDriver.py profile \
   --geometry DB:Extended \
   -s RAW2DIGI:RawToDigi_pixelOnly,RECO:reconstruction_pixelTrackingOnly \
   --procModifiers gpu \
-  --customise RecoPixelVertexing/Configuration/customizePixelTracksForProfiling.customizePixelTracksForProfiling \
+  --customise RecoPixelVertexing/Configuration/customizePixelTracksForProfiling.customizePixelTracksForProfilingDisableConversion \
   --customise_commands='process.pixelTracksHitQuadruplets.useRiemannFit = True' \
   -n 100 \
   --filein file:step2.root \
@@ -114,7 +114,7 @@ cmsDriver.py profile \
   --geometry DB:Extended \
   -s RAW2DIGI:RawToDigi_pixelOnly,RECO:reconstruction_pixelTrackingOnly \
   --procModifiers gpu \
-  --customise RecoPixelVertexing/Configuration/customizePixelTracksForProfiling.customizePixelTracksForProfiling \
+  --customise RecoPixelVertexing/Configuration/customizePixelTracksForProfiling.customizePixelTracksForProfilingDisableConversion \
   --customise_commands='process.pixelTracksHitQuadruplets.useRiemannFit = False' \
   -n 100 \
   --filein file:step2.root \
