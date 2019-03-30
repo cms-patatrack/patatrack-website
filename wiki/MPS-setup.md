@@ -6,8 +6,8 @@ cat > start-mps-daemon.sh << @EOF
 #! /bin/bash
 
 # set the device(s) to exclusive mode
-if [ "$CUDA_VISIBLE_DEVICES" ]; then
-  sudo nvidia-smi -i $CUDA_VISIBLE_DEVICES -c EXCLUSIVE_PROCESS
+if [ "\$CUDA_VISIBLE_DEVICES" ]; then
+  sudo nvidia-smi -i \$CUDA_VISIBLE_DEVICES -c EXCLUSIVE_PROCESS
 else
   sudo nvidia-smi -c EXCLUSIVE_PROCESS
 fi
@@ -28,8 +28,8 @@ cat > stop-mps-daemon.sh << @EOF
 echo quit | sudo nvidia-cuda-mps-control
 
 # reset the device(s) to default mode
-if [ "$CUDA_VISIBLE_DEVICES" ]; then
-  sudo nvidia-smi -i $CUDA_VISIBLE_DEVICES -c DEFAULT
+if [ "\$CUDA_VISIBLE_DEVICES" ]; then
+  sudo nvidia-smi -i \$CUDA_VISIBLE_DEVICES -c DEFAULT
 else
   sudo nvidia-smi -c DEFAULT
 fi
