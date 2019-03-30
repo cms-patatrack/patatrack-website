@@ -23,7 +23,7 @@ compilation-wiki:
   image: node:latest
   before_script:
   - npm install -g gitbook-cli
-  - gitbook install
+  - gitbook install wiki/
   script:
   - gitbook build wiki public/wiki
   artifacts:
@@ -40,5 +40,6 @@ pages:
   dependencies:
     - compilation-website
     - compilation-wiki
-  #variables:
-    #CI_DEBUG_TRACE: "true"
+  only:
+  - master@websites/patatrack-website
+
