@@ -22,6 +22,7 @@ compilation-wiki:
   stage: build-wiki
   image: node:latest
   before_script:
+  - npm install natives@1.1.6
   - npm install -g gitbook-cli
   - cd wiki
   - gitbook install ./
