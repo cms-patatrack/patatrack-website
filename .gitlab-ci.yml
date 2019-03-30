@@ -23,9 +23,10 @@ compilation-wiki:
   image: node:latest
   before_script:
   - npm install -g gitbook-cli
-  - gitbook install wiki/
+  - cd wiki
+  - gitbook install ./
   script:
-  - gitbook build wiki public/wiki
+  - gitbook build . ../public/wiki
   artifacts:
     paths:
     - public/wiki
