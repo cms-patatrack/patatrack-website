@@ -20,7 +20,7 @@ compilation-website:
     
 compilation-wiki:
   stage: build-wiki
-  image: node:latest
+  image: node:8.11-alpine
   before_script:
   - npm install natives@1.1.6
   - npm install -g gitbook-cli
