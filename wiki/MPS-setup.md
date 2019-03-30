@@ -1,25 +1,40 @@
 # Setting up MPS server:
 
 In a system with GPU resource(s), create a script for setting up the MPS server:
-```
-# cat start_mps_daemon.sh 
-#!/bin/bash
-export CUDA_VISIBLE_DEVICES="2"
-nvidia-smi -i 2 -c EXCLUSIVE_PROCESS
-nvidia-cuda-mps-control -d
+```bash
+cat > start-mps-daemon.sh << @EOF
+#! /bin/bash
+
+# set the device(s) to exclusive mode
+if [ "$CUDA_VISIBLE_DEVICES" ]; then
+  sudo nvidia-smi -i $CUDA_VISIBLE_DEVICES -c EXCLUSIVE_PROCESS
+else
+  sudo nvidia-smi -c EXCLUSIVE_PROCESS
+fi
+
+# start the MPS daemon
+sudo nvidia-cuda-mps-control -d
+@EOF
 ```
 Exclusive Process is recommended to be used by NVidia in order to assure that the only service using the GPU is MPS, so that it is the single point of arbitration between all CUDA processes for that GPU.
 Explained in [CUDA Multi-Process Service Overview](https://docs.nvidia.com/deploy/pdf/CUDA_Multi_Process_Service_Overview.pdf), page 6.
 
 Also create a script to shut the MPS server down:
-```
-# cat stop_mps_daemon.sh 
-#!/bin/bash
-echo quit | nvidia-cuda-mps-control
-nvidia-smi -i 2 -c DEFAULT
-```
+```bash
+cat > stop-mps-daemon.sh << @EOF
+#! /bin/bash
 
-These scripts need to be run as root.
+# terminate the MPS daemon
+echo quit | sudo nvidia-cuda-mps-control
+
+# reset the device(s) to default mode
+if [ "$CUDA_VISIBLE_DEVICES" ]; then
+  sudo nvidia-smi -i $CUDA_VISIBLE_DEVICES -c DEFAULT
+else
+  sudo nvidia-smi -c DEFAULT
+fi
+@EOF
+```
 
 
 ## Profilling the CUDA sample code
