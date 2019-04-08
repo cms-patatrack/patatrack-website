@@ -42,7 +42,7 @@ $VO_CMS_SW_DIR/bootstrap.sh -a $SCRAM_ARCH -r cms -path $VO_CMS_SW_DIR setup
 After the initial boostrap, the same directory can be used to install new releases.
 
 It is recommended to update `cmspkg` itself on a regular basis:
-```
+```bash
 cd <...>
 
 export LANG=C
