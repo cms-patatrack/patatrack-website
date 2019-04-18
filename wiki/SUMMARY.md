@@ -21,6 +21,7 @@
     * [MPS set up](MPS-setup.md)
 
 * [External libraries](libraries.md)
+    * [Alpaka and Cupla](AlpakaAndCupla.md)
 
 * [Machine Learning](ML.md)
     * [Cluster Shape filter](ClusterShape.md)
