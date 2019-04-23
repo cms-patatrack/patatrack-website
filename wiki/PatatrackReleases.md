@@ -17,7 +17,7 @@ While it is possible to start from the vanilla `CMSSW_10_5_0` or `CMSSW_10_6_0_p
 
 `CMSSW_10_6_0_pre2_Patatrack` is available for
   - `slc7_amd64_gcc700` with CUDA 9.2.148, 10.0.130, 10.1.105;
-  - `slc7_aarch64_gcc700` with CUDA 10.0.166.
+[//]:   - `slc7_aarch64_gcc700` with CUDA 10.0.166.
 
 
 ### Bootstrap a local installation of CMSSW
@@ -89,7 +89,7 @@ To install `CMSSW_10_6_0_pre2_Patatrack` built with CUDA 10.0:
 $VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_10_6_0_pre2_Patatrack
 ```
 
-To install `CMSSW_10_6_0_pre2_Patatrack` built with CUDA 9.2:
+To install `CMSSW_10_6_0_pre2_Patatrack` built with CUDA 10.1:
 ```bash
 $VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_10_6_0_pre2_Patatrack_CUDA_10_1
 ```
