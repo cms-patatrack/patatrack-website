@@ -47,6 +47,11 @@ for profiling purposes. The customization function can be passed as a
 parameter to `cmsDriver.py`, or copy-pasted to an existing
 configuration file.
 
+#### Enabling NVTX
+In order to enable NVTX events and see CMSSW modules and streams you have to enable the `NVProfilerService` by adding the following to your configuration:
+```
+process.NVProfilerService = cms.Service("NVProfilerService")
+```
 #### Profiling workflow
 
 Removes DQM and VALIDATION, replaces output module with a dummy `AsciiOutputModule`.
