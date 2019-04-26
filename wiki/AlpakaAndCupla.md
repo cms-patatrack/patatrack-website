@@ -31,12 +31,12 @@ From the Cupla [README]():
 > accelerator devices. Alpaka is used as backend for Cupla.
 
 Relevant links:
-  - [CUPLA](https://github.com/ComputationalRadiationPhysics/cupla) on GitHub
-  - CUPLA's [porting guide](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/doc/PortingGuide.md)
-  - CUPLA's [tuning guide](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/doc/TuningGuide.md)
+  - [Cupla](https://github.com/ComputationalRadiationPhysics/cupla) on GitHub
+  - Cupla's [porting guide](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/doc/PortingGuide.md)
+  - Cupla's [tuning guide](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/doc/TuningGuide.md)
 
 
-# Building with Alpaka and Cupla without CMake
+# Building Alpaka and Cupla without CMake
 
 ## Set up the environment
 ```bash
@@ -46,8 +46,8 @@ export ALPAKA_ROOT=$BASE/alpaka
 export CUPLA_ROOT=$BASE/cupla
 
 CXX="/usr/bin/g++-7"
-CXX_FLAGS="-m64 -std=c++11 -g -O2 -DALPAKA_DEBUG=0 -DCUPLA_STREAM_ASYNC_ENABLED=1 -I$CUDA_ROOT/include -I$ALPAKA_ROOT/include -I$CUPLA_ROOT/include"
-HOST_FLAGS="-fPIC -ftemplate-depth-512 -Wall -Wextra -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-local-typedefs -Wno-attributes -Wno-reorder -Wno-sign-compare"
+CXXFLAGS="-m64 -std=c++11 -g -O2 -DALPAKA_DEBUG=0 -I$CUDA_ROOT/include -I$ALPAKA_ROOT/include -I$CUPLA_ROOT/include"
+HOST_FLAGS="-fopenmp -pthread -fPIC -ftemplate-depth-512 -Wall -Wextra -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-local-typedefs -Wno-attributes -Wno-reorder -Wno-sign-compare"
 
 NVCC="$CUDA_ROOT/bin/nvcc"
 NVCC_FLAGS="-ccbin $CXX -lineinfo --expt-extended-lambda --expt-relaxed-constexpr --generate-code arch=compute_50,code=sm_50 --use_fast_math --ftz=false --cudart shared"
@@ -57,65 +57,183 @@ NVCC_FLAGS="-ccbin $CXX -lineinfo --expt-extended-lambda --expt-relaxed-constexp
 ```bash
 git clone git@github.com:ComputationalRadiationPhysics/alpaka.git -b 0.3.5 $ALPAKA_ROOT
 git clone git@github.com:ComputationalRadiationPhysics/cupla.git  -b 0.1.1 $CUPLA_ROOT
+( cd $CUPLA_ROOT; patch -p1 ) < cupla.patch
 ```
 
-## Build cupla ...
-
-### ... for the CUDA backend
+## Build cupla
 ```bash
+mkdir -p $CUPLA_ROOT/lib
 FILES="$CUPLA_ROOT/src/*.cpp $CUPLA_ROOT/src/manager/*.cpp"
+```
 
-mkdir -p $CUPLA_ROOT/build/cuda $CUPLA_ROOT/lib
-cd $CUPLA_ROOT/build/cuda
+### Build cupla for the serial CPU backend, with asynchronous kernel launches
+```bash
+mkdir -p $CUPLA_ROOT/build/seq-seq-async $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/seq-seq-async
 
 for FILE in $FILES; do
-  $NVCC -DALPAKA_ACC_GPU_CUDA_ENABLED $CXX_FLAGS $NVCC_FLAGS -Xcompiler "$HOST_FLAGS" -x cu -c $FILE -o $(basename $FILE).o
+  $CXX -DALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=1 $CXXFLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o &
 done
-$NVCC -DALPAKA_ACC_GPU_CUDA_ENABLED $CXX_FLAGS $NVCC_FLAGS -Xcompiler "$HOST_FLAGS" -shared *.o -o $CUPLA_ROOT/lib/libcupla-cuda.so
+wait
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -o $CUPLA_ROOT/lib/libcupla-seq-seq-async.so
 ```
 
-### ... for the serial backend
+### Build cupla for the serial CPU backend, with synchronous kernel launches
 ```bash
-FILES="$CUPLA_ROOT/src/*.cpp $CUPLA_ROOT/src/manager/*.cpp"
-
-mkdir -p $CUPLA_ROOT/build/serial $CUPLA_ROOT/lib
-cd $CUPLA_ROOT/build/serial
+mkdir -p $CUPLA_ROOT/build/seq-seq-sync $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/seq-seq-sync
 
 for FILE in $FILES; do
-  $CXX -DALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED $CXX_FLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o
+  $CXX -DALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=0 $CXXFLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o &
 done
-$CXX -DALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED $CXX_FLAGS $HOST_FLAGS -shared *.o -o $CUPLA_ROOT/lib/libcupla-serial.so
+wait
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -o $CUPLA_ROOT/lib/libcupla-seq-seq-sync.so
 ```
 
-### ... for the TBB backend
+### Build cupla for the std::threads CPU backend, with asynchronous kernel launches
 ```bash
-FILES="$CUPLA_ROOT/src/*.cpp $CUPLA_ROOT/src/manager/*.cpp"
-
-mkdir -p $CUPLA_ROOT/build/tbb $CUPLA_ROOT/lib
-cd $CUPLA_ROOT/build/tbb
+mkdir -p $CUPLA_ROOT/build/seq-threads-async $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/seq-threads-async
 
 for FILE in $FILES; do
-  $CXX -DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED $CXX_FLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o
+  $CXX -DALPAKA_ACC_CPU_B_SEQ_T_THREADS_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=1 $CXXFLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o &
 done
-$CXX -DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED $CXX_FLAGS $HOST_FLAGS -shared *.o -ltbbmalloc -ltbb -lpthread -lrt -o $CUPLA_ROOT/lib/libcupla-tbb.so
+wait
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -o $CUPLA_ROOT/lib/libcupla-seq-threads-async.so
 ```
 
-## Build an example with cupla
-
-### Using CUDA on the gpu
+### Build cupla for the std::threads CPU backend, with synchronous kernel launches
 ```bash
-cd $BASE
-$NVCC -DALPAKA_ACC_GPU_CUDA_ENABLED $CXX_FLAGS $NVCC_FLAGS -Xcompiler "$HOST_FLAGS" -x cu $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -o cuda-vectorAdd -L$CUPLA_ROOT/lib -lcupla-cuda
+mkdir -p $CUPLA_ROOT/build/seq-threads-sync $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/seq-threads-sync
+
+for FILE in $FILES; do
+  $CXX -DALPAKA_ACC_CPU_B_SEQ_T_THREADS_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=0 $CXXFLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o &
+done
+wait
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -o $CUPLA_ROOT/lib/libcupla-seq-threads-sync.so
 ```
 
-### Using the serial backend on the cpu
+### Build cupla for the OpenMP 2.0 threads CPU backend, with asynchronous kernel launches
 ```bash
-cd $BASE
-$CXX -DALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED $CXX_FLAGS $HOST_FLAGS $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -o serial-vectorAdd -L$CUPLA_ROOT/lib -lcupla-serial -lpthread
+mkdir -p $CUPLA_ROOT/build/seq-omp2-async $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/seq-omp2-async
+
+for FILE in $FILES; do
+  $CXX -DALPAKA_ACC_CPU_B_SEQ_T_OMP2_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=1 $CXXFLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o &
+done
+wait
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -o $CUPLA_ROOT/lib/libcupla-seq-omp2-async.so
 ```
 
-### Using the TBB backend on the cpu
+### Build cupla for the OpenMP 2.0 threads CPU backend, with synchronous kernel launches
+```bash
+mkdir -p $CUPLA_ROOT/build/seq-omp2-sync $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/seq-omp2-sync
+
+for FILE in $FILES; do
+  $CXX -DALPAKA_ACC_CPU_B_SEQ_T_OMP2_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=0 $CXXFLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o &
+done
+wait
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -o $CUPLA_ROOT/lib/libcupla-seq-omp2-sync.so
+```
+
+### Build cupla for the OpenMP 2.0 blocks CPU backend, with asynchronous kernel launches
+```bash
+mkdir -p $CUPLA_ROOT/build/omp2-seq-async $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/omp2-seq-async
+
+for FILE in $FILES; do
+  $CXX -DALPAKA_ACC_CPU_B_OMP2_T_SEQ_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=1 $CXXFLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o &
+done
+wait
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -o $CUPLA_ROOT/lib/libcupla-omp2-seq-async.so
+```
+
+### Build cupla for the OpenMP 2.0 blocks CPU backend, with synchronous kernel launches
+```bash
+mkdir -p $CUPLA_ROOT/build/omp2-seq-sync $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/omp2-seq-sync
+
+for FILE in $FILES; do
+  $CXX -DALPAKA_ACC_CPU_B_OMP2_T_SEQ_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=0 $CXXFLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o &
+done
+wait
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -o $CUPLA_ROOT/lib/libcupla-omp2-seq-sync.so
+```
+
+### Build cupla for the TBB blocks CPU backend, with asynchronous kernel launches
+```bash
+mkdir -p $CUPLA_ROOT/build/tbb-seq-async $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/tbb-seq-async
+
+for FILE in $FILES; do
+  $CXX -DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=1 $CXXFLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o &
+done
+wait
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -ltbbmalloc -ltbb -o $CUPLA_ROOT/lib/libcupla-tbb-seq-async.so
+```
+
+### Build cupla for the TBB blocks CPU backend, with synchronous kernel launches
+```bash
+mkdir -p $CUPLA_ROOT/build/tbb-seq-sync $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/tbb-seq-sync
+
+for FILE in $FILES; do
+  $CXX -DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=0 $CXXFLAGS $HOST_FLAGS -c $FILE -o $(basename $FILE).o &
+done
+wait
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -ltbbmalloc -ltbb -o $CUPLA_ROOT/lib/libcupla-tbb-seq-sync.so
+```
+
+### Build cupla for the CUDA GPU backend, with asynchronous kernel launches
+```bash
+mkdir -p $CUPLA_ROOT/build/cuda-async $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/cuda-async
+
+for FILE in $FILES; do
+  $NVCC -DALPAKA_ACC_GPU_CUDA_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=1 $CXXFLAGS $NVCC_FLAGS -Xcompiler "$HOST_FLAGS" -x cu -c $FILE -o $(basename $FILE).o &
+done
+wait
+# $NVCC $CXXFLAGS $NVCC_FLAGS -Xcompiler "$HOST_FLAGS" -shared *.o -o $CUPLA_ROOT/lib/libcupla-cuda-async.so
+# or
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -L$CUDA_ROOT/lib64 -lcudart -o $CUPLA_ROOT/lib/libcupla-cuda-async.so
+```
+
+### Build cupla for the CUDA GPU backend, with synchronous kernel launches
+```bash
+mkdir -p $CUPLA_ROOT/build/cuda-sync $CUPLA_ROOT/lib
+cd $CUPLA_ROOT/build/cuda-sync
+
+for FILE in $FILES; do
+  $NVCC -DALPAKA_ACC_GPU_CUDA_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=0 $CXXFLAGS $NVCC_FLAGS -Xcompiler "$HOST_FLAGS" -x cu -c $FILE -o $(basename $FILE).o &
+done
+wait
+# $NVCC $CXXFLAGS $NVCC_FLAGS -Xcompiler "$HOST_FLAGS" -shared *.o -o $CUPLA_ROOT/lib/libcupla-cuda-sync.so
+# or
+$CXX $CXXFLAGS $HOST_FLAGS -shared *.o -L$CUDA_ROOT/lib64 -lcudart -o $CUPLA_ROOT/lib/libcupla-cuda-sync.so
+```
+
+
+# Building an example with Cupla
+
+### Using the serial CPU backend, with synchronous kernel launches
 ```bash
 cd $BASE
-$CXX -DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED $CXX_FLAGS $HOST_FLAGS $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -o tbb-vectorAdd -L$CUPLA_ROOT/lib -lcupla-tbb -ltbb -lpthread
+$CXX -DALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=0 $CXXFLAGS $HOST_FLAGS $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -L$CUPLA_ROOT/lib -lcupla-seq-seq-sync -o vectorAdd-seq-seq-sync
+LD_LIBRARY_PATH=$CUPLA_ROOT/lib ./vectorAdd-seq-seq-sync
+```
+
+### Using the TBB blocks CPU backend, with asynchronous kernel launches
+```bash
+cd $BASE
+$CXX -DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=1 $CXXFLAGS $HOST_FLAGS $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -L$CUPLA_ROOT/lib -lcupla-tbb-seq-async -ltbbmalloc -ltbb -o vectorAdd-tbb-seq-async
+LD_LIBRARY_PATH=$CUPLA_ROOT/lib ./vectorAdd-tbb-seq-async
+```
+
+### Using the CUDA GPU backend, with asynchronous kernel launches
+```bash
+cd $BASE
+$NVCC -DALPAKA_ACC_GPU_CUDA_ENABLED -DCUPLA_STREAM_ASYNC_ENABLED=1 $CXXFLAGS $NVCC_FLAGS -Xcompiler "$HOST_FLAGS" -x cu $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -L$CUPLA_ROOT/lib -lcupla-cuda-async -o vectorAdd-cuda-async
+LD_LIBRARY_PATH=$CUPLA_ROOT/lib:$CUDA_ROOT/lib64 ./vectorAdd-cuda-async
 ```
