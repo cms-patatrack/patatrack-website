@@ -105,17 +105,17 @@ $CXX -DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED $CXX_FLAGS $HOST_FLAGS -shared *.o -lt
 ### Using CUDA on the gpu
 ```bash
 cd $BASE
-$NVCC -DALPAKA_ACC_GPU_CUDA_ENABLED $NVCC_FLAGS -x cu $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -o cuda-vectorAdd -L$CUPLA_ROOT/lib -lcupla-cuda
+$NVCC -DALPAKA_ACC_GPU_CUDA_ENABLED $CXX_FLAGS $NVCC_FLAGS -Xcompiler "$HOST_FLAGS" -x cu $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -o cuda-vectorAdd -L$CUPLA_ROOT/lib -lcupla-cuda
 ```
 
 ### Using the serial backend on the cpu
 ```bash
 cd $BASE
-$CXX -DALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED $CXX_FLAGS $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -o serial-vectorAdd -L$CUPLA_ROOT/lib -lcupla-serial -lpthread
+$CXX -DALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED $CXX_FLAGS $HOST_FLAGS $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -o serial-vectorAdd -L$CUPLA_ROOT/lib -lcupla-serial -lpthread
 ```
 
 ### Using the TBB backend on the cpu
 ```bash
 cd $BASE
-$CXX -DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED $CXX_FLAGS $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -o tbb-vectorAdd -L$CUPLA_ROOT/lib -lcupla-tbb -lpthread
+$CXX -DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED $CXX_FLAGS $HOST_FLAGS $CUPLA_ROOT/example/CUDASamples/vectorAdd/src/vectorAdd.cpp -o tbb-vectorAdd -L$CUPLA_ROOT/lib -lcupla-tbb -ltbb -lpthread
 ```
