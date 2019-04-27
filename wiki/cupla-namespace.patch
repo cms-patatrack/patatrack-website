@@ -1,0 +1,889 @@
+commit 54f795ca095b41077830e9446eda62fa8c7f3005 (HEAD -> cupla_accelerator_namespace)
+Author: Andrea Bocci <andrea.bocci@cern.ch>
+Date:   Sat Apr 27 09:08:56 2019 +0200
+
+    Move all accelerator-specific code to an accelerator-specific inline namespece
+    
+    The incapsulation results in different symbols for different accelerators, and
+    allows linking modules compiled for different Cupla backends in a single library.
+    
+    Using inline namespaces leaves the rest of cupla and the user's code unchanged.
+    
+    Keeping the accelerator-specific namespace inside the cupla namespace (where it
+    is used) leaves the latter unambiguous, and allowing references to "namespace cupla"
+    and qualified symbols like "::cupla:..." unchanged.
+
+diff --git a/include/cuda_to_cupla.hpp b/include/cuda_to_cupla.hpp
+index 87d2cef..e36a37d 100644
+--- a/include/cuda_to_cupla.hpp
++++ b/include/cuda_to_cupla.hpp
+@@ -21,7 +21,6 @@
+ 
+ #pragma once
+ 
+-
+ #include "cupla_runtime.hpp"
+ 
+ #include "cupla/cudaToCupla/driverTypes.hpp"
+diff --git a/include/cupla/api/common.hpp b/include/cupla/api/common.hpp
+index 3aeb327..1cc6f64 100644
+--- a/include/cupla/api/common.hpp
++++ b/include/cupla/api/common.hpp
+@@ -23,9 +23,12 @@
+ 
+ #include <alpaka/alpaka.hpp>
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla_driver_types.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+ const char *
+ cuplaGetErrorString(cuplaError_t);
+@@ -51,3 +54,5 @@ cuplaGetLastError();
+  */
+ cuplaError_t
+ cuplaPeekAtLastError();
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/include/cupla/api/device.hpp b/include/cupla/api/device.hpp
+index 6a7ece0..c2ae1be 100644
+--- a/include/cupla/api/device.hpp
++++ b/include/cupla/api/device.hpp
+@@ -23,15 +23,16 @@
+ 
+ #include <alpaka/alpaka.hpp>
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla_driver_types.hpp"
+ 
+-
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+ cuplaError_t
+ cuplaGetDeviceCount( int * count);
+ 
+-
+ cuplaError_t
+ cuplaSetDevice( int idx);
+ 
+@@ -49,3 +50,5 @@ cuplaMemGetInfo(
+     size_t * free,
+     size_t * total
+ );
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/include/cupla/api/event.hpp b/include/cupla/api/event.hpp
+index aaec3de..6b93421 100644
+--- a/include/cupla/api/event.hpp
++++ b/include/cupla/api/event.hpp
+@@ -23,9 +23,13 @@
+ 
+ #include <alpaka/alpaka.hpp>
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla_driver_types.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
++
+ cuplaError_t
+ cuplaEventCreateWithFlags(
+     cuplaEvent_t * event,
+@@ -60,3 +64,5 @@ cuplaEventSynchronize(
+ 
+ cuplaError_t
+ cuplaEventQuery( cuplaEvent_t event );
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/include/cupla/api/memory.hpp b/include/cupla/api/memory.hpp
+index 90d4846..27f841f 100644
+--- a/include/cupla/api/memory.hpp
++++ b/include/cupla/api/memory.hpp
+@@ -23,15 +23,17 @@
+ 
+ #include <alpaka/alpaka.hpp>
+ 
+-
+ #include "cupla/datatypes/dim3.hpp"
+ #include "cupla/datatypes/uint.hpp"
+ #include "cupla/c/datatypes/cuplaExtent.hpp"
+ #include "cupla/c/datatypes/cuplaPitchedPtr.hpp"
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla_driver_types.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+ cuplaError_t
+ cuplaMalloc(
+@@ -154,3 +156,5 @@ cuplaError_t
+ cuplaMemcpy3D(
+     const cuplaMemcpy3DParms * const p
+ );
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/include/cupla/api/stream.hpp b/include/cupla/api/stream.hpp
+index 3d0d6af..d68508d 100644
+--- a/include/cupla/api/stream.hpp
++++ b/include/cupla/api/stream.hpp
+@@ -23,9 +23,12 @@
+ 
+ #include <alpaka/alpaka.hpp>
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla_driver_types.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+ cuplaError_t
+ cuplaStreamCreate(
+@@ -49,3 +52,5 @@ cuplaStreamWaitEvent(
+ 
+ cuplaError_t
+ cuplaStreamQuery( cuplaStream_t stream );
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/include/cupla/c/datatypes/cuplaArray.hpp b/include/cupla/c/datatypes/cuplaArray.hpp
+index b7e2036..3490537 100644
+--- a/include/cupla/c/datatypes/cuplaArray.hpp
++++ b/include/cupla/c/datatypes/cuplaArray.hpp
+@@ -21,12 +21,17 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla/c/datatypes/cuplaPitchedPtr.hpp"
+ #include "cupla/c/datatypes/cuplaPos.hpp"
+ #include "cupla/c/datatypes/cuplaExtent.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+ struct cuplaArray
+ {
+ };
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/include/cupla/c/datatypes/cuplaExtent.hpp b/include/cupla/c/datatypes/cuplaExtent.hpp
+index 64f451f..659d16b 100644
+--- a/include/cupla/c/datatypes/cuplaExtent.hpp
++++ b/include/cupla/c/datatypes/cuplaExtent.hpp
+@@ -21,8 +21,12 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
++
+ struct cuplaExtent{
+     cupla::MemSizeType width, height, depth;
+ 
+@@ -74,6 +78,7 @@ struct cuplaExtent{
+     }
+ };
+ 
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+ 
+ 
+ namespace alpaka
+diff --git a/include/cupla/c/datatypes/cuplaMemcpy3DParms.hpp b/include/cupla/c/datatypes/cuplaMemcpy3DParms.hpp
+index e6ecdb9..f23da69 100644
+--- a/include/cupla/c/datatypes/cuplaMemcpy3DParms.hpp
++++ b/include/cupla/c/datatypes/cuplaMemcpy3DParms.hpp
+@@ -21,12 +21,15 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla/c/datatypes/cuplaArray.hpp"
+ #include "cupla/c/datatypes/cuplaPitchedPtr.hpp"
+ #include "cupla/c/datatypes/cuplaPos.hpp"
+ #include "cupla/c/datatypes/cuplaExtent.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+ struct cuplaMemcpy3DParms
+ {
+@@ -41,3 +44,5 @@ struct cuplaMemcpy3DParms
+ 
+     cuplaMemcpy3DParms() = default;
+ };
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/include/cupla/c/datatypes/cuplaPitchedPtr.hpp b/include/cupla/c/datatypes/cuplaPitchedPtr.hpp
+index 7815b49..ae87fc2 100644
+--- a/include/cupla/c/datatypes/cuplaPitchedPtr.hpp
++++ b/include/cupla/c/datatypes/cuplaPitchedPtr.hpp
+@@ -21,9 +21,12 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla/datatypes/uint.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+ struct cuplaPitchedPtr
+ {
+@@ -46,3 +49,5 @@ struct cuplaPitchedPtr
+     {}
+ 
+ };
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/include/cupla/c/datatypes/cuplaPos.hpp b/include/cupla/c/datatypes/cuplaPos.hpp
+index d852b1d..3145abd 100644
+--- a/include/cupla/c/datatypes/cuplaPos.hpp
++++ b/include/cupla/c/datatypes/cuplaPos.hpp
+@@ -21,8 +21,12 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
++
+ struct cuplaPos{
+     size_t x, y, z;
+ 
+@@ -74,7 +78,7 @@ struct cuplaPos{
+     }
+ };
+ 
+-
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+ 
+ namespace alpaka
+ {
+@@ -228,4 +232,4 @@ namespace traits
+ 
+ } // namespace traits
+ } // namespace size
+-} // namespave alpaka
++} // namespace alpaka
+diff --git a/include/cupla/cudaToCupla/driverTypes.hpp b/include/cupla/cudaToCupla/driverTypes.hpp
+index a7dc683..7c2f17d 100644
+--- a/include/cupla/cudaToCupla/driverTypes.hpp
++++ b/include/cupla/cudaToCupla/driverTypes.hpp
+@@ -100,7 +100,10 @@
+ #define uint3 ::cupla::uint3
+ 
+ // recast functions
+-namespace cupla {
++namespace cupla
++{
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+     template< typename A, typename B >
+     ALPAKA_FN_HOST_ACC
+@@ -110,7 +113,9 @@ namespace cupla {
+         return reinterpret_cast< B const & >( x );
+     }
+ 
++} // namespace CUPLA_ACCELERATOR_NAMESPACE
+ } // namespace cupla
++
+ #ifndef ALPAKA_ACC_GPU_CUDA_ENABLED
+ #   define __int_as_float(...) cupla::A_as_B< int, float >( __VA_ARGS__ )
+ #   define __float_as_int(...) cupla::A_as_B< float, int >( __VA_ARGS__ )
+diff --git a/include/cupla/datatypes/Array.hpp b/include/cupla/datatypes/Array.hpp
+index 48f6bc1..dd0d4d6 100644
+--- a/include/cupla/datatypes/Array.hpp
++++ b/include/cupla/datatypes/Array.hpp
+@@ -21,9 +21,13 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ 
+-namespace cupla{
++namespace cupla
++{
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+     template<
+         typename T_Type,
+@@ -55,4 +59,5 @@ namespace cupla{
+         }
+     };
+ 
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+ } //namespace cupla
+diff --git a/include/cupla/datatypes/dim3.hpp b/include/cupla/datatypes/dim3.hpp
+index 02719c2..5f42db2 100644
+--- a/include/cupla/datatypes/dim3.hpp
++++ b/include/cupla/datatypes/dim3.hpp
+@@ -21,10 +21,13 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla/datatypes/uint.hpp"
+ 
+ namespace cupla
++{
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
+ {
+ 
+     struct dim3
+@@ -62,4 +65,5 @@ namespace cupla
+         }
+     };
+ 
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+ } //namespace cupla
+diff --git a/include/cupla/datatypes/uint.hpp b/include/cupla/datatypes/uint.hpp
+index a9ff90d..2322087 100644
+--- a/include/cupla/datatypes/uint.hpp
++++ b/include/cupla/datatypes/uint.hpp
+@@ -21,9 +21,12 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ 
+ namespace cupla
++{
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
+ {
+ 
+     struct uint3{
+@@ -76,7 +79,8 @@ namespace cupla
+         }
+     };
+ 
+-} //namespace cupla
++} // namespace CUPLA_ACCELERATOR_NAMESPACE
++} // namespace cupla
+ 
+ 
+ namespace alpaka
+diff --git a/include/cupla/kernel.hpp b/include/cupla/kernel.hpp
+index e738de3..482a53a 100644
+--- a/include/cupla/kernel.hpp
++++ b/include/cupla/kernel.hpp
+@@ -21,6 +21,7 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ 
+ #include "cupla/datatypes/dim3.hpp"
+@@ -31,8 +32,10 @@
+ 
+ #include <utility>
+ 
+-
+-namespace cupla{
++namespace cupla
++{
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+     /** get block and elements extents
+      *
+@@ -123,6 +126,7 @@ namespace cupla{
+         ::alpaka::stream::enqueue(stream, exec);
+     }
+ 
++} // namespace CUPLA_ACCELERATOR_NAMESPACE
+ } // namespace cupla
+ 
+ 
+diff --git a/include/cupla/manager/Device.hpp b/include/cupla/manager/Device.hpp
+index e6d1914..5107995 100644
+--- a/include/cupla/manager/Device.hpp
++++ b/include/cupla/manager/Device.hpp
+@@ -21,8 +21,10 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla_driver_types.hpp"
++
+ #include <map>
+ #include <memory>
+ #include <sstream>
+@@ -30,6 +32,8 @@
+ 
+ namespace cupla
+ {
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ namespace manager
+ {
+ 
+@@ -171,4 +175,5 @@ namespace manager
+     };
+ 
+ } //namespace manager
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+ } //namespace cupla
+diff --git a/include/cupla/manager/Driver.hpp b/include/cupla/manager/Driver.hpp
+index 6552fbf..0e3f0cf 100644
+--- a/include/cupla/manager/Driver.hpp
++++ b/include/cupla/manager/Driver.hpp
+@@ -21,8 +21,12 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
++
+ namespace cupla
+ {
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ namespace manager
+ {
+ 
+@@ -45,4 +49,5 @@ private:
+ };
+ 
+ } //namespace manager
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+ } //namespace cupla
+diff --git a/include/cupla/manager/Event.hpp b/include/cupla/manager/Event.hpp
+index 6c1d0b6..2f98f75 100644
+--- a/include/cupla/manager/Event.hpp
++++ b/include/cupla/manager/Event.hpp
+@@ -21,6 +21,7 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla/manager/Device.hpp"
+ #include "cupla_driver_types.hpp"
+@@ -33,6 +34,8 @@
+ 
+ namespace cupla
+ {
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ namespace manager
+ {
+ 
+@@ -232,4 +235,5 @@ namespace detail
+     };
+ 
+ } //namespace manager
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+ } //namespace cupla
+diff --git a/include/cupla/manager/Memory.hpp b/include/cupla/manager/Memory.hpp
+index 4e27829..fe1fd94 100644
+--- a/include/cupla/manager/Memory.hpp
++++ b/include/cupla/manager/Memory.hpp
+@@ -21,6 +21,7 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla/manager/Device.hpp"
+ 
+@@ -31,6 +32,8 @@
+ 
+ namespace cupla
+ {
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ namespace manager
+ {
+ 
+@@ -148,4 +151,5 @@ namespace manager
+     };
+ 
+ } //namespace manager
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+ } //namespace cupla
+diff --git a/include/cupla/manager/Stream.hpp b/include/cupla/manager/Stream.hpp
+index 201b253..e1f6c12 100644
+--- a/include/cupla/manager/Stream.hpp
++++ b/include/cupla/manager/Stream.hpp
+@@ -21,6 +21,7 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla/manager/Device.hpp"
+ #include "cupla_driver_types.hpp"
+@@ -31,6 +32,8 @@
+ 
+ namespace cupla
+ {
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ namespace manager
+ {
+ 
+@@ -168,4 +171,5 @@ namespace manager
+     };
+ 
+ } //namespace manager
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+ } //namespace cupla
+diff --git a/include/cupla/namespace.hpp b/include/cupla/namespace.hpp
+new file mode 100644
+index 0000000..feb0e08
+--- /dev/null
++++ b/include/cupla/namespace.hpp
+@@ -0,0 +1,82 @@
++/* Copyright 2019 Andrea Bocci
++ *
++ * This file is part of cupla.
++ *
++ * cupla is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU Lesser General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * cupla is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++ * GNU Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public License
++ * along with cupla.
++ * If not, see <http://www.gnu.org/licenses/>.
++ *
++ */
++
++
++#pragma once
++
++#if CUPLA_STREAM_ASYNC_ENABLED
++
++#ifdef ALPAKA_ACC_CPU_B_SEQ_T_OMP2_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_seq_omp2_async
++#endif
++
++#ifdef ALPAKA_ACC_CPU_B_SEQ_T_THREADS_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_seq_threads_async
++#endif
++
++#ifdef ALPAKA_ACC_CPU_B_OMP2_T_SEQ_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_omp2_seq_async
++#endif
++
++#ifdef ALPAKA_ACC_GPU_CUDA_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_cuda_async
++#endif
++
++#ifdef ALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_seq_seq_async
++#endif
++
++#ifdef ALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_tbb_seq_async
++#endif
++
++#else // CUPLA_STREAM_ASYNC_ENABLED
++
++#ifdef ALPAKA_ACC_CPU_B_SEQ_T_OMP2_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_seq_omp2_sync
++#endif
++
++#ifdef ALPAKA_ACC_CPU_B_SEQ_T_THREADS_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_seq_threads_sync
++#endif
++
++#ifdef ALPAKA_ACC_CPU_B_OMP2_T_SEQ_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_omp2_seq_sync
++#endif
++
++#ifdef ALPAKA_ACC_GPU_CUDA_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_cuda_sync
++#endif
++
++#ifdef ALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_seq_seq_sync
++#endif
++
++#ifdef ALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED
++#define CUPLA_ACCELERATOR_NAMESPACE cupla_tbb_seq_sync
++#endif
++
++#endif // CUPLA_STREAM_ASYNC_ENABLED
++
++/*
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
++*/
+diff --git a/include/cupla/traits/IsThreadSeqAcc.hpp b/include/cupla/traits/IsThreadSeqAcc.hpp
+index 07d13f3..3d6b894 100644
+--- a/include/cupla/traits/IsThreadSeqAcc.hpp
++++ b/include/cupla/traits/IsThreadSeqAcc.hpp
+@@ -21,10 +21,13 @@
+ 
+ #pragma once
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ 
+ namespace cupla
+ {
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ namespace traits
+ {
+ 
+@@ -88,5 +91,6 @@ namespace traits
+     };
+ #endif
+ 
+-}  // namespace traits
++} // namespace traits
++} // namespace CUPLA_ACCELERATOR_NAMESPACE
+ } // namespace cupla
+diff --git a/include/cupla/types.hpp b/include/cupla/types.hpp
+index b0fc66f..519c4ed 100644
+--- a/include/cupla/types.hpp
++++ b/include/cupla/types.hpp
+@@ -24,6 +24,8 @@
+ #include <alpaka/alpaka.hpp>
+ #include <cstdint>
+ 
++#include "cupla/namespace.hpp"
++
+ #ifdef ALPAKA_ACC_CPU_B_SEQ_T_OMP2_ENABLED
+ #   undef ALPAKA_ACC_CPU_B_SEQ_T_OMP2_ENABLED
+ #   define ALPAKA_ACC_CPU_B_SEQ_T_OMP2_ENABLED 1
+@@ -93,9 +95,10 @@
+     #error "it is only alowed to select one thread parallelized Alpaka accelerator"
+ #endif
+ 
+-
+-namespace cupla {
+-
++namespace cupla
++{
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+     using MemSizeType = size_t;
+     using IdxType = unsigned int;
+@@ -282,5 +285,6 @@ namespace cupla {
+             AlpakaDim< T_dim >,
+             MemSizeType
+         >;
+-} // namepsace cupla
+ 
++} // namespace CUPLA_ACCELERATOR_NAMESPACE
++} // namepsace cupla
+diff --git a/include/cupla_runtime.hpp b/include/cupla_runtime.hpp
+index 4afefd5..07e9be2 100644
+--- a/include/cupla_runtime.hpp
++++ b/include/cupla_runtime.hpp
+@@ -23,6 +23,7 @@
+ 
+ #include <alpaka/alpaka.hpp>
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/kernel.hpp"
+ 
+ #include "cupla/c/datatypes/cuplaArray.hpp"
+@@ -44,6 +45,10 @@
+ #include "cupla/manager/Driver.hpp"
+ 
+ namespace cupla
++{
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
+ {
+     const auto driver = manager::Driver::get();
+-}
++
++} //namespace cupla
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/src/common.cpp b/src/common.cpp
+index cfa6f72..9758a2c 100644
+--- a/src/common.cpp
++++ b/src/common.cpp
+@@ -19,6 +19,7 @@
+  */
+ 
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla_runtime.hpp"
+ #include "cupla/manager/Memory.hpp"
+ #include "cupla/manager/Device.hpp"
+@@ -26,6 +27,8 @@
+ #include "cupla/manager/Event.hpp"
+ #include "cupla/api/common.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+ const char *
+ cuplaGetErrorString(cuplaError_t e)
+@@ -53,3 +56,5 @@ cuplaPeekAtLastError()
+     return cuplaSuccess;
+ #endif
+ }
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/src/device.cpp b/src/device.cpp
+index e9f900e..32ce4df 100644
+--- a/src/device.cpp
++++ b/src/device.cpp
+@@ -19,6 +19,7 @@
+  */
+ 
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla_runtime.hpp"
+ #include "cupla/manager/Memory.hpp"
+ #include "cupla/manager/Device.hpp"
+@@ -27,6 +28,9 @@
+ #include "cupla/api/device.hpp"
+ #include <stdexcept>
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
++
+ cuplaError_t
+ cuplaGetDeviceCount( int * count)
+ {
+@@ -117,3 +121,5 @@ cuplaMemGetInfo(
+     *free = ::alpaka::dev::getFreeMemBytes( device );
+     return cuplaSuccess;
+ }
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/src/event.cpp b/src/event.cpp
+index 5c6d0d8..b3ecbf6 100644
+--- a/src/event.cpp
++++ b/src/event.cpp
+@@ -19,6 +19,7 @@
+  */
+ 
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla_runtime.hpp"
+ #include "cupla/manager/Memory.hpp"
+ #include "cupla/manager/Device.hpp"
+@@ -26,6 +27,8 @@
+ #include "cupla/manager/Event.hpp"
+ #include "cupla/api/event.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+ cuplaError_t
+ cuplaEventCreateWithFlags(
+@@ -136,3 +139,5 @@ cuplaEventQuery( cuplaEvent_t event )
+         return cuplaErrorNotReady;
+     }
+ }
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/src/manager/Driver.cpp b/src/manager/Driver.cpp
+index c878741..0aa0d28 100644
+--- a/src/manager/Driver.cpp
++++ b/src/manager/Driver.cpp
+@@ -18,6 +18,7 @@
+  *
+  */
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla/types.hpp"
+ #include "cupla_runtime.hpp"
+ #include "cupla/manager/Driver.hpp"
+@@ -28,6 +29,8 @@
+ 
+ namespace cupla
+ {
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ namespace manager
+ {
+ 
+@@ -63,4 +66,5 @@ Driver::Driver()
+ 
+ 
+ } //namespace manager
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+ } //namespace cupla
+diff --git a/src/memory.cpp b/src/memory.cpp
+index 7338c71..48cc57a 100644
+--- a/src/memory.cpp
++++ b/src/memory.cpp
+@@ -19,6 +19,7 @@
+  */
+ 
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla_runtime.hpp"
+ #include "cupla/manager/Memory.hpp"
+ #include "cupla/manager/Device.hpp"
+@@ -26,6 +27,8 @@
+ #include "cupla/manager/Event.hpp"
+ #include "cupla/api/memory.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
+ 
+ cuplaError_t
+ cuplaMalloc(
+@@ -948,3 +951,5 @@ cuplaMemcpy3D(
+ 
+     return cuplaSuccess;
+ }
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
+diff --git a/src/stream.cpp b/src/stream.cpp
+index d0a8492..70f98ea 100644
+--- a/src/stream.cpp
++++ b/src/stream.cpp
+@@ -19,6 +19,7 @@
+  */
+ 
+ 
++#include "cupla/namespace.hpp"
+ #include "cupla_runtime.hpp"
+ #include "cupla/manager/Memory.hpp"
+ #include "cupla/manager/Device.hpp"
+@@ -27,6 +28,9 @@
+ 
+ #include "cupla/api/stream.hpp"
+ 
++inline namespace CUPLA_ACCELERATOR_NAMESPACE
++{
++
+ 
+ cuplaError_t
+ cuplaStreamCreate(
+@@ -101,3 +105,5 @@ cuplaStreamQuery( cuplaStream_t stream )
+     else
+         return cuplaErrorNotReady;
+ };
++
++} //namespace CUPLA_ACCELERATOR_NAMESPACE
