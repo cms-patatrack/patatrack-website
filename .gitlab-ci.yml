@@ -20,14 +20,11 @@ compilation-website:
     
 compilation-wiki:
   stage: build-wiki
-  image: node:alpine
+  image: python3:latest
   before_script:
-  - npm install natives@1.1.6
-  - npm install -g gitbook-cli
-  - cd wiki
-  - gitbook install ./
+  - pip3 install mkdocs mkdocs-material pygments pymdown-extensions
   script:
-  - gitbook build . ../public/wiki
+  - mkdocs build
   artifacts:
     paths:
     - public/wiki
