@@ -8,22 +8,22 @@ activity:  instructions
 ---
 
 ## Installing "Patatrack" CMSSW releases
-While it is possible to start from the vanilla `CMSSW_10_5_0` or `CMSSW_10_6_0_pre2` releses, using a dedicated release has few advantages:
+While it is possible to start from the vanilla `CMSSW_10_6_0` relese, using a
+dedicated release has few advantages:
   - support for different CUDA versions in different architectures;
   - include the changes from the "Patatrack" development branch.
 
-`CMSSW_10_5_0_Patatrack` is available for
-  - `slc7_amd64_gcc700` with CUDA 10.0.130.
-
-`CMSSW_10_6_0_pre2_Patatrack` is available for
-  - `slc7_amd64_gcc700` with CUDA 9.2.148, 10.0.130, 10.1.105.
+`CMSSW_10_6_0_Patatrack` is available for
+  - `slc7_amd64_gcc700` with CUDA 9.2.148 and 10.1.105;
+  - `slc7_amd64_gcc820` with CUDA 10.1.105.
 
 
 ### Bootstrap a local installation of CMSSW
-Choose for `VO_CMS_SW_DIR` a directory to which you have write permissions, and has at least 20 GB of spare disk space.
-**Do not** use a directory on EOS.
+Choose for `VO_CMS_SW_DIR` a directory to which you have write permissions, and
+has at least 20 GB of spare disk space. **Do not** use a directory on EOS.
 
-[//]: # (The following instructions assume the `slc7_amd64_gcc700` architecture; to use a different one simply replace the desired architecture.)
+The following instructions assume the `slc7_amd64_gcc700` architecture; to use a
+different one simply replace the desired architecture.
 
 ```bash
 cd <...>
@@ -51,44 +51,24 @@ export SCRAM_ARCH=slc7_amd64_gcc700
 $VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH upgrade -y
 ```
 
-## Install `CMSSW_10_5_0_Patatrack`
-
-`CMSSW_10_5_0_Patatrack` and older releases need to be installed in two steps:
-first install the corresponding "upstream" release to bring in all the
-required extenrals, then install the "patatrack" release itself from the
-"cms.patatrack.old" repository.
-
-### Install `CMSSW_10_5_0` and its dependencies
-Most of the externals for `CMSSW_10_5_0_Patatrack` need to be installed from the
+### Install `CMSSW_10_6_0` and its dependencies
+Most of the externals for `CMSSW_10_6_0_Patatrack` need to be installed from the
 official repository; the easiest approach is to install them automatically
-together with `CMSSW_10_5_0`:
+together with `CMSSW_10_6_0`:
 ```bash
-$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_10_5_0
+$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_10_6_0
 ```
 
-### Install `CMSSW_10_5_0_Patatrack`
-Patatrack releases can now be installed by `cmspkg`, using the dedicated
-repository:
+### Install `CMSSW_10_6_0_Patatrack`
+Patatrack releases can be installed with `cmspkg`, using the dedicated repository
+"cms.patatrack".
+
+To install `CMSSW_10_6_0_Patatrack` built with CUDA 9.2:
 ```bash
-$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack.old install -y cms+cmssw+CMSSW_10_5_0_Patatrack
+$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_10_6_0_Patatrack_CUDA_9_2
 ```
 
-## Install `CMSSW_10_6_0_pre2_Patatrack`
-Starting from `CMSSW_10_6_0_pre2_Patatrack`, patatrack releases and all their
-dependencies can be installed directly by `cmspkg`, using the dedicated
-repository "cms.patatrack".
-
-To install `CMSSW_10_6_0_pre2_Patatrack` built with CUDA 9.2:
+To install `CMSSW_10_6_0_Patatrack` built with CUDA 10.1:
 ```bash
-$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_10_6_0_pre2_Patatrack_CUDA_9_2
-```
-
-To install `CMSSW_10_6_0_pre2_Patatrack` built with CUDA 10.0:
-```bash
-$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_10_6_0_pre2_Patatrack
-```
-
-To install `CMSSW_10_6_0_pre2_Patatrack` built with CUDA 10.1:
-```bash
-$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_10_6_0_pre2_Patatrack_CUDA_10_1
+$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_10_6_0_Patatrack
 ```
