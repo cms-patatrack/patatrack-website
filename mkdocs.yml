@@ -22,6 +22,8 @@ markdown_extensions:
 
 nav:
     - Home: index.md
+    - Public Results:
+        - Public Plots April 2019: publicPlots_201904.md
     - Development for Patatrack: 
         - Patatrack development: PatatrackDevelopment.md
         - Installing Patatrack releases: PatatrackReleases.md
