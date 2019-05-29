@@ -1,5 +1,7 @@
 # Summary
 
+* Public results
+    * [Public Plots - April 2019](publicPlots_201904.md)
 
 * [Development for Patatrack](PatatrackDevelopment.md)
     * [Installing Patatrack releases](PatatrackReleases.md)
@@ -27,3 +29,4 @@
 
 * HGCAL
     * [TICL Instructions](hgcal_ticl.md)
+
