@@ -9,90 +9,69 @@ activity:  plots
 
 ## Public plots for Connecting the dots 2019 Conference
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_bhadron_efficiency_pt.pdf)
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_bhadron_efficiency_pt.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_bhadron_efficiency_pt.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_bhadron_efficiency_pt.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_bhadron_pt09_efficiency_eta.pdf)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_bhadron_pt09_efficiency_eta.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_bhadron_pt09_efficiency_eta.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_bhadron_pt09_efficiency_eta.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_duprate_eta.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_duprate_eta.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_duprate_eta.pdf)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_duprate_pt.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_duprate_pt.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_duprate_eta.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_eta.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_eta.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_duprate_pt.pdf)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_pt.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_pt.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_duprate_pt.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_r.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_r.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_eta.pdf)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_fakerate_eta.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_fakerate_eta.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_eta.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_fakerate_pt.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_fakerate_pt.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_pt.pdf)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dxy_eta.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dxy_eta.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_pt.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dxy_pt.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dxy_pt.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_r.pdf)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dz_eta.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dz_eta.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_efficiency_r.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dz_pt.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dz_pt.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_fakerate_eta.pdf)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_pt_eta.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_pt_eta.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_fakerate_eta.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_pt_pt.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_pt_pt.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_fakerate_pt.pdf)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_Theta.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_Theta.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_fakerate_pt.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_dxy.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_dxy.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dxy_eta.pdf)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_dz.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_dz.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dxy_eta.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_phi.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_phi.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dxy_pt.pdf)
+![PNG plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_qoverp.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_qoverp.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dxy_pt.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_throughput_histogram.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_throughput_histogram.pdf))
 
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dz_eta.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dz_eta.png)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dz_pt.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_dz_pt.png)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_pt_eta.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_pt_eta.png)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_pt_pt.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09_resolution_pt_pt.png)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_Theta.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_Theta.png)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_dxy.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_dxy.png)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_dz.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_dz.png)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_phi.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_phi.png)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_qoverp.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_qoverp.png)
-
-![plot](publicPlots_201904/ttbar_pu50_throughput_histogram.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_throughput_histogram.png)
-
-![plot](publicPlots_201904/ttbar_pu50_throughput_scan.pdf)
-
-![plot](publicPlots_201904/ttbar_pu50_throughput_scan.png)
+![PNG plot](publicPlots_201904/ttbar_pu50_throughput_scan.png)  
+(link to the [PDF plot](publicPlots_201904/ttbar_pu50_throughput_scan.pdf))
