@@ -9,7 +9,6 @@ activity:  plots
 
 ## Public plots for Connecting the dots 2019 Conference
 
-
 ![plot](publicPlots_201904/ttbar_pu50_compareAll_bhadron_efficiency_pt.pdf)
 
 ![plot](publicPlots_201904/ttbar_pu50_compareAll_bhadron_efficiency_pt.png)
@@ -89,3 +88,11 @@ activity:  plots
 ![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_qoverp.pdf)
 
 ![plot](publicPlots_201904/ttbar_pu50_compareAll_pt09pull_qoverp.png)
+
+![plot](publicPlots_201904/ttbar_pu50_throughput_histogram.pdf)
+
+![plot](publicPlots_201904/ttbar_pu50_throughput_histogram.png)
+
+![plot](publicPlots_201904/ttbar_pu50_throughput_scan.pdf)
+
+![plot](publicPlots_201904/ttbar_pu50_throughput_scan.png)
