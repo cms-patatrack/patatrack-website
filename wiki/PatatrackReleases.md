@@ -51,7 +51,7 @@ export SCRAM_ARCH=slc7_amd64_gcc700
 $VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH upgrade -y
 ```
 
-### Install `CMSSW_10_6_0` and its dependencies
+### Prerequisite: install `CMSSW_10_6_0` and its dependencies
 Most of the externals for `CMSSW_10_6_0_Patatrack` need to be installed from the
 official repository; the easiest approach is to install them automatically
 together with `CMSSW_10_6_0`:
