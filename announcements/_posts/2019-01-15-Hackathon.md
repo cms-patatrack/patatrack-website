@@ -6,7 +6,7 @@ categories: announcements
 # announcement valid from 
 date: 15/01/2019
 # announcement valid until
-until: 22/08/2019
+until: 22/05/2019
 
 link: https://indico.cern.ch/event/766697
 
