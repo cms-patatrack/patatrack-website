@@ -4,7 +4,7 @@ author: "Felice Pantaleo"
 layout: default
 categories: announcements
 # announcement valid from 
-date: 01/07/2019
+date: 01/06/2019
 # announcement valid until
 until: 22/10/2019
 
