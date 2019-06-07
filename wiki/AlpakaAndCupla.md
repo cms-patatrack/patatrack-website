@@ -24,7 +24,7 @@ Relevant links:
 
 ## Cupla
 
-From the Cupla [README]():
+From the Cupla [README](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/README.md):
 
 > Cupla is a simple user interface for the platform independent parallel kernel acceleration library
 > Alpaka. It follows a similar concept as the NVIDIA® CUDA® API by providing a software layer to manage
