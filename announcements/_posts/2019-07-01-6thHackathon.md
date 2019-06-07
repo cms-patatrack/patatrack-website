@@ -6,13 +6,13 @@ categories: announcements
 # announcement valid from 
 date: 01/06/2019
 # announcement valid until
-until: 22/10/2019
+until: 22/07/2019
 
 link: https://indico.cern.ch/event/799486/
 
 ---
 
-### 6th Patatrack Hackathon 28/01-01/02/2019 at CERN IdeaSquare
+### 6th Patatrack Hackathon 01/07/2019-05/07/2019 at CERN IdeaSquare
 
 Are you addicted to coding and solving complex algorithmic problems?
 The Patatrack team wants you!
