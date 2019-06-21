@@ -53,7 +53,7 @@ cmsenv
 # set up a local git repository
 git cms-init -x cms-patatrack
 git branch CMSSW_10_6_X_Patatrack --track cms-patatrack/CMSSW_10_6_X_Patatrack
-git checkout -b from-CMSSW_10_6_0_Patatrack cms-patatrack/CMSSW_10_6_0_Patatrack
+git checkout -b test_branch cms-patatrack/CMSSW_10_6_X_Patatrack
 ```
 
 You should be able to work in the `from-CMSSW_10_6_0_Patatrack` branch as you would in a normal CMSSW development area.
