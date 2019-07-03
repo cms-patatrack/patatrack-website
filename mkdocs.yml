@@ -33,14 +33,15 @@ nav:
         - Creating an "empty" CMSSW release: emptyrelease.md
         - CUDA to HIP: CUDAtoHIP.md
     - CPU and GPU Workflows:
-        - Workflows:  workflows.md
-        - Workflows for Connecting The Dots 2019:  workflows_CTD19.md
+        - Workflows: workflows.md
+        - Workflows for Connecting The Dots 2019: workflows_CTD19.md
     - Benchmarking:
         - Stall Service: benchmarking_stall_service.md
         - CMSSW Scalability: cmssw_scalability.md
         - CUDA Utilities: CUDA_Utilities.md
         - MPS set up: MPS-setup.md
-    - Benchmarking the HLT menu: HLTTiming.md
+    - Benchmarking the HLT:
+        - HLT menu and data: HLTTiming.md
         - Using the DAQ source: DAQSource.md
     - External libraries: 
         - Libraries: libraries.md

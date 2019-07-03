@@ -21,7 +21,8 @@
     * [CUDA Utilities](CUDA_Utilities.md)
     * [MPS set up](MPS-setup.md)
 
-* [Benchmarking the HLT menu](HLTTiming.md)
+* Benchmarking the HLT
+    * [HLT menu and data](HLTTiming.md)
     * [Using the DAQ source](DAQSource.md)
 
 * [External libraries](libraries.md)
