@@ -40,6 +40,8 @@ nav:
         - CMSSW Scalability: cmssw_scalability.md
         - CUDA Utilities: CUDA_Utilities.md
         - MPS set up: MPS-setup.md
+    - Benchmarking the HLT menu: HLTTiming.md
+        - Using the DAQ source: DAQSource.md
     - External libraries: 
         - Libraries: libraries.md
         - Alpaka and Cupla: AlpakaAndCupla.md
