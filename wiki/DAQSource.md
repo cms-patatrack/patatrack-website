@@ -97,6 +97,20 @@ process.rawStreamFileWriterForBU.ProductLabel = "rawDataSelector"
 
 It is advisable to always keep the SCAL and TCDS FEDs.
 
+Other examples:
+```python
+        # ECAL FEDs, endcap minus
+          601,  602,  603,  604,  605,  606,  607,  608,  609,  661,
+        # ECAL FEDs, barrel minus
+          610,  611,  612,  613,  614,  615,  616,  617,  618,
+          619,  620,  621,  622,  623,  624,  625,  626,  627,  662,
+        # ECAL FEDs, barrel plus
+          628,  629,  630,  631,  632,  633,  634,  635,  636,
+          637,  638,  639,  640,  641,  642,  643,  644,  645,  663,
+        # ECAL FEDs, endcap plus
+          646,  647,  648,  649,  650,  651,  652,  653,  654,  664,
+```
+
 
 ### Configuring the DAQ Source
 
