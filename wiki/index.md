@@ -24,6 +24,9 @@
 * Benchmarking the HLT
     * [HLT menu and data](HLTTiming.md)
     * [Using the DAQ source](DAQSource.md)
+ 
+* Portability
+    * [CUDA to cupla](cuda2cupla.md)
 
 * [External libraries](libraries.md)
     * [Alpaka and Cupla](AlpakaAndCupla.md)
