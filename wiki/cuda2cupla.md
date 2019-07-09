@@ -8,84 +8,84 @@ The final goal is to obtain single source code which can be built both for CUDA 
 
 1. Remove all the CUDA headers and replace them with:
 
-  ```C++
-  /* Do NOT include other headers that use CUDA runtime functions or variables
-   * (see above) before this include.
-   * The reason for this is that cupla renames CUDA host functions and device build in
-   * variables by using macros and macro functions.
-   * Do NOT include other specific includes such as `<cuda.h>` (driver functions,
-   * etc.).
-   */
-  #include <cuda_to_cupla.hpp>
-  ```
+```C++
+/* Do NOT include other headers that use CUDA runtime functions or variables
+  * (see above) before this include.
+  * The reason for this is that cupla renames CUDA host functions and device build in
+  * variables by using macros and macro functions.
+  * Do NOT include other specific includes such as `<cuda.h>` (driver functions,
+  * etc.).
+  */
+#include <cuda_to_cupla.hpp>
+```
 
 2. Transform the CUDA kernels to cupla functors. This is done by transforming the ``__global__`` functions to structures with a templated const ``operator()``, which must have the ``ALPAKA_FN_ACC`` prefix and a first templated argument called ``acc``. This is used by cupla to pass all the accelerator specific information.
 
- **CUDA kernel**
-  ```C++
-  template< int blockSize >
-  __global__ void fooKernel( int * ptr, float value )
-  {
-      // ...
-  }
-  ```
+**CUDA kernel**
+```C++
+template< int blockSize >
+__global__ void fooKernel( int * ptr, float value )
+{
+    // ...
+}
+```
 
-  **cupla kernel**
-  ```C++
-  template< int blockSize >
-  struct fooKernel
-  {
-      template< typename T_Acc >
-      ALPAKA_FN_ACC
-      void operator()( T_Acc const & acc, int * const ptr, float const value) const
-      {
-          // ...
-      }
-  };
-  ```
+**cupla kernel**
+```C++
+template< int blockSize >
+struct fooKernel
+{
+    template< typename T_Acc >
+    ALPAKA_FN_ACC
+    void operator()( T_Acc const & acc, int * const ptr, float const value) const
+    {
+        // ...
+    }
+};
+```
 
 3. Transform the host side kernel calls by using the ``CUPLA_KERNEL`` macro.
 
-  **CUDA host side kernel call**
-  ```C++
-  // ...
-  dim3 gridSize(42,1,1);
-  dim3 blockSize(256,1,1);
-  // extern shared memory and stream is optional
-  fooKernel< 16 ><<< gridSize, blockSize, 0, 0 >>>( ptr, 23 );
-  ```
+**CUDA host side kernel call**
+```C++
+// ...
+dim3 gridSize(42,1,1);
+dim3 blockSize(256,1,1);
+// extern shared memory and stream is optional
+fooKernel< 16 ><<< gridSize, blockSize, 0, 0 >>>( ptr, 23 );
+```
 
-  **cupla host side kernel call**
-  ```C++
-  // ...
-  dim3 gridSize(42,1,1);
-  dim3 blockSize(256,1,1);
-  // extern shared memory and stream is optional
-  CUPLA_KERNEL(fooKernel< 16 >)( gridSize, blockSize, 0, 0 )( ptr, 23 );
-  ```
+**cupla host side kernel call**
+```C++
+// ...
+dim3 gridSize(42,1,1);
+dim3 blockSize(256,1,1);
+// extern shared memory and stream is optional
+CUPLA_KERNEL(fooKernel< 16 >)( gridSize, blockSize, 0, 0 )( ptr, 23 );
+```
 
 4. Transform ``__device__`` functions to ``ALPAKA_FN_ACC`` and add the ``acc`` templated parameter. This is needed only when `alpaka` functions like `blockIdx` or `atomicMax`, ... are used.
 
 
 **CUDA**
-  ```C++
-  template< typename T_Elem >
-  __device__ int deviceFunction( T_Elem x )
-  {
-      // ...
-  }
-  ```
+```C++
+template< typename T_Elem >
+__device__ int deviceFunction( T_Elem x )
+{
+    // ...
+}
+```
 
 **cupla**
-  ```C++
-  template< typename T_Acc, typename T_Elem >
-  ALPAKA_FN_ACC int deviceFunction( T_Acc const & acc, T_Elem x )
-  {
-      // ...
-  }
-  ```
+```C++
+template< typename T_Acc, typename T_Elem >
+ALPAKA_FN_ACC int deviceFunction( T_Acc const & acc, T_Elem x )
+{
+    // ...
+}
+```
 
-  Lastly, remember to add the ``acc`` parameter to the function call. 
+Lastly, remember to add the ``acc`` parameter to the function call. 
 
 The full guide can be found on the [cupla repository](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/doc/PortingGuide.md).
 
