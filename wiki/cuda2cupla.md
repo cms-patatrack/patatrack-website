@@ -91,7 +91,7 @@ The full guide can be found on the [cupla repository](https://github.com/Computa
 
 ## A first practical example
 
-As a first test case, the `RecoPixelVertexing/PixelTrackFitting/test/testEigenGPUNoFit.cc` of cmssw was ported. This example uses eigen as en external library but is overall independent from the rest of the codebase.
+As a first test case, the `RecoPixelVertexing/PixelTrackFitting/test/testEigenGPUNoFit.cc` of CMSSW was ported. This example uses Eigen as en external library but is overall independent from the rest of the codebase.
 
 Here you will find some of the problems found and their solution.
 
@@ -116,13 +116,13 @@ The working build configuration is the following:
 </bin>
 ```
 
-Cupla and Alpaka are header only libraries and do not need to be builded. The `dev` branches of `cms-patatrack/cupla` has been used as it includes some PR to make it header only. For this example they are included using directly the `-I` flag, but eventually they will have to be integrated like boost or eigen. 
+The `dev` branch of `cms-patatrack/cupla` has been used as it includes some PR to make it header only. For alpaka the `develop` branch of `ComputationalRadiationPhysics/alpaka` has been used. For this example they are included using directly the `-I` flag, but eventually they will have to be integrated as CMSSW externals. 
 
 Since `scram` deduces the compiler to use (g++ o nvcc) from the file extensions, both the .cc and .cu file must be present. Since we don't want to keep a copy of the same file, a symbolic link has been used. Ultimately, the build tools should be updated to handle this case without the use of a symbolic link.
 
 ### Makefile
 
-Alternatively, one could write a Makefile to build this example without the cmssw environment. Boost is required.
+Alternatively, one could write a Makefile to build this example without the CMSSW environment. Boost is required.
 
 ```Makefile
 .PHONY: all clean
@@ -138,7 +138,7 @@ EIGEN_FLAGS := -I$(EIGEN_BASE)/include/eigen3 -D EIGEN_DONT_PARALLELIZE
 
 # CUDA configuration
 CUDA_BASE   := /usr/local/cuda-10.1
-CUDA_FLAGS  := -x cu -std=c++14 -O2 -g -w --expt-relaxed-constexpr --compiler-options "-pthread"
+CUDA_FLAGS  := -x cu -std=c++14 -O2 -g -w --expt-relaxed-constexpr --compiler-options "-pthread" -D FOR_CUDA
 CUDA_CXX    := $(CUDA_BASE)/bin/nvcc
 
 # Alpaka/Cupla configuration
@@ -176,7 +176,7 @@ Cupla porting guide suggests to remove all the headers related to CUDA and repla
 
 By including this file instead of `<cuda_to_cupla.hpp>` we managed to use a single header file for all the target devices. This requires to declare the `FOR_CUDA` macro in the build configuration, as can be seen in the above examples. 
 
-When using external libraries which uses CUDA internally, as eigen, **the order of the includes is important**. We realized that by including Eigen after cupla, the macro definitions of cupla completely broke eigen, thus it is important to include it earlier.
+When using external libraries which uses CUDA internally, as Eigen, **the order of the includes is important**. We realized that by including Eigen after cupla, the macro definitions of cupla completely broke Eigen, thus it is important to include it earlier.
 
 This is something to keep in mind when considering moving a large codebase with many dependencies as all of those may have to be patched to be *cupla compliant*.
 
@@ -214,7 +214,7 @@ git clone -b dev https://github.com/cms-patatrack/cupla.git
 git clone -b develop https://github.com/ComputationalRadiationPhysics/alpaka.git
 ```
 
-Since these are headers only, just update the paths on the `BuildFile.xml` located inside `src/RecoPixelVertexing/PixelTrackFitting/test`. Then you have to setup the cmssw environment and run `scram b` from that folder. Remember to use a newer version of gcc to avoid internal compiler errors:
+Since these are headers only, you don't have to build them but just update the paths on the `BuildFile.xml` located inside `src/RecoPixelVertexing/PixelTrackFitting/test`. Then you have to setup the CMSSW environment and run `scram b` from that folder. Remember to use a newer version of gcc to avoid internal compiler errors:
 
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc820
@@ -230,11 +230,11 @@ This first example proved the feasibility of porting a piece of code from CUDA t
 /data/cmssw/slc7_amd64_gcc820/external/eigen/e4c107b451c52c9ab2d7b7fa4194ee35332916ec-pafccj/include/eigen3/Eigen/src/Core/products/GeneralBlockPanelKernel.h(1917): warning: calling a __host__ function from a __host__ __device__ function is not allowed
 ```
 
-## Porting production code from cmssw
+## Porting production code from CMSSW
 
 After the first example described above, the porting of a plugin from `RecoLocalTracker/SiPixelClusterizer` was attempted. 
 
-The difference with the previous one is that now the code has much more dependencies spread all over the cmssw codebase. This means that to build just one file, many different parts of the project had to be updated. In practice the first step of the conversion process is to identify all the included files and apply the porting procedures as explained above. Here the use of a script helps a lot.
+The difference with the previous one is that now the code has much more dependencies spread all over the CMSSW codebase. This means that to build just one file, many different parts of the project had to be updated. In practice the first step of the conversion process is to identify all the included files and apply the porting procedures as explained above. Here the use of a script helps a lot.
 
 ### Main problems encountered
 
