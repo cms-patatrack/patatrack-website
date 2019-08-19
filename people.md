@@ -40,6 +40,16 @@ S. Sarkar, S. Dutta, S. Roy Chowdhury, P. Mal​
 
 # Students
 
+## 2019
+
+| Picture | Description | Project Title |  Report |
+| ![Tony]({{site.baseurl}}/images/headshots/2019_Antonio_DiPilato.jpg){:height="400px"}  | Antonio Di Pilato - PhD candidate at the University of Bari, Italy | Clustering and Machine Learning with TICL in CMS-HGCAL | |
+| ![Davide]({{site.baseurl}}/images/headshots/2019_Davide_Marcato.jpg){:height="400px"}  | Davide Marcato - University of Padova & INFN-LNL, Padova, Italy | Explorations in Heterogeneous Computing | |
+| ![Mario]({{site.baseurl}}/images/headshots/2019_Mario_Gonzalez_Carpintero.jpg){:height="400px"}  | Mario Gonzalez Carpintero -  | Remote CPU-GPU communication with MPI, UCX and CUDA | University of Oviedo, Spain |
+| ![Abdulla]({{site.baseurl}}/images/headshots/2019_Abdulla_Mohamed.jpg){:height="400px"}  | Abdulla Mohamed - University of Bahrain, Bahrain | Fastjet in CUDA | |
+| ![Eissa]({{site.baseurl}}/images/headshots/2019_Eissa_Alnasrallah.jpg){:height="400px"}  | Eissa Alnasrallah - Kuwait University, Kuwait | ECAL Reconstruction on GPU | |
+
+
 ## 2018
 
 | Picture | Description | Project Title |  Report |
