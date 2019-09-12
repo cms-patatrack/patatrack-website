@@ -13,13 +13,15 @@ The current Patatrack development branch is based on `CMSSW_10_6_X`, and support
 
 
 ## Installing "Patatrack" CMSSW releases
-While it is possible to start from the vanilla `CMSSW_10_6_0` relese, using a dedicated release has few advantages:
-  - support for different CUDA versions in different architectures;
+While it is possible to start from the vanilla `CMSSW_10_6_3` relese, using a dedicated release has few advantages:
+  - update CUDA to Version CUDA 10.1 Update 2 (10.1.243);
+  - drop optimised support for SM 6.1 to speed up the build time;
   - include the changes from the "Patatrack" development branch.
 
-`CMSSW_10_6_0_Patatrack` is available for
-  - `slc7_amd64_gcc700` with CUDA 9.2.148 and 10.1.105;
-  - `slc7_amd64_gcc820` with CUDA 10.1.105.
+`CMSSW_10_6_3_Patatrack` is available for
+  - `slc7_amd64_gcc700`;
+  - `slc7_amd64_gcc820`.
+
 
 On **vinavx2** the releases are available after `source /data/cmssw/cmsset_default.sh`.
 On **cmg-gpu1080** the releases are available after `source /data/patatrack/cmssw/cmsset_default.sh`.
@@ -27,7 +29,7 @@ On **cmg-gpu1080** the releases are available after `source /data/patatrack/cmss
 Otherwise, see [the instructions](PatatrackReleases.md) for installing these releases on your machine.
 
 
-## Create a working area for `CMSSW_10_6_0_Patatrack`
+## Create a working area for `CMSSW_10_6_3_Patatrack`
 
 The following instructions assume the `slc7_amd64_gcc700` architecture; to use a different one simply replace the desired architecture.
 
@@ -43,9 +45,9 @@ source $VO_CMS_SW_DIR/cmsset_default.sh
 ### Set up a working area
 ```bash
 # create a working area
-scram list CMSSW_10_6_0
-cmsrel CMSSW_10_6_0_Patatrack
-cd CMSSW_10_6_0_Patatrack/src
+scram list CMSSW_10_6_3
+cmsrel CMSSW_10_6_3_Patatrack
+cd CMSSW_10_6_3_Patatrack/src
 
 # load the environment
 cmsenv
@@ -55,11 +57,11 @@ git cms-init -x cms-patatrack
 git branch CMSSW_10_6_X_Patatrack --track cms-patatrack/CMSSW_10_6_X_Patatrack
 ```
 
-You should be able to work in the `from-CMSSW_10_6_0_Patatrack` branch as you would in a normal CMSSW development area.
+You should be able to work in the `from-CMSSW_10_6_3_Patatrack` branch as you would in a normal CMSSW development area.
 
 
 ### Working with older GPUs
-CUDA is condifured in CMSSW to support GPUs with Pascal (e.g. GeForce GTX 1080, Tesla P100, ...),
+CUDA is configured in CMSSW to support GPUs with Pascal (e.g. GeForce GTX 1080, Tesla P100, ...),
 Volta (e.g. Titan V, Tesla V100), and Turing (e.g. RTX 2080, Tesla T4, ...) architectures.
 To work with older GPUs based on the Kepler and Maxwell architectures, one needs to reconfigure
 CUDA and rebuild all CUDA code:
