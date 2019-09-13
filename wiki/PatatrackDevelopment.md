@@ -7,23 +7,25 @@ categories: wiki
 activity:  instructions
 ---
 
-## Simple recipe for developing with Patatrack
-The current Patatrack development branch is based on `CMSSW_10_6_X`, and supports CUDA 10.1 and the architectures
-`slc7_amd64_gcc700` (actually gcc 7.3.1) and `slc7_amd64_gcc820` (actually gcc 8.3.1).
+## Available "Patatrack" CMSSW releases
+The current Patatrack stable branch is based on `CMSSW_10_6_X`, and supports CUDA 10.1, GCC 7.3.x and 8.3.x.
 
+The current Patatrack development branch is based on `CMSSW_11_0_X`, and supports CUDA 10.1 and GCC 8.3.x.
 
-## Installing "Patatrack" CMSSW releases
-While it is possible to start from the vanilla `CMSSW_10_6_3` relese, using a dedicated release has few advantages:
-  - update CUDA to Version CUDA 10.1 Update 2 (10.1.243);
-  - drop optimised support for SM 6.1 to speed up the build time;
-  - include the changes from the "Patatrack" development branch.
+While it is possible to start from the underlying vanilla CMSSW relese, using a dedicated release has few advantages:
+ - update CUDA to Version CUDA 10.1 Update 2 (10.1.243);
+ - drop optimised support for SM 6.1 to speed up the build time;
+ - include the changes from the "Patatrack" development branch.
 
 `CMSSW_10_6_3_Patatrack` is available for
-  - `slc7_amd64_gcc700`;
-  - `slc7_amd64_gcc820`.
+ - `slc7_amd64_gcc700`;
+ - `slc7_amd64_gcc820`.
 
+`CMSSW_10_0_0_pre7_Patatrack` is available for
+ - `slc7_amd64_gcc820`.
 
-On **vinavx2** the releases are available after `source /data/cmssw/cmsset_default.sh`.
+On **vinavx2** and other machines the releases are available after `source /data/cmssw/cmsset_default.sh`.
+
 On **cmg-gpu1080** the releases are available after `source /data/patatrack/cmssw/cmsset_default.sh`.
 
 Otherwise, see [the instructions](PatatrackReleases.md) for installing these releases on your machine.
@@ -59,8 +61,41 @@ git branch CMSSW_10_6_X_Patatrack --track cms-patatrack/CMSSW_10_6_X_Patatrack
 
 You should be able to work in the `from-CMSSW_10_6_3_Patatrack` branch as you would in a normal CMSSW development area.
 
+However, no further developments will be integrated in the `CMSSW_10_6_X_Patatrack` branch; for development please use `CMSSW_11_0_X_Patatrack`.
 
-### Working with older GPUs
+
+## Create a working area for `CMSSW_11_0_0_pre7_Patatrack`
+
+The following instructions assume the `slc7_amd64_gcc820` architecture; to use a different one simply replace the desired architecture.
+
+### Source the local installation
+Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases, e.g.:
+
+```bash
+export VO_CMS_SW_DIR=/data/cmssw
+export SCRAM_ARCH=slc7_amd64_gcc820
+source $VO_CMS_SW_DIR/cmsset_default.sh
+```
+
+### Set up a working area
+```bash
+# create a working area
+scram list CMSSW_11_0_0_pre7
+cmsrel CMSSW_11_0_0_pre7_Patatrack
+cd CMSSW_11_0_0_pre7_Patatrack/src
+
+# load the environment
+cmsenv
+
+# set up a local git repository
+git cms-init -x cms-patatrack
+git branch CMSSW_11_0_X_Patatrack --track cms-patatrack/CMSSW_11_0_X_Patatrack
+```
+
+You should be able to work in the `from-CMSSW_11_0_0_pre7_Patatrack` branch as you would in a normal CMSSW development area.
+
+
+## Working with older GPUs
 CUDA is configured in CMSSW to support GPUs with Pascal (e.g. GeForce GTX 1080, Tesla P100, ...),
 Volta (e.g. Titan V, Tesla V100), and Turing (e.g. RTX 2080, Tesla T4, ...) architectures.
 To work with older GPUs based on the Kepler and Maxwell architectures, one needs to reconfigure
@@ -72,12 +107,17 @@ cmsCudarebuild.sh
 ```
 
 
-### Developing winth the Patatrack branch
-To work on further developments, it is advised to start from the HEAD of the patatrack branch.
+## Developing with the Patatrack branch
+To work on further developments, it is advised to start from the HEAD of the `CMSSW_11_0_X_Patatrack` branch.
+
+See the instructions above to set up an `CMSSW_11_0_0_pre7_Patatrack` working area.
+
+
+### Checkout the HEAD of the development branch
 
 ```bash
 cmsenv
-git checkout cms-patatrack/CMSSW_10_6_X_Patatrack -b my_development_branch
+git checkout cms-patatrack/CMSSW_11_0_X_Patatrack -b my_development_branch
 
 # check out the modified packages and their dependencies
 git cms-addpkg $(git diff $CMSSW_VERSION --name-only | cut -d/ -f-2 | sort -u)
@@ -120,5 +160,5 @@ git push -u my-cmssw HEAD:my_development_branch
   - click on it, and create a pull request as usual:
     ![Create a pull request](screenshot2.png "Create a request")
 
-  - make sure to choose `CMSSW_10_6_X_Patatrack` as the target branch, **not** the `master` branch
+  - make sure to choose `CMSSW_11_0_X_Patatrack` as the target branch, **not** the `master` branch
 
