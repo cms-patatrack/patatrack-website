@@ -71,7 +71,7 @@ official repository; the easiest approach is to install them automatically
 together with `CMSSW_10_6_3`:
 ```bash
 $VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_10_6_3
-$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y external+cub+1.8.0-nmpfii
+$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw-tool-conf+45.0-nmpfii8
 ```
 
 ### Install `CMSSW_10_6_3_Patatrack`
