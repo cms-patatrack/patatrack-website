@@ -8,20 +8,13 @@ activity:  instructions
 ---
 
 ## Available "Patatrack" CMSSW releases
-The current Patatrack stable branch is based on `CMSSW_10_6_X`, and supports CUDA 10.1, GCC 7.3.x and 8.3.x.
-
 The current Patatrack development branch is based on `CMSSW_11_0_X`, and supports CUDA 10.1 and GCC 8.3.x.
 
 While it is possible to start from the underlying vanilla CMSSW relese, using a dedicated release has few advantages:
- - update CUDA to Version CUDA 10.1 Update 2 (10.1.243);
  - drop optimised support for SM 6.1 to speed up the build time;
  - include the changes from the "Patatrack" development branch.
 
-`CMSSW_10_6_3_Patatrack` is available for
- - `slc7_amd64_gcc700`;
- - `slc7_amd64_gcc820`.
-
-`CMSSW_10_0_0_pre7_Patatrack` is available for
+`CMSSW_10_0_0_pre11_Patatrack` is available for the architecture(s)
  - `slc7_amd64_gcc820`.
 
 On **vinavx2** and other machines the releases are available after `source /data/cmssw/cmsset_default.sh`.
@@ -31,40 +24,7 @@ On **cmg-gpu1080** the releases are available after `source /data/patatrack/cmss
 Otherwise, see [the instructions](PatatrackReleases.md) for installing these releases on your machine.
 
 
-## Create a working area for `CMSSW_10_6_3_Patatrack`
-
-The following instructions assume the `slc7_amd64_gcc700` architecture; to use a different one simply replace the desired architecture.
-
-### Source the local installation
-Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases, e.g.:
-
-```bash
-export VO_CMS_SW_DIR=/data/cmssw
-export SCRAM_ARCH=slc7_amd64_gcc700
-source $VO_CMS_SW_DIR/cmsset_default.sh
-```
-
-### Set up a working area
-```bash
-# create a working area
-scram list CMSSW_10_6_3
-cmsrel CMSSW_10_6_3_Patatrack
-cd CMSSW_10_6_3_Patatrack/src
-
-# load the environment
-cmsenv
-
-# set up a local git repository
-git cms-init -x cms-patatrack
-git branch CMSSW_10_6_X_Patatrack --track cms-patatrack/CMSSW_10_6_X_Patatrack
-```
-
-You should be able to work in the `from-CMSSW_10_6_3_Patatrack` branch as you would in a normal CMSSW development area.
-
-However, no further developments will be integrated in the `CMSSW_10_6_X_Patatrack` branch; for development please use `CMSSW_11_0_X_Patatrack`.
-
-
-## Create a working area for `CMSSW_11_0_0_pre7_Patatrack`
+## Create a working area for `CMSSW_11_0_0_pre11_Patatrack`
 
 The following instructions assume the `slc7_amd64_gcc820` architecture; to use a different one simply replace the desired architecture.
 
@@ -80,9 +40,9 @@ source $VO_CMS_SW_DIR/cmsset_default.sh
 ### Set up a working area
 ```bash
 # create a working area
-scram list CMSSW_11_0_0_pre7
-cmsrel CMSSW_11_0_0_pre7_Patatrack
-cd CMSSW_11_0_0_pre7_Patatrack/src
+scram list CMSSW_11_0_0_pre11
+cmsrel CMSSW_11_0_0_pre11_Patatrack
+cd CMSSW_11_0_0_pre11_Patatrack/src
 
 # load the environment
 cmsenv
@@ -92,7 +52,7 @@ git cms-init -x cms-patatrack
 git branch CMSSW_11_0_X_Patatrack --track cms-patatrack/CMSSW_11_0_X_Patatrack
 ```
 
-You should be able to work in the `from-CMSSW_11_0_0_pre7_Patatrack` branch as you would in a normal CMSSW development area.
+You should be able to work in the `from-CMSSW_11_0_0_pre11_Patatrack` branch as you would in a normal CMSSW development area.
 
 
 ## Working with older GPUs
@@ -110,7 +70,7 @@ cmsCudarebuild.sh
 ## Developing with the Patatrack branch
 To work on further developments, it is advised to start from the HEAD of the `CMSSW_11_0_X_Patatrack` branch.
 
-See the instructions above to set up an `CMSSW_11_0_0_pre7_Patatrack` working area.
+See the instructions above to set up an `CMSSW_11_0_0_pre11_Patatrack` working area.
 
 
 ### Checkout the HEAD of the development branch
