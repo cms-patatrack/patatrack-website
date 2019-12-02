@@ -14,7 +14,7 @@ While it is possible to start from the underlying vanilla CMSSW relese, using a 
  - drop optimised support for SM 6.1 to speed up the build time;
  - include the changes from the "Patatrack" development branch.
 
-`CMSSW_10_0_0_pre11_Patatrack` is available for the architecture(s)
+`CMSSW_11_0_0_pre13_Patatrack` is available for the architecture(s)
  - `slc7_amd64_gcc820`.
 
 On **vinavx2** and other machines the releases are available after `source /data/cmssw/cmsset_default.sh`.
@@ -24,7 +24,7 @@ On **cmg-gpu1080** the releases are available after `source /data/patatrack/cmss
 Otherwise, see [the instructions](PatatrackReleases.md) for installing these releases on your machine.
 
 
-## Create a working area for `CMSSW_11_0_0_pre11_Patatrack`
+## Create a working area for `CMSSW_11_0_0_pre13_Patatrack`
 
 The following instructions assume the `slc7_amd64_gcc820` architecture; to use a different one simply replace the desired architecture.
 
@@ -40,9 +40,9 @@ source $VO_CMS_SW_DIR/cmsset_default.sh
 ### Set up a working area
 ```bash
 # create a working area
-scram list CMSSW_11_0_0_pre11
-cmsrel CMSSW_11_0_0_pre11_Patatrack
-cd CMSSW_11_0_0_pre11_Patatrack/src
+scram list CMSSW_11_0_0_pre13
+cmsrel CMSSW_11_0_0_pre13_Patatrack
+cd CMSSW_11_0_0_pre13_Patatrack/src
 
 # load the environment
 cmsenv
@@ -52,7 +52,7 @@ git cms-init -x cms-patatrack
 git branch CMSSW_11_0_X_Patatrack --track cms-patatrack/CMSSW_11_0_X_Patatrack
 ```
 
-You should be able to work in the `from-CMSSW_11_0_0_pre11_Patatrack` branch as you would in a normal CMSSW development area.
+You should be able to work in the `from-CMSSW_11_0_0_pre13_Patatrack` branch as you would in a normal CMSSW development area.
 
 
 ## Working with older GPUs
@@ -70,7 +70,7 @@ cmsCudarebuild.sh
 ## Developing with the Patatrack branch
 To work on further developments, it is advised to start from the HEAD of the `CMSSW_11_0_X_Patatrack` branch.
 
-See the instructions above to set up an `CMSSW_11_0_0_pre11_Patatrack` working area.
+See the instructions above to set up an `CMSSW_11_0_0_pre13_Patatrack` working area.
 
 
 ### Checkout the HEAD of the development branch

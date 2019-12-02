@@ -14,7 +14,7 @@ While it is possible to start from the underlying vanilla CMSSW relese, using a 
  - drop optimised support for SM 6.1 to speed up the build time;
  - include the changes from the "Patatrack" development branch.
 
-`CMSSW_10_0_0_pre11_Patatrack` is available for the architecture(s)
+`CMSSW_11_0_0_pre13_Patatrack` is available for the architecture(s)
  - `slc7_amd64_gcc820`.
 
 On **vinavx2** and other machines the releases are nstalled under `/data/cmssw/`.
@@ -58,17 +58,17 @@ $VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH upgrade -y
 
 ## `CMSSW_11_0_X_Patatrack` development branch
 
-### Prerequisite: install `CMSSW_11_0_0_pre11` and its dependencies
-Most of the externals for `CMSSW_11_0_0_pre11_Patatrack` need to be installed from the
+### Prerequisite: install `CMSSW_11_0_0_pre13` and its dependencies
+Most of the externals for `CMSSW_11_0_0_pre13_Patatrack` need to be installed from the
 official repository; the easiest approach is to install them automatically
-together with `CMSSW_11_0_0_pre11`:
+together with `CMSSW_11_0_0_pre13`:
 ```bash
-$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_11_0_0_pre11
+$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_11_0_0_pre13
 ```
 
-### Install `CMSSW_11_0_0_pre11_Patatrack`
+### Install `CMSSW_11_0_0_pre13_Patatrack`
 Patatrack releases can be installed with `cmspkg`, using the dedicated repository
 "cms.patatrack":
 ```bash
-$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_11_0_0_pre11_Patatrack
+$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_11_0_0_pre13_Patatrack
 ```
