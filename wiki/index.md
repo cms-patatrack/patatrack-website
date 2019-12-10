@@ -38,5 +38,4 @@
     * [TICL Instructions](hgcal_ticl.md)
 
 * Training
-    * Tracker Knowledge Transfer - December 2019
-        * [CUDA](cuda_training_dpg_12_2019.md)
+    * Tracker Knowledge Transfer (December 2019) - [part 1, CUDA](cuda_training_dpg_12_2019.md)
