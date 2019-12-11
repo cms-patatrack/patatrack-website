@@ -53,7 +53,7 @@ be able to work as you would in a normal CMSSW development area.
 # checkout and build the CMSSW modules used in the tutorial
 git checkout Tutorial_December2019_part2
 git cms-addpkg DataFormats/Math Patatrack/Tutorial
-scram b -j 4
+scram b -j 4 -k
 
 # generate some random input data
 cd Patatrack/Tutorial
