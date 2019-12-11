@@ -67,6 +67,7 @@ cmsRun test/generateCylindricalVectors.py
 Compilation with CUDA and `nvcc` follows different paths for different files.
 
 A simplified distinction is that
+
   - **.cc** files are compiled by the host compiler (e.g. `gcc` or `clang`)
   - **.cu** files are compiled by the CUDA compiler driver (`nvcc`) which
       - compiles the host part using the host compiler
@@ -81,6 +82,7 @@ Things become even more complicated when dealing with shared libraries (device c
 SCRAM does its best to support all use cases, but it will need some improvements in this area, as we understand better the constraints.
 
 The option that seems to be working so far is
+
   - CUDA library calls (e.g. `cudaMalloc()`) can be used anywhere¹
   - CUDA code (e.g. `__global__` and `__device__` functions) should only go in **.cu** files (and in **.h** files included by **.cu** files)
   - **.cu** files should only go in plugins, not in standard shared libraries
@@ -96,6 +98,7 @@ A second limitation is that `nvcc` supports c++03, c++11 and c++14 - but not c++
 Since part of the CMS framework and ROOT are already using features from c++17, we cannot `#include` their headers in **.h** and **.cu** files that are going to be compiled by `nvcc`.
 
 So, we cannot define a framework plugin (e.g. an `EDProducer`) in a ".cu" file; instead we need to split it further, for example in:
+
   - `plugins/MyEDProducer.cc`: declaration and definition of the plugin;
   - `plugins/MyCUDAStuff.h`: declaration of any CUDA data structures, and plain-C++ wrappers that invoke the kernels;
   - `plugins/MyCUDAStuff.cu`: implementation of device functions, kernels, and of the plain-C++ wrappers that invoke the kernels.
@@ -122,6 +125,7 @@ The safe approach is to wrap *all* calls tu CUDA library function in a wrapper t
 ### Exercise B.1
 
 The `Patatrack/Tutorial` package contains various plugins to
+
   - generate random 3D vectors in cylindrical coordinates (`GenerateCylindricalVectors`)
   - convert vectors from cylindrical to cartesian coordinates (`ConvertToCartesianVectors`)
   - dump vectors in cylindrical (`PrintCylindricalVectors`) or cartesian (`PrintCartesianVectors`) coordinates
@@ -148,6 +152,7 @@ cmsRun test/compareCartesianVectors.py
 ```
 
 As the first exercise:
+
   - read the `ConvertToCartesianVectors` `EDProducer`
   - using the skeleton privided in `Patatrack/Tutorial/plugins/ConvertToCartesianVectorsCUDA.cc` and `Patatrack/Tutorial/plugins/cudavectors.h`, write a `ConvertToCartesianVectorsCUDA` `EDProducer` that does the same conversion on the GPU
   - use `cmsRun test/compareCartesianVectors.py` to compare the results of the conversion of the CPU and on the GPU; what do you expect ? 
