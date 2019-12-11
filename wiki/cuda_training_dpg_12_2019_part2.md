@@ -51,7 +51,7 @@ be able to work as you would in a normal CMSSW development area.
 
 ```bash
 # checkout and build the CMSSW modules used in the tutorial
-git cms-merge-topic cms-patatrack:Tutorial_December2019_part2
+git checkout Tutorial_December2019_part2
 git cms-addpkg DataFormats/Math Patatrack/Tutorial
 scram b -j 4
 
