@@ -73,11 +73,11 @@ A simplified distinction is that
       - compiles the device part with an NVIDIA proprietary compiler, after preprocessing with the host compiler
       - links the host and device part, so that the host code can call the kernels on the device
 
-Things become [more complicated](https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/graphics/cuda-compilation-from-cu-to-executable.png)
-when we need to split the CUDA code across multiple files, with
-[separate compilation and linking](https://devblogs.nvidia.com/separate-compilation-linking-cuda-device-code/) steps.
+Things become more complicated when we need to split the CUDA code across multiple files, with
+[separate compilation and linking](https://devblogs.nvidia.com/separate-compilation-linking-cuda-device-code/) steps:
+![compilation trajectory](https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/graphics/cuda-compilation-from-cu-to-executable.png)
 
-Things become even more complicated when dealing with shared libraries (device code does not support them) and plugins (here be dragons).
+Things become even more complicated when dealing with shared libraries (device code does not support them) and plugins (_here be dragons_).
 SCRAM does its best to support all use cases, but it will need some improvements in this area, as we understand better the constraints.
 
 The option that seems to be working so far is
@@ -86,7 +86,8 @@ The option that seems to be working so far is
   - **.cu** files should only go in plugins, not in standard shared libraries
 
 We are looking for alternatives, but so far having CUDA kernels in libraries causes wanton chaos and destruction, so don't do it.
-  
+
+___
 ¹ as long as CUDA is available, which today means: on Intel/AMD and ARMv8 architectures, with CentOS 7 and CentOS 8, with GCC 7.x and 8.x; support for the IBM Power architecture is going to be added, and GCC 9.x should be supported sometimes next year.
 
 ### `EDProducer`s and other framewor plugins
