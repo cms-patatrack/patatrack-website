@@ -29,6 +29,7 @@ export VO_CMS_SW_DIR=/data/patatrack/cmssw
 
 # common
 export SCRAM_ARCH=slc7_amd64_gcc820
+source $VO_CMS_SW_DIR/cmsset_default.sh
 
 # create a working area
 scram list CMSSW_11_0_0_pre13
