@@ -197,6 +197,8 @@ AOS (for CMSSW) and SOA (for processing on GPU) structures ?
 
 During the Patatrack development some common patterns emerged:
 
+  - all CUDA functions should be checked for errors, and the preferred way to
+    report errors in CMSSW is to throw an exception (see `cudaCheck()` above);
   - reusing host and GPU memory is more efficienct than calling `cudaMalloc()`/`cudaFree()`
     for every event;
   - GPU operations should be **asynchronous** with respecto to CPU operations,
@@ -224,13 +226,16 @@ See [Memory management](https://github.com/cms-patatrack/cmssw/blob/master/Heter
 
 ### Exercise B.2
 
-Following the dociumentation about [Memory management](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md#memory-allocation),
+Following the documentation about [Memory management](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md#memory-allocation),
 update the `ConvertToCartesianVectorsCUDA` to allocate
 
   - automatically reused GPU memory for GPU buffers, using `cudautils::make_device_unique`
   - [Write-Combining Memory](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#write-combining-memory)
     for CPU-to-GPU copy buffers, using `cudautils::make_host_noncached_unique`
 
+For the moment, use the [CUDA default stream](https://docs.nvidia.com/cuda/cuda-runtime-api/stream-sync-behavior.html)
+(`0` or `NULL` or `nullptr` or `cudaDefaultStream`) for the `stream` parameter
+of the memory allocations.
 
 ## Asynchronous execution
 
@@ -248,7 +253,7 @@ run witihn `produce()` in three parts:
   - the `produce()` method is called to finalise the operation and "put" the
     results in the `Event`.
 
-A simple `EDproducer` can use [this mechanism](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md#isolated-producer-no-cuda-input-nor-output)
+A simple `EDProducer` can use [this mechanism](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md#isolated-producer-no-cuda-input-nor-output)
 to efficiently offload computations to a GPU, while letting the framework
 schedule some other work on the CPU.
 
