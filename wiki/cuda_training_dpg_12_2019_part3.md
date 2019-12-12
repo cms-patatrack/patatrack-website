@@ -15,11 +15,11 @@ cd to your home directory or create a working directory somewhere (not afs....)
    - generate the config files for a "2021 mc"
    - avoid to run it 
    - modify the reconstruction step to read an input file from eos and add a TimingService to print each module that is run
-      . ask Vincenzo for the file name
+    (ask Vincenzo for the file name)
 
 ### exercise 1 : analyze TrackingRecHit On GPU
 
-let's start from {Matti's documentation](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md)
+let's start from [Matti's documentation](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md)
 
 ### exercise 2 : convert TrackingRecHit to cilyndical coordinates (as SoA!) and store the result in the event
 besides the documentation above I suggest to
