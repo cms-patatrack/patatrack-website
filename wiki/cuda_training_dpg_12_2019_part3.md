@@ -1,5 +1,5 @@
 ---
-title: "CUDA Training for Tracker DPG - part 2, using TrackingRecHitSoA"
+title: "CUDA Training for Tracker DPG - part 3: use TrackingRecHitSoA, creat eyour own `SoA"
 author: "Vincenzo Innocente"
 layout: wiki
 resource: true
