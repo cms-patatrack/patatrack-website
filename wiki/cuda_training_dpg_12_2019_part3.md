@@ -28,12 +28,12 @@ cd to your home directory or create a working directory somewhere (better not af
 let's start from [Matti's documentation](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md#producer-with-cuda-input-and-output-without-externalwork)
 
 if you prefer copy/paste see also
-   - https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPU.cc
-   - https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPUKernel.cu
+   - [HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPU.cc](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPU.cc)
+   - [HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPUKernel.cu](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPUKernel.cu)
 
 ### exercise 2 : convert TrackingRecHit to cilyndical coordinates (as SoA!) and store the result in the event
 besides the documentation above I suggest to
-   - modify in place https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/interface/CUDAThing.h
-   - make the view by value (see https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/SimTracker/TrackerHitAssociation/interface/trackerHitAssociationHeterogeneous.h
-   - use code from exercise 1, https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAProducerGPU.cc and your own exercise from Wednesday
+   - modify in place [HeterogeneousCore/CUDATest/interface/CUDAThing.h](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/interface/CUDAThing.h)
+   - make the view by value (see [SimTracker/TrackerHitAssociation/interface/trackerHitAssociationHeterogeneous.h](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/SimTracker/TrackerHitAssociation/interface/trackerHitAssociationHeterogeneous.h)
+   - use code from exercise 1, [HeterogeneousCore/CUDATest/plugins/TestCUDAProducerGPU.cc](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAProducerGPU.cc) and your own exercise from Wednesday
    - add your analyzer/producer to the config from the workflow
