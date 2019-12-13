@@ -25,7 +25,7 @@ cd to your home directory or create a working directory somewhere (better not af
 
 ### exercise 1 : analyze TrackingRecHit On GPU
 
-let's start from [Matti's documentation](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md)
+let's start from [Matti's documentation](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md#producer-with-cuda-input-and-output-without-externalwork)
 
 if you prefer copy/paste see also
    - https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPU.cc
