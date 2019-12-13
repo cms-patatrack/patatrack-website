@@ -16,6 +16,7 @@ edmFileUtil  /store/relval/CMSSW_10_6_1_patch1/RelValTTbar_14TeV/GEN-SIM-DIGI-RA
 
 ### create and run workflows
 cd to your home directory or create a working directory somewhere (better not afs....)
+
    - discorver the available GPU workflows 
    - generate the config files for a "2021 mc"
    - avoid to run it 
