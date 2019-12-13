@@ -40,3 +40,4 @@
 * Training
     * Tracker Knowledge Transfer (December 2019) - [part 1, CUDA](cuda_training_dpg_12_2019.md)
     * Tracker Knowledge Transfer (December 2019) - [part 2, CMSSW](cuda_training_dpg_12_2019_part2.md)
+    * Tracker Knowledge Transfer (December 2019) - [part 3, CMSSW](cuda_training_dpg_12_2019_part3.md)
