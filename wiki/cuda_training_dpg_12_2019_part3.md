@@ -21,7 +21,7 @@ cd to your home directory or create a working directory somewhere (better not af
    - avoid to run it 
    - modify the reconstruction step to read the input file from eos and add a TimingService to print each module that is run
    - run it
-   - modify it removing any superfluous (output) module so that it loads a minimal number of modules and runs up to the GPU RecHitProducer  (tip: use the AsciiOutputModule (or add an Analyzer))
+   - modify it removing any superfluous (output) module so that it loads a minimal number of modules and runs up to the (GPU) RecHitProducer  (tip: use the AsciiOutputModule (or add an Analyzer) or look to [RecoPixelVertexing/Configuration/python/customizePixelTracksForProfiling.py](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/RecoPixelVertexing/Configuration/python/customizePixelTracksForProfiling.py)
 
 ### exercise 1 : analyze TrackingRecHit On GPU
 
