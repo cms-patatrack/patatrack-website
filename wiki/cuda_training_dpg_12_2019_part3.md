@@ -9,6 +9,11 @@ categories: wiki
 ### Setting up CMSSW
 See [part 2](cuda_training_dpg_12_2019_part2.md)
 
+make sure you can read the file
+```bash
+edmFileUtil  /store/relval/CMSSW_10_6_1_patch1/RelValTTbar_14TeV/GEN-SIM-DIGI-RAW/PU_106X_mcRun3_2021_realistic_v3-v1/10000/F43C676F-C0C5-D04B-802E-F5C265084C20.root
+```
+
 ### create and run workflows
 cd to your home directory or create a working directory somewhere (not afs....)
    - discorver the available GPU workflows 
