@@ -1,5 +1,5 @@
 ---
-title: "CUDA Training for Tracker DPG - part 3: use TrackingRecHitSoA, creat eyour own `SoA"
+title: "CUDA Training for Tracker DPG - part 3: use TrackingRecHitSoA, create your own `SoA"
 author: "Vincenzo Innocente"
 layout: wiki
 resource: true
@@ -15,12 +15,13 @@ edmFileUtil  /store/relval/CMSSW_10_6_1_patch1/RelValTTbar_14TeV/GEN-SIM-DIGI-RA
 ```
 
 ### create and run workflows
-cd to your home directory or create a working directory somewhere (not afs....)
+cd to your home directory or create a working directory somewhere (better not afs....)
    - discorver the available GPU workflows 
    - generate the config files for a "2021 mc"
    - avoid to run it 
    - modify the reconstruction step to read the input file from eos and add a TimingService to print each module that is run
-   - modify it removing any superfluous (output) module so that it loads a minimal number of modules and runs up to the GPU RecHitProducer  (tip: use the AsciiOutputModule)
+   - run it
+   - modify it removing any superfluous (output) module so that it loads a minimal number of modules and runs up to the GPU RecHitProducer  (tip: use the AsciiOutputModule (or add an Analyzer))
 
 ### exercise 1 : analyze TrackingRecHit On GPU
 
