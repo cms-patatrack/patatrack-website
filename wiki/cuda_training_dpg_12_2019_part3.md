@@ -17,24 +17,24 @@ edmFileUtil  /store/relval/CMSSW_10_6_1_patch1/RelValTTbar_14TeV/GEN-SIM-DIGI-RA
 ### create and run workflows
 cd to your home directory or create a working directory somewhere (better not afs....)
 
-   - discorver the available GPU workflows 
-   - generate the config files for a "2021 mc"
-   - avoid to run it 
-   - modify the reconstruction step to read the input file from eos and add a TimingService to print each module that is run
-   - run it
-   - modify it removing any superfluous (output) module so that it loads a minimal number of modules and runs up to the (GPU) RecHitProducer  (tip: use the AsciiOutputModule (or add an Analyzer) or look to [RecoPixelVertexing/Configuration/python/customizePixelTracksForProfiling.py](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/RecoPixelVertexing/Configuration/python/customizePixelTracksForProfiling.py)
+   * discorver the available GPU workflows 
+   * generate the config files for a "2021 mc"
+   * avoid to run it 
+   * modify the reconstruction step to read the input file from eos and add a TimingService to print each module that is run
+   * run it
+   * modify it removing any superfluous (output) module so that it loads a minimal number of modules and runs up to the (GPU) RecHitProducer  (tip: use the AsciiOutputModule (or add an Analyzer) or look to [RecoPixelVertexing/Configuration/python/customizePixelTracksForProfiling.py](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/RecoPixelVertexing/Configuration/python/customizePixelTracksForProfiling.py)
 
 ### exercise 1 : analyze TrackingRecHit On GPU
 
 let's start from [Matti's documentation](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md#producer-with-cuda-input-and-output-without-externalwork)
 
 if you prefer copy/paste see also
-   - [HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPU.cc](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPU.cc)
-   - [HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPUKernel.cu](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPUKernel.cu)
+   * [HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPU.cc](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPU.cc)
+   * [HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPUKernel.cu](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAAnalyzerGPUKernel.cu)
 
 ### exercise 2 : convert TrackingRecHit to cilyndical coordinates (as SoA!) and store the result in the event
 besides the documentation above I suggest to
-   - modify in place [HeterogeneousCore/CUDATest/interface/CUDAThing.h](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/interface/CUDAThing.h)
-   - make the view by value (see [SimTracker/TrackerHitAssociation/interface/trackerHitAssociationHeterogeneous.h](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/SimTracker/TrackerHitAssociation/interface/trackerHitAssociationHeterogeneous.h)
-   - use code from exercise 1, [HeterogeneousCore/CUDATest/plugins/TestCUDAProducerGPU.cc](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAProducerGPU.cc) and your own exercise from Wednesday
-   - add your analyzer/producer to the config from the workflow
+   * modify in place [HeterogeneousCore/CUDATest/interface/CUDAThing.h](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/interface/CUDAThing.h)
+   * make the view by value (see [SimTracker/TrackerHitAssociation/interface/trackerHitAssociationHeterogeneous.h](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/SimTracker/TrackerHitAssociation/interface/trackerHitAssociationHeterogeneous.h)
+   * use code from exercise 1, [HeterogeneousCore/CUDATest/plugins/TestCUDAProducerGPU.cc](https://github.com/cms-patatrack/cmssw/blob/CMSSW_11_0_X_Patatrack/HeterogeneousCore/CUDATest/plugins/TestCUDAProducerGPU.cc) and your own exercise from Wednesday
+   * add your analyzer/producer to the config from the workflow
