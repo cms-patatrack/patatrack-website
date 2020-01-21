@@ -8,28 +8,36 @@ activity:  instructions
 ---
 
 ## Available "Patatrack" CMSSW releases
-The current Patatrack development branch is based on `CMSSW_11_0_X`, and supports CUDA 10.1 and GCC 8.3.x.
+The current Patatrack development branch is based on `CMSSW_11_0_X`, and
+supports CUDA 10.1 and GCC 8.3.x.
 
-While it is possible to start from the underlying vanilla CMSSW relese, using a dedicated release has few advantages:
- - drop optimised support for SM 6.1 to speed up the build time;
- - include the changes from the "Patatrack" development branch.
+While it is possible to start from the underlying vanilla CMSSW relese, using a
+dedicated release has few advantages:
+ - (hopefully) fix Eigen to work under NVIDIA MPS;
+ - include the changes from the "Patatrack" development branch, including
+   feedback to the GPU framework code.
 
-`CMSSW_11_0_0_pre13_Patatrack` is available for the architecture(s)
+`CMSSW_11_0_0_Patatrack` is available for the architecture(s)
  - `slc7_amd64_gcc820`.
 
-On **vinavx2** and other machines the releases are available after `source /data/cmssw/cmsset_default.sh`.
+On **vinavx2** and other machines the releases are available after
+`source /data/cmssw/cmsset_default.sh`.
 
-On **cmg-gpu1080** the releases are available after `source /data/patatrack/cmssw/cmsset_default.sh`.
+On **cmg-gpu1080** the releases are available after
+`source /data/patatrack/cmssw/cmsset_default.sh`.
 
-Otherwise, see [the instructions](PatatrackReleases.md) for installing these releases on your machine.
+Otherwise, see [the instructions](PatatrackReleases.md) for installing these
+releases on your machine.
 
 
-## Create a working area for `CMSSW_11_0_0_pre13_Patatrack`
+## Create a working area for `CMSSW_11_0_0_Patatrack`
 
-The following instructions assume the `slc7_amd64_gcc820` architecture; to use a different one simply replace the desired architecture.
+The following instructions assume the `slc7_amd64_gcc820` architecture; to use a
+different one simply replace the desired architecture.
 
 ### Source the local installation
-Source the script `cmsset_default.sh` in the directory where you have installed the Patatrack releases, e.g.:
+Source the script `cmsset_default.sh` in the directory where you have installed
+the Patatrack releases, e.g.:
 
 ```bash
 export VO_CMS_SW_DIR=/data/cmssw
@@ -40,9 +48,9 @@ source $VO_CMS_SW_DIR/cmsset_default.sh
 ### Set up a working area
 ```bash
 # create a working area
-scram list CMSSW_11_0_0_pre13
-cmsrel CMSSW_11_0_0_pre13_Patatrack
-cd CMSSW_11_0_0_pre13_Patatrack/src
+scram list CMSSW_11_0_0
+cmsrel CMSSW_11_0_0_Patatrack
+cd CMSSW_11_0_0_Patatrack/src
 
 # load the environment
 cmsenv
@@ -52,14 +60,16 @@ git cms-init -x cms-patatrack
 git branch CMSSW_11_0_X_Patatrack --track cms-patatrack/CMSSW_11_0_X_Patatrack
 ```
 
-You should be able to work in the `from-CMSSW_11_0_0_pre13_Patatrack` branch as you would in a normal CMSSW development area.
+You should be able to work in the `from-CMSSW_11_0_0_Patatrack` branch as you
+would in a normal CMSSW development area.
 
 
 ## Working with older GPUs
-CUDA is configured in CMSSW to support GPUs with Pascal (e.g. GeForce GTX 1080, Tesla P100, ...),
-Volta (e.g. Titan V, Tesla V100), and Turing (e.g. RTX 2080, Tesla T4, ...) architectures.
-To work with older GPUs based on the Kepler and Maxwell architectures, one needs to reconfigure
-CUDA and rebuild all CUDA code:
+CUDA is configured in CMSSW to support GPUs with Kepler (e.g. Tesla K40), Pascal
+(e.g. GeForce GTX 1080, Tesla P100, ...), Volta (e.g. Titan V, Tesla V100), and
+Turing (e.g. RTX 2080, Tesla T4, ...) architectures.
+To work with GPUs based on different architectures, one needs to reconfigure
+CUDA and rebuild all CUDA code in CMSSW with:
 ```bash
 cmsenv
 cmsCudaSetup.sh
@@ -68,9 +78,10 @@ cmsCudarebuild.sh
 
 
 ## Developing with the Patatrack branch
-To work on further developments, it is advised to start from the HEAD of the `CMSSW_11_0_X_Patatrack` branch.
+To work on further developments, it is advised to start from the HEAD of the
+`CMSSW_11_0_X_Patatrack` branch.
 
-See the instructions above to set up an `CMSSW_11_0_0_pre13_Patatrack` working area.
+See the instructions above to set up an `CMSSW_11_0_0_Patatrack` working area.
 
 
 ### Checkout the HEAD of the development branch
@@ -98,27 +109,30 @@ git push -u my-cmssw HEAD:my_development_branch
 
 
 ## Create a pull request
-  - before your PR can be submitted, you should run a couple of checks to make the integration process much smoother:
-  ```bash
-  # recompile with debug information (for host code) and line-number information (for device code)
-  scram b clean
-  USER_CXXFLAGS="-g -rdynamic" USER_CUDA_FLAGS="-g -lineinfo" scram b -j
-  
-  # run your code under cuda-memcheck
-  cuda-memcheck --tool initcheck --print-limit 1 cmsRun step3.py
-  cuda-memcheck --tool memcheck  --print-limit 1 cmsRun step3.py
-  cuda-memcheck --tool synccheck --print-limit 1 cmsRun step3.py
-  ```
+  - before your PR can be submitted, you should run a couple of checks to make
+    the integration process much smoother:
+    ```bash
+    # recompile with debug information (for host code) and line-number information (for device code)
+    scram b clean
+    USER_CXXFLAGS="-g -rdynamic" USER_CUDA_FLAGS="-g -lineinfo" scram b -j
+    
+    # run your code under cuda-memcheck
+    cuda-memcheck --tool initcheck --print-limit 1 cmsRun step3.py
+    cuda-memcheck --tool memcheck  --print-limit 1 cmsRun step3.py
+    cuda-memcheck --tool synccheck --print-limit 1 cmsRun step3.py
+    ```
 
   - it is also possible to run more thorough, semi-automatic checks: see [Running the validation](PatatrackValidation.md)
 
   - open https://github.com/cms-patatrack/cmssw/
 
-  - there should be box with the branch you just created and a green button saying "Compare & pull request":
+  - there should be box with the branch you just created and a green button
+    saying "Compare & pull request":
     ![Compare & pull request](screenshot1.png "Compare & pull request")
 
   - click on it, and create a pull request as usual:
     ![Create a pull request](screenshot2.png "Create a request")
 
-  - make sure to choose `CMSSW_11_0_X_Patatrack` as the target branch, **not** the `master` branch
+  - make sure to choose `CMSSW_11_0_X_Patatrack` as the target branch, **not**
+    the `master` branch
 
