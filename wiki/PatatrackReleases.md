@@ -9,20 +9,21 @@ activity:  instructions
 
 ## Installing "Patatrack" CMSSW releases
 The current Patatrack development branch is based on `CMSSW_11_0_X`, and
-supports CUDA 10.1 and GCC 8.3.x.
+supports both CUDA 10.1 and CUDA 10.2, with GCC 8.3.x.
 
 While it is possible to start from the underlying vanilla CMSSW relese, using a
 dedicated release has few advantages:
- - (hopefully) fix Eigen to work under NVIDIA MPS;
+ - fix Eigen to work under NVIDIA MPS;
+ - optional update to CUDA 10.2.x;
  - include the changes from the "Patatrack" development branch, including
    feedback to the GPU framework code.
 
 `CMSSW_11_0_0_Patatrack` is available for the architecture(s)
  - `slc7_amd64_gcc820`.
 
-On **vinavx2** and other machines the releases are nstalled under `/data/cmssw/`.
+On most Patatrack machines the releases are installed under `/data/cmssw/`.
 
-On **cmg-gpu1080** the releases are available installed under `/data/patatrack/cmssw/`.
+On **cmg-gpu1080** the releases are installed under `/data/patatrack/cmssw/`.
 
 
 ### Bootstrap a local installation of CMSSW
@@ -69,9 +70,16 @@ together with `CMSSW_11_0_0`:
 $VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_11_0_0
 ```
 
-### Install `CMSSW_11_0_0_Patatrack`
+### Install `CMSSW_11_0_0_Patatrack` for CUDA 10.1
 Patatrack releases can be installed with `cmspkg`, using the dedicated repository
 "cms.patatrack":
 ```bash
 $VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_11_0_0_Patatrack
+```
+
+### Install `CMSSW_11_0_0_Patatrack` for CUDA 10.2
+Patatrack releases can be installed with `cmspkg`, using the dedicated repository
+"cms.patatrack":
+```bash
+$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmssw+CMSSW_11_0_0_Patatrack_CUDA_10_2
 ```

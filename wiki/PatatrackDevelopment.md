@@ -9,18 +9,19 @@ activity:  instructions
 
 ## Available "Patatrack" CMSSW releases
 The current Patatrack development branch is based on `CMSSW_11_0_X`, and
-supports CUDA 10.1 and GCC 8.3.x.
+supports both CUDA 10.1 and CUDA 10.2, with GCC 8.3.x.
 
 While it is possible to start from the underlying vanilla CMSSW relese, using a
 dedicated release has few advantages:
- - (hopefully) fix Eigen to work under NVIDIA MPS;
+ - fix Eigen to work under NVIDIA MPS;
+ - optional update to CUDA 10.2.x;
  - include the changes from the "Patatrack" development branch, including
    feedback to the GPU framework code.
 
 `CMSSW_11_0_0_Patatrack` is available for the architecture(s)
  - `slc7_amd64_gcc820`.
 
-On **vinavx2** and other machines the releases are available after
+On most Patatrack machines the releases are available after
 `source /data/cmssw/cmsset_default.sh`.
 
 On **cmg-gpu1080** the releases are available after
@@ -62,6 +63,14 @@ git branch CMSSW_11_0_X_Patatrack --track cms-patatrack/CMSSW_11_0_X_Patatrack
 
 You should be able to work in the `from-CMSSW_11_0_0_Patatrack` branch as you
 would in a normal CMSSW development area.
+
+
+## Working with CUDA 10.2
+The CMSSW 11.0.0 Patatrack release is available for two different CUDA versions:
+  - `CMSSW_11_0_0_Patatrack` for CUDA 10.1 Update 1;
+  - `CMSSW_11_0_0_Patatrack_CUDA_10_2` for CUDA 10.2.
+
+They should be available and usable in the same way.
 
 
 ## Working with older GPUs
