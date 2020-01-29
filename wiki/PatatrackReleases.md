@@ -13,13 +13,15 @@ supports both CUDA 10.1 and CUDA 10.2, with GCC 8.3.x.
 
 While it is possible to start from the underlying vanilla CMSSW relese, using a
 dedicated release has few advantages:
- - fix Eigen to work under NVIDIA MPS;
- - optional update to CUDA 10.2.x;
- - include the changes from the "Patatrack" development branch, including
+
+  - fix Eigen to work under NVIDIA MPS;
+  - optional update to CUDA 10.2.x;
+  - include the changes from the "Patatrack" development branch, including
    feedback to the GPU framework code.
 
 `CMSSW_11_0_0_Patatrack` is available for the architecture(s)
- - `slc7_amd64_gcc820`.
+
+  - `slc7_amd64_gcc820`.
 
 On most Patatrack machines the releases are installed under `/data/cmssw/`.
 

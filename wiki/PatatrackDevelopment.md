@@ -13,13 +13,15 @@ supports both CUDA 10.1 and CUDA 10.2, with GCC 8.3.x.
 
 While it is possible to start from the underlying vanilla CMSSW relese, using a
 dedicated release has few advantages:
- - fix Eigen to work under NVIDIA MPS;
- - optional update to CUDA 10.2.x;
- - include the changes from the "Patatrack" development branch, including
-   feedback to the GPU framework code.
+
+  - fix Eigen to work under NVIDIA MPS;
+  - optional update to CUDA 10.2.x;
+  - include the changes from the "Patatrack" development branch, including
+    feedback to the GPU framework code.
 
 `CMSSW_11_0_0_Patatrack` is available for the architecture(s)
- - `slc7_amd64_gcc820`.
+
+  - `slc7_amd64_gcc820`.
 
 On most Patatrack machines the releases are available after
 `source /data/cmssw/cmsset_default.sh`.
@@ -67,6 +69,7 @@ would in a normal CMSSW development area.
 
 ## Working with CUDA 10.2
 The CMSSW 11.0.0 Patatrack release is available for two different CUDA versions:
+
   - `CMSSW_11_0_0_Patatrack` for CUDA 10.1 Update 1;
   - `CMSSW_11_0_0_Patatrack_CUDA_10_2` for CUDA 10.2.
 
@@ -118,6 +121,7 @@ git push -u my-cmssw HEAD:my_development_branch
 
 
 ## Create a pull request
+
   - before your PR can be submitted, you should run a couple of checks to make
     the integration process much smoother:
     ```bash
@@ -130,18 +134,18 @@ git push -u my-cmssw HEAD:my_development_branch
     cuda-memcheck --tool memcheck  --print-limit 1 cmsRun step3.py
     cuda-memcheck --tool synccheck --print-limit 1 cmsRun step3.py
     ```
-
+ 
   - it is also possible to run more thorough, semi-automatic checks: see [Running the validation](PatatrackValidation.md)
-
+ 
   - open https://github.com/cms-patatrack/cmssw/
-
+ 
   - there should be box with the branch you just created and a green button
     saying "Compare & pull request":
     ![Compare & pull request](screenshot1.png "Compare & pull request")
-
+ 
   - click on it, and create a pull request as usual:
     ![Create a pull request](screenshot2.png "Create a request")
-
-  - make sure to choose `CMSSW_11_0_X_Patatrack` as the target branch, **not**
+ 
+  - make sure to choose `CMSSW_11_1_X_Patatrack` as the target branch, **not**
     the `master` branch
-
+ 
