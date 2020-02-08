@@ -133,7 +133,7 @@ cmsenv
 git checkout cms-patatrack/CMSSW_11_1_X_Patatrack -b my_development_branch
 
 # check out the modified packages and their dependencies
-git cms-addpkg $(git diff $CMSSW_VERSION --name-only | cut -d/ -f-2 | sort -u)
+git diff $CMSSW_VERSION --name-only --no-renames | cut -d/ -f-2 | sort -u | xargs -r git cms-addpkg
 git cms-checkdeps -a
 scram b -j
 ```
