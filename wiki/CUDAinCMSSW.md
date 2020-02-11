@@ -64,7 +64,7 @@ int main(int argc, const char* argv[])
 
 We can build it by hand:
 ```bash
-nvcc -I$CMSSW_BASE/src -m64 -std=c++14 -O3 -g -gencode arch=compute_35,code=sm_35 cudaHelloWorld.cu -o cudaHelloWorld
+nvcc -I$CMSSW_BASE/src -I$CMSSW_RELEASE_BASE/src -m64 -std=c++14 -O3 -g -gencode arch=compute_35,code=sm_35 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_70,code=sm_70 cudaHelloWorld.cu -o cudaHelloWorld
 ./cudaHelloWorld
 ```
 or create an entry in a `BuildFile.xml` for it:
