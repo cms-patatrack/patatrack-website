@@ -22,7 +22,7 @@ Relevant links:
   - [Alpaka](https://github.com/ComputationalRadiationPhysics/alpaka) on GitHub
   - Alpaka's [documentation](https://github.com/ComputationalRadiationPhysics/alpaka/blob/develop/doc/markdown/user/Introduction.md)
 
-As of December 2019, the latest release of Alpaka is [version 0.4.0](https://github.com/ComputationalRadiationPhysics/alpaka/tree/release-0.4.0).
+As of December 2019, the latest release of Alpaka is [version 0.4.0](https://github.com/ComputationalRadiationPhysics/alpaka/tree/0.4.0).
 
 ## Cupla
 
@@ -37,8 +37,8 @@ Relevant links:
   - Cupla's [porting guide](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/doc/PortingGuide.md)
   - Cupla's [tuning guide](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/doc/TuningGuide.md)
 
-As of December 2019, the [dev branch](https://github.com/ComputationalRadiationPhysics/cupla/tree/dev)
-of Cupla can be used with Alpaka version 0.4.0.
+As of Feruary 2020, the latest release of Cupla is [version 0.2.0](https://github.com/ComputationalRadiationPhysics/cupla/tree/0.2.0),
+which is compatible with Alpaka version 0.4.0.
 
 
 # Building Alpaka and Cupla without CMake
@@ -55,13 +55,21 @@ CXXFLAGS="-m64 -std=c++14 -g -O2 -DALPAKA_DEBUG=0 -I$CUDA_BASE/include -I$ALPAKA
 HOST_FLAGS="-fopenmp -pthread -fPIC -Wall -Wextra -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-local-typedefs -Wno-attributes -Wno-reorder -Wno-sign-compare"
 
 NVCC="$CUDA_BASE/bin/nvcc"
-NVCC_FLAGS="-ccbin $CXX -w -lineinfo --expt-extended-lambda --expt-relaxed-constexpr --generate-code arch=compute_50,code=sm_50 --cudart shared"
+NVCC_FLAGS="-ccbin $CXX -w -lineinfo --expt-extended-lambda --expt-relaxed-constexpr --generate-code arch=compute_35,code=sm_35 --generate-code arch=compute_50,code=sm_50 --generate-code arch=compute_60,code=sm_60 --generate-code arch=compute_70,code=sm_70 --cudart shared"
 ```
 
 ## Download Alpaka and Cupla
+
+### To use the development versions
 ```bash
-git clone git@github.com:ComputationalRadiationPhysics/alpaka.git -b release-0.4.0 $ALPAKA_BASE
-git clone git@github.com:ComputationalRadiationPhysics/cupla.git  -b dev           $CUPLA_BASE
+git clone git@github.com:ComputationalRadiationPhysics/alpaka.git -b develop $ALPAKA_BASE
+git clone git@github.com:ComputationalRadiationPhysics/cupla.git  -b dev     $CUPLA_BASE
+```
+
+### To use the latest stable versions
+```bash
+git clone git@github.com:ComputationalRadiationPhysics/alpaka.git -b 0.4.0 $ALPAKA_BASE
+git clone git@github.com:ComputationalRadiationPhysics/cupla.git  -b 0.2.0 $CUPLA_BASE
 ```
 
 ## Remove the embedded version of Alpaka from Cupla
