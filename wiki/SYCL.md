@@ -65,8 +65,6 @@ BUILD_TYPE="RelWithDebInfo"                         # valid values: Release, Rel
 git clone git@github.com:intel/llvm.git -b sycl $SYCL_BASE/llvm
 cd $SYCL_BASE/llvm
 
-git fetch origin pull/1180/head
-git merge FETCH_HEAD -m '[SYCL][PI][CUDA] Implements select kernel and kernel-group queries (#1180)'
 git fetch origin pull/1181/head
 git merge FETCH_HEAD -m '[SYCL][CUDA] Implements program compile and link (#1181)'
 git fetch origin pull/1228/head
