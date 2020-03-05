@@ -21,6 +21,8 @@ was published in February 2016. That specification was an incomplete work in
 progress, and should be considered deprecated.
 
 ![/sycl-targets](https://raw.githubusercontent.com/illuhad/hipSYCL/master/doc/img/sycl-targets.png)
+*different SYCL toolchains and the backends they support, from the
+[hipSYCL README](https://github.com/illuhad/hipSYCL/blob/master/README.md)*
 
 Different tool chains implement the SYCL specification for diverse targets,
 extending it beyond the original scope of OpenCL 1.2:
