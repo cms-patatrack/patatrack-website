@@ -71,6 +71,8 @@ git fetch origin pull/1228/head
 git merge FETCH_HEAD -m '[SYCL][Test] Fix SYCL library location path for LIT tests (#1228)'
 git fetch origin pull/1241/head
 git merge FETCH_HEAD -m '[SYCL][CUDA] Implement part of USM (#1241)'
+git fetch origin pull/1252/head
+git merge FETCH_HEAD -m '[SYCL] Fixes for multiple backends in the same program (#1252)'
 
 mkdir -p $SYCL_BASE/build
 cd $SYCL_BASE/build
