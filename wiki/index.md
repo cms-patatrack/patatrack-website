@@ -9,7 +9,6 @@
     * [An introduction to CUDA in CMSSW](CUDAinCMSSW.md)
     * [Profiling cmsRun on a remote machine with the NVIDIA Visual Profiler](Remote_profiling_with_NVVP/Remote_profiling_with_NVVP.md)
     * [Creating an "empty" CMSSW release](emptyrelease.md)
-    * [CUDA to HIP](CUDAtoHIP.md)
 
 * CPU and GPU Workflows
     * [Workflows](workflows.md)
@@ -25,11 +24,13 @@
     * [HLT menu and data](HLTTiming.md)
     * [Using the DAQ source](DAQSource.md)
  
-* Portability
+* Performance portability
+    * [Alpaka and Cupla](AlpakaAndCupla.md)
     * [CUDA to cupla](cuda2cupla.md)
+    * [CUDA to HIP](CUDAtoHIP.md)
+    * [SYCL LLVM compiler](SYCL.md)
 
 * [External libraries](libraries.md)
-    * [Alpaka and Cupla](AlpakaAndCupla.md)
 
 * [Machine Learning](ML.md)
     * [Cluster Shape filter](ClusterShape.md)
