@@ -25,16 +25,16 @@ progress, and should be considered deprecated.
 Different tool chains implement the SYCL specification for diverse targets,
 extending it beyond the original scope of OpenCL 1.2:
 
-   * [ComputeCpp](https://developer.codeplay.com/products/computecpp/ce/home/)
-     - SYCL implementation by Codeplay, targeting OpenCL devices with SPIR support
-       and (experimentally) NVIDIA GPUs via a PTX backend.
-   * [triSYCL](https://github.com/triSYCL/triSYCL) - an open-source implementation
+   * [ComputeCpp](https://developer.codeplay.com/products/computecpp/ce/home/):
+     SYCL implementation by Codeplay, targeting OpenCL devices with SPIR support
+     and (experimentally) NVIDIA GPUs via a PTX backend.
+   * [triSYCL](https://github.com/triSYCL/triSYCL): an open-source implementation
      to experiment with SYCL, targeting OpenCL devices with SPIR+ support, such as
      [PoCL](http://portablecl.org/) and Xilinx FPGAs
-   * [hipSYCL](https://github.com/illuhad/hipSYCL) - a project to develop a SYCL 
+   * [hipSYCL](https://github.com/illuhad/hipSYCL): a project to develop a SYCL 
      1.2.1 implementation that builds upon NVIDIA CUDA and AMD HIP.
-   * [Intel Data Parallel C++](https://software.intel.com/en-us/oneapi/dpc-compiler)
-     - a SYCL 1.2.1 implementation with extensions to support many CUDA-inspired
+   * [Intel Data Parallel C++](https://software.intel.com/en-us/oneapi/dpc-compiler):
+     a SYCL 1.2.1 implementation with extensions to support many CUDA-inspired
      features, developed as an [open source project](https://github.com/intel/llvm).
      It uses a plugin mechanism to target different backends, currently OpenCL with
      SPIR-V support and CUDA with PTX.
@@ -173,6 +173,7 @@ To compile the OpenCL binary for Intel FPGAs (which requires to have the Intel
 *This section needs to be added.*
 
 TL;DR:
+
    * `SYCL_BE=PI_OPENCL`
    * `SYCL_BE=PI_CUDA`
 
@@ -181,6 +182,7 @@ TL;DR:
 *This section needs to be added.*
 
 TL;DR:
+
    * `OCL_ICD_VENDORS=...`
    * `CUDA_VISIBLE_DEVICES=...`
    * `SYCL_DEVICE_TYPE=...`
