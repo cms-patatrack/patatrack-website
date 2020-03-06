@@ -88,6 +88,8 @@ cmake \
   -DLLVM_ENABLE_EH=ON \
   -DLLVM_ENABLE_PIC=ON \
   -DLLVM_ENABLE_RTTI=ON \
+  -DLLVM_LIBDIR_SUFFIX=64 \
+  -DBUILD_SHARED_LIBS=ON \
   -DLIBCLC_TARGETS_TO_BUILD="nvptx64--;nvptx64--nvidiacl" \
   -DSYCL_BUILD_PI_CUDA=ON \
   -DCUDA_TOOLKIT_ROOT_DIR=$CUDA_BASE \
@@ -99,17 +101,9 @@ make -j`nproc` sycl-toolchain opencl-aot
 
 ### Notes
 
-The cmake option `-DLLVM_LIBDIR_SUFFIX=64` is not fully tested, even if it
-should be usable for the build.
-
-The cmake option `-DBUILD_SHARED_LIBS=ON` is not supported by (at least) the
-CUDA backend.
-
 It should be possible to install the toolchain with `make deploy-sycl-toolchain
-deploy-opencl-aot`, but
-   - the `LLVM_LIBDIR_SUFFIX` option is not properly taken into account;
-   - the CUDA backend is not installed;
-so the best option for the moment is to use the `build` directory directly, or 
+deploy-opencl-aot`, but  the CUDA backend is not installed.
+The best option for the moment is to use the `build` directory directly, or 
 to symlink it to the installation directory:
 ```bash
 ln -s $SYCL_BASE/build $INSTALL_PATH
