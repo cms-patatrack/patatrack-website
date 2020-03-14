@@ -60,14 +60,14 @@ git log --merges --oneline --no-decorate intel/sycl..patatrack-new/devel
 
 Currently they are
 
-   * #1241 \[SYCL]\[CUDA] Implement Intel USM extension
-   * #1252 \[SYCL] Fixes for multiple backends in the same program
-   * #1288 \[SYCL] Run the LIT tests using the selected backend
-   * #1293 \[SYCL]\[CUDA] Improve CUDA backend documentation
-   * #1300 \[SYCL]\[CUDA] Fix LIT testing with CUDA devices
-   * #1302 \[SYCL]\[CUDA] Replace assert with CHECK
-   * #1303 \[SYCL]\[CUDA] LIT XFAIL/UNSUPPORTED
-   * #1304 \[SYCL]\[CUDA] Lit exceptions
+   * [#1241](https://github.com/intel/llvm/pull/1241) \[SYCL]\[CUDA] Implement Intel USM extension
+   * [#1252](https://github.com/intel/llvm/pull/1252) \[SYCL] Fixes for multiple backends in the same program
+   * [#1288](https://github.com/intel/llvm/pull/1288) \[SYCL] Run the LIT tests using the selected backend
+   * [#1293](https://github.com/intel/llvm/pull/1293) \[SYCL]\[CUDA] Improve CUDA backend documentation
+   * [#1300](https://github.com/intel/llvm/pull/1300) \[SYCL]\[CUDA] Fix LIT testing with CUDA devices
+   * [#1302](https://github.com/intel/llvm/pull/1302) \[SYCL]\[CUDA] Replace assert with CHECK
+   * [#1303](https://github.com/intel/llvm/pull/1303) \[SYCL]\[CUDA] LIT XFAIL/UNSUPPORTED
+   * [#1304](https://github.com/intel/llvm/pull/1304) \[SYCL]\[CUDA] Lit exceptions
 
 As for the standard LLVM project, the SYCL compiler can be comfigured with
 `cmake` and built with GNU `make` or `ninja`. The current instructions are at
