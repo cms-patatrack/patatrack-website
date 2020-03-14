@@ -46,50 +46,58 @@ extending it beyond the original scope of OpenCL 1.2:
 
 The [sycl branch](https://github.com/intel/llvm/tree/sycl) is under active
 development, and is released roughly every two months in the oneAPI betas.
-These instruction are current as of March 5th, 2020, but will likely be partially
-obsolete very soon.
 
-Building the CUDA backend requires a recent installation of the CUDA toolkit;
-it has been tested with CUDA 10.1.243 and 10.2.89 on CentOS Linux 8.1.1911.
-
-Merging the open pull requests locally may give raise to some conflicts, but so
-far they were only about differences in indentation and alignment, and should
-be easy to fix.
-
+The [devel branch](https://github.com/cms-patatrack/llvm/tree/devel) in the
+Patatrack repository tracks the [sycl branch](https://github.com/intel/llvm/tree/sycl)
+from Intel, merging some of the open [pull requests](https://github.com/intel/llvm/pulls)
+and the latest Patatrack developments.
+The differences with respect to the upstream branch can be seen through the
+[compare view](https://github.com/intel/llvm/compare/sycl...cms-patatrack:devel)
+on GitHub, or from the command line:
 ```bash
-CUDA_BASE="/usr/local/cuda"
-SYCL_BASE="/data/user/fwyzard/sycl"
-INSTALL_PATH="/opt/sycl/latest"
-BUILD_TYPE="RelWithDebInfo"                         # valid values: Release, RelWithDebInfo, Debug
+git log --merges --oneline --no-decorate intel/sycl..patatrack-new/devel
+```
 
-git clone git@github.com:intel/llvm.git -b sycl $SYCL_BASE/llvm
-cd $SYCL_BASE/llvm
+Currently they are
 
-git fetch origin pull/1181/head
-git merge FETCH_HEAD -m '[SYCL][CUDA] Implements program compile and link (#1181)'
-git fetch origin pull/1241/head
-git merge FETCH_HEAD -m '[SYCL][CUDA] Implement part of USM (#1241)'
-git fetch origin pull/1252/head
-git merge FETCH_HEAD -m '[SYCL] Fixes for multiple backends in the same program (#1252)'
-git fetch origin pull/1273/head
-git merge FETCH_HEAD -m '[SYCL][USM] Fix USM malloc_shared and free to handle zero byte (#1273)'
+   * #1241 \[SYCL]\[CUDA] Implement Intel USM extension
+   * #1252 \[SYCL] Fixes for multiple backends in the same program
+   * #1288 \[SYCL] Run the LIT tests using the selected backend
+   * #1293 \[SYCL]\[CUDA] Improve CUDA backend documentation
+   * #1300 \[SYCL]\[CUDA] Fix LIT testing with CUDA devices
+   * #1302 \[SYCL]\[CUDA] Replace assert with CHECK
+   * #1303 \[SYCL]\[CUDA] LIT XFAIL/UNSUPPORTED
+   * #1304 \[SYCL]\[CUDA] Lit exceptions
 
-mkdir -p $SYCL_BASE/build
-cd $SYCL_BASE/build
+As for the standard LLVM project, the SYCL compiler can be comfigured with
+`cmake` and built with GNU `make` or `ninja`. The current instructions are at
+[GetStartedGuide](https://github.com/cms-patatrack/llvm/blob/devel/sycl/doc/GetStartedGuide.md);
+here is a quick summary:
+```bash
 
+CUDA_BASE=/usr/local/cuda
+SYCL_BASE=$HOME/sycl
+INSTALL_PATH=/opt/sycl
+
+cd $SYCL_BASE
+git clone https://github.com/cms-patatrack/llvm.git -b devel
+
+mkdir build
+cd build
 cmake \
-  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
   -DLLVM_TARGETS_TO_BUILD="X86;NVPTX" \
   -DLLVM_EXTERNAL_PROJECTS="llvm-spirv;sycl;opencl-aot" \
-  -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld;openmp;llvm-spirv;sycl;opencl-aot;libclc" \
+  -DLLVM_ENABLE_PROJECTS="clang;llvm-spirv;sycl;opencl-aot;libclc" \
   -DLLVM_EXTERNAL_SYCL_SOURCE_DIR=$SYCL_BASE/llvm/sycl \
   -DLLVM_EXTERNAL_LLVM_SPIRV_SOURCE_DIR=$SYCL_BASE/llvm/llvm-spirv \
   -DLLVM_ENABLE_EH=ON \
   -DLLVM_ENABLE_PIC=ON \
   -DLLVM_ENABLE_RTTI=ON \
-  -DLLVM_LIBDIR_SUFFIX=64 \
-  -DBUILD_SHARED_LIBS=ON \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DLLVM_BUILD_LLVM_DYLIB=OFF \
+  -DLLVM_LINK_LLVM_DYLIB=OFF \
   -DLIBCLC_TARGETS_TO_BUILD="nvptx64--;nvptx64--nvidiacl" \
   -DSYCL_BUILD_PI_CUDA=ON \
   -DCUDA_TOOLKIT_ROOT_DIR=$CUDA_BASE \
@@ -99,16 +107,6 @@ cmake \
 make -j`nproc` sycl-toolchain opencl-aot
 ```
 
-### Notes
-
-It should be possible to install the toolchain with `make deploy-sycl-toolchain
-deploy-opencl-aot`, but  the CUDA backend is not installed.
-The best option for the moment is to use the `build` directory directly, or 
-to symlink it to the installation directory:
-```bash
-ln -s $SYCL_BASE/build $INSTALL_PATH
-```
-
 ## Using the Intel LLVM SYCL compiler
 
 To use the compiler directly from the build directory, the minimal setup is
@@ -116,14 +114,6 @@ To use the compiler directly from the build directory, the minimal setup is
 export PATH=$SYCL_BASE/build/bin:$PATH
 export LD_LIBRARY_PATH=$SYCL_BASE/build/lib:$LD_LIBRARY_PATH
 ```
-
-If the build has also been installed (or symlinked), replace `$SYCL_BASE/build`
-with `$INSTALL_PATH`:
-```bash
-export PATH=$INSTALL_PATH/bin:$PATH
-export LD_LIBRARY_PATH=$INSTALL_PATH/lib:$LD_LIBRARY_PATH
-```
-
 
 To build an application for both OpenCL and CUDA backends, use
 ```
@@ -164,22 +154,53 @@ To compile the OpenCL binary for Intel FPGAs (which requires to have the Intel
 ... -fsycl-targets=...,spir64_fpga-unknown-linux-sycldevice -lOpenCL -MMD
 ```
 
-### The SYCL default device
+### Choosing the device type
 
-*This section needs to be added.*
+By default, the SYCL runtime can use any available device: a GPU, a CPU, an
+FPGA or other accelerator, or the host device.
+The environment variable `SYCL_DEVICE_TYPE` can be used to restrict the runtime
+to use a specific device type:
+```bash
+# force running on a GPU
+export SYCL_DEVICE_TYPE=GPU
 
-TL;DR:
+# force running on a CPU
+export SYCL_DEVICE_TYPE=CPU
 
-   * `SYCL_BE=PI_OPENCL`
-   * `SYCL_BE=PI_CUDA`
+# force running on an FPGA or other accelerator
+export SYCL_DEVICE_TYPE=ACC
+
+# force running on the host device
+export SYCL_DEVICE_TYPE=HOST
+```
+
+Note that the host device remains available even when selecting a specific
+device type.
+
+### Choosing the SYCL backend (OpenCL or CUDA)
+
+The environment variable `SYCL_BE` can be used to instruct the default device
+selector to use the OpenCL (default) or CUDA backends:
+```bash
+# force using the OpenCL backend
+export SYCL_BE=PI_OPENCL
+
+# foce using the CUDA backend
+export SYCL_BE=PI_CUDA
+```
+
+Note that selecting a specific backcend prevents the use of the host device.
 
 ### Restricting the available devices
 
-*This section needs to be added.*
+It is possible to restrict the devices available to the SYCL runtime using some
+SYCL-specific the environment variables: `SYCL_DEVICE_TYPE` variable (see above),
+the `SYCL_DEVICE_ALLOWLIST`, *etc*. See 
+[EnvironmentVariables.md](https://github.com/cms-patatrack/llvm/blob/devel/sycl/doc/EnvironmentVariables.md)
+for more details.
 
-TL;DR:
-
-   * `OCL_ICD_VENDORS=...`
-   * `CUDA_VISIBLE_DEVICES=...`
-   * `SYCL_DEVICE_TYPE=...`
-   * `SYCL_DEVICE_ALLOWLIST=...`
+It is also possible to restrict the devices available to the individual backends.
+For example, the OpenCL backend may honor the `OCL_ICD_VENDORS` variable (see the
+[README.md](https://github.com/KhronosGroup/OpenCL-ICD-Loader/blob/master/README.md)
+file for the Khronos ICD), and the CUDA backend will honor the `CUDA_VISIBLE_DEVICES`
+variable (see the [CUDA documentation](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars)).
