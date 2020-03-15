@@ -3,7 +3,7 @@
 From the Khronos Group's SYCL [web page](https://www.khronos.org/sycl/):
 
 > SYCL (pronounced 'sickle') is a royalty-free, cross-platform abstraction layer
-> that builds on the underlying concepts, portability and efficiency of OpenCL 
+> that builds on the underlying concepts, portability and efficiency of OpenCL
 > that enables code for heterogeneous processors to be written in a "single-source"
 > style using completely standard C++. SYCL single-source programming enables
 > the host and kernel code for an application to be contained in the same source
@@ -33,7 +33,7 @@ extending it beyond the original scope of OpenCL 1.2:
    * [triSYCL](https://github.com/triSYCL/triSYCL): an open-source implementation
      to experiment with SYCL, targeting OpenCL devices with SPIR+ support, such as
      [PoCL](http://portablecl.org/) and Xilinx FPGAs
-   * [hipSYCL](https://github.com/illuhad/hipSYCL): a project to develop a SYCL 
+   * [hipSYCL](https://github.com/illuhad/hipSYCL): a project to develop a SYCL
      1.2.1 implementation that builds upon NVIDIA CUDA and AMD HIP.
    * [Intel Data Parallel C++](https://software.intel.com/en-us/oneapi/dpc-compiler):
      a SYCL 1.2.1 implementation with extensions to support many CUDA-inspired
@@ -68,8 +68,11 @@ Currently they are
    * [#1302](https://github.com/intel/llvm/pull/1302) \[SYCL]\[CUDA] Replace assert with CHECK
    * [#1303](https://github.com/intel/llvm/pull/1303) \[SYCL]\[CUDA] LIT XFAIL/UNSUPPORTED
    * [#1304](https://github.com/intel/llvm/pull/1304) \[SYCL]\[CUDA] Lit exceptions
+   * [#1321](https://github.com/intel/llvm/pull/1321) \[SYCL]\[NFC] Fix dependencies for `SYCLLowerIR`
+   * [#1323](https://github.com/intel/llvm/pull/1323) \[SPIR-V]\[NFC] Fix for building llvm-spirv with `-DLLVM_LINK_LLVM_DYLIB=ON`
 
-As for the standard LLVM project, the SYCL compiler can be comfigured with
+
+As for the standard LLVM project, the SYCL compiler can be configured with
 `cmake` and built with GNU `make` or `ninja`. The current instructions are at
 [GetStartedGuide](https://github.com/cms-patatrack/llvm/blob/devel/sycl/doc/GetStartedGuide.md);
 here is a quick summary:
@@ -95,9 +98,8 @@ cmake \
   -DLLVM_ENABLE_EH=ON \
   -DLLVM_ENABLE_PIC=ON \
   -DLLVM_ENABLE_RTTI=ON \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DLLVM_BUILD_LLVM_DYLIB=OFF \
-  -DLLVM_LINK_LLVM_DYLIB=OFF \
+  -DLLVM_BUILD_LLVM_DYLIB=ON \
+  -DLLVM_LINK_LLVM_DYLIB=ON \
   -DLIBCLC_TARGETS_TO_BUILD="nvptx64--;nvptx64--nvidiacl" \
   -DSYCL_BUILD_PI_CUDA=ON \
   -DCUDA_TOOLKIT_ROOT_DIR=$CUDA_BASE \
@@ -125,7 +127,7 @@ To specify a CUDA GPU architecture, e.g. SM 3.5 (the default is SM 3.0), add
 ... -Xsycl-target-backend=nvptx64-nvidia-cuda-sycldevice '--cuda-gpu-arch=sm_35'`
 ```
 
-To silence the warnings about an unknouwn CUDA version (e.g. 10.2), add 
+To silence the warnings about an unknouwn CUDA version (e.g. 10.2), add
 ```
 ... -Wno-unknown-cuda-version`
 ```
@@ -195,7 +197,7 @@ Note that selecting a specific backcend prevents the use of the host device.
 
 It is possible to restrict the devices available to the SYCL runtime using some
 SYCL-specific the environment variables: `SYCL_DEVICE_TYPE` variable (see above),
-the `SYCL_DEVICE_ALLOWLIST`, *etc*. See 
+the `SYCL_DEVICE_ALLOWLIST`, *etc*. See
 [EnvironmentVariables.md](https://github.com/cms-patatrack/llvm/blob/devel/sycl/doc/EnvironmentVariables.md)
 for more details.
 
