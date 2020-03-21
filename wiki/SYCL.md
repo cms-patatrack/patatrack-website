@@ -41,7 +41,7 @@ extending it beyond the original scope of OpenCL 1.2:
      It uses a plugin mechanism to target different backends, currently OpenCL with
      SPIR-V support and CUDA with PTX.
 
-
+---
 # The Intel oneAPI releases
 
 Intel's oneAPI Data Parallel C++ and Libraries are available from the [oneAPI web site]( https://software.intel.com/en-us/oneapi),
@@ -104,7 +104,7 @@ it should be enough to run
 source /opt/intel/inteloneapi/setvars.sh
 ```
 
-
+---
 # The open source Intel LLVM SYCL compiler
 
 ## Building the Intel LLVM SYCL compiler
@@ -120,7 +120,7 @@ The differences with respect to the upstream branch can be seen through the
 [compare view](https://github.com/intel/llvm/compare/sycl...cms-patatrack:devel)
 on GitHub, or from the command line:
 ```bash
-git log --merges --oneline --no-decorate intel/sycl..patatrack-new/devel
+git log --merges --oneline --no-decorate intel/sycl..patatrack/devel
 ```
 
 Currently they are
