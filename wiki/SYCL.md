@@ -42,6 +42,8 @@ extending it beyond the original scope of OpenCL 1.2:
      SPIR-V support and CUDA with PTX.
 
 
+# The open source Intel LLVM SYCL compiler
+
 ## Building the Intel LLVM SYCL compiler
 
 The [sycl branch](https://github.com/intel/llvm/tree/sycl) is under active
@@ -60,17 +62,13 @@ git log --merges --oneline --no-decorate intel/sycl..patatrack-new/devel
 
 Currently they are
 
-   * [#1241](https://github.com/intel/llvm/pull/1241) \[SYCL]\[CUDA] Implement Intel USM extension
-   * [#1252](https://github.com/intel/llvm/pull/1252) \[SYCL] Fixes for multiple backends in the same program
-   * [#1288](https://github.com/intel/llvm/pull/1288) \[SYCL] Run the LIT tests using the selected backend
-   * [#1293](https://github.com/intel/llvm/pull/1293) \[SYCL]\[CUDA] Improve CUDA backend documentation
-   * [#1300](https://github.com/intel/llvm/pull/1300) \[SYCL]\[CUDA] Fix LIT testing with CUDA devices
-   * [#1302](https://github.com/intel/llvm/pull/1302) \[SYCL]\[CUDA] Replace assert with CHECK
-   * [#1303](https://github.com/intel/llvm/pull/1303) \[SYCL]\[CUDA] LIT XFAIL/UNSUPPORTED
-   * [#1304](https://github.com/intel/llvm/pull/1304) \[SYCL]\[CUDA] Lit exceptions
-   * [#1321](https://github.com/intel/llvm/pull/1321) \[SYCL]\[NFC] Fix dependencies for `SYCLLowerIR`
-   * [#1323](https://github.com/intel/llvm/pull/1323) \[SPIR-V]\[NFC] Fix for building llvm-spirv with `-DLLVM_LINK_LLVM_DYLIB=ON`
-
+   * [#1252](https://github.com/intel/llvm/pull/1252) \[SYCL\] Fixes for multiple backends in the same program
+   * [#1288](https://github.com/intel/llvm/pull/1288) \[SYCL\] Run the LIT tests using the selected backend
+   * [#1300](https://github.com/intel/llvm/pull/1300) \[SYCL\]\[CUDA\] Fix LIT testing with CUDA devices
+   * [#1302](https://github.com/intel/llvm/pull/1302) \[SYCL\]\[CUDA\] Replace assert with CHECK
+   * [#1303](https://github.com/intel/llvm/pull/1303) \[SYCL\]\[CUDA\] LIT XFAIL/UNSUPPORTED
+   * [#1304](https://github.com/intel/llvm/pull/1304) \[SYCL\]\[CUDA\] LIT exceptions
+   * [#1364](https://github.com/intel/llvm/pull/1364) \[SYCL\]\[NFC\] Fix compilation warnings
 
 As for the standard LLVM project, the SYCL compiler can be configured with
 `cmake` and built with GNU `make` or `ninja`. The current instructions are at
@@ -88,7 +86,7 @@ git clone https://github.com/cms-patatrack/llvm.git -b devel
 mkdir build
 cd build
 cmake \
-  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
   -DLLVM_TARGETS_TO_BUILD="X86;NVPTX" \
   -DLLVM_EXTERNAL_PROJECTS="llvm-spirv;sycl;opencl-aot" \
@@ -98,8 +96,6 @@ cmake \
   -DLLVM_ENABLE_EH=ON \
   -DLLVM_ENABLE_PIC=ON \
   -DLLVM_ENABLE_RTTI=ON \
-  -DLLVM_BUILD_LLVM_DYLIB=ON \
-  -DLLVM_LINK_LLVM_DYLIB=ON \
   -DLIBCLC_TARGETS_TO_BUILD="nvptx64--;nvptx64--nvidiacl" \
   -DSYCL_BUILD_PI_CUDA=ON \
   -DCUDA_TOOLKIT_ROOT_DIR=$CUDA_BASE \
@@ -108,6 +104,9 @@ cmake \
 
 make -j`nproc` sycl-toolchain opencl-aot
 ```
+
+Other build options, e.g. `CMAKE_BUILD_TYPE=RelWithDebInfo` or `LLVM_LINK_LLVM_DYLIB=ON`, are also supported.
+
 
 ## Using the Intel LLVM SYCL compiler
 
