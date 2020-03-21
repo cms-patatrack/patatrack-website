@@ -42,6 +42,69 @@ extending it beyond the original scope of OpenCL 1.2:
      SPIR-V support and CUDA with PTX.
 
 
+# The Intel oneAPI releases
+
+Intel's oneAPI Data Parallel C++ and Libraries are available from the [oneAPI web site]( https://software.intel.com/en-us/oneapi),
+and through most package managers.
+
+Currently, oneAPI relies on OpenCL for its CPU, GPU and FPGA backends.
+The OpenCL drivers for Intel CPUs and FPGAs are proprietary, and are included
+in the oneAPI distribution.
+The OpenCL open source "NEO" driver for Intel GPUs is developed on the [Intel Compute Runtime](https://github.com/intel/compute-runtime)
+project on GitHub, and can be installed with most package managers.
+
+## RedHat 8.0 and CentOS 8.0
+
+Install the Intel oneAPI base kit and the NEO OpenCL driver with DNF:
+
+```bash
+# Intel "NEO" OpenCL drivers
+sudo dnf install yum-plugin-copr
+sudo dnf copr enable jdanecki/intel-opencl
+sudo dnf install intel-opencl
+
+# Intel oneAPI repository
+cat << @EOF | sudo tee /etc/yum.repos.d/oneAPI.repo
+[oneAPI]
+name=Intel(R) oneAPI repository
+baseurl=https://yum.repos.intel.com/oneapi
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
+@EOF
+
+# Intel oneAPI base kit
+sudo dnf install intel-basekit
+```
+
+## Ubuntu 18.04 LTS
+
+Install the Intel oneAPI base kit and the NEO OpenCL driver with APT
+
+```bash
+# Intel "NEO" OpenCL drivers
+sudo add-apt-repository ppa:intel-opencl/intel-opencl
+sudo apt install intel-opencl-icd
+
+# Intel oneAPI repository
+curl -s https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB | sudo apt-key add -
+echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+sudo apt update
+
+# Intel oneAPI base kit
+sudo apt install intel-basekit
+```
+
+## Using the Intel Data Parallel C++ compiler
+
+To load the environment to use Intel DPCPP and the CPU and FPGA OpenCL drivers,
+it should be enough to run
+```bash
+source /opt/intel/inteloneapi/setvars.sh
+```
+
+
 # The open source Intel LLVM SYCL compiler
 
 ## Building the Intel LLVM SYCL compiler
