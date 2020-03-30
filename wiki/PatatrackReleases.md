@@ -27,14 +27,14 @@ supports both CUDA 10.1 and CUDA 10.2, with GCC 8.3.x.
 The current Patatrack development branch is based on `CMSSW_11_1_X`, and 
 supports CUDA 10.2 with GCC 8.3.x.
 
-`CMSSW_11_1_0_pre4_Patatrack` is available for the architecture(s)
+`CMSSW_11_1_0_pre5_Patatrack` is available for the architecture(s)
 
   - `slc7_amd64_gcc820`;
   - `slc7_aarch64_gcc820`.
 
 ### Installation area
 
-The `CMSSW_11_1_X_Patatrack` releases are also available on CVMFS.
+The `CMSSW_11_1_X_Patatrack` releases are available on CVMFS.
 
 The `CMSSW_11_0_X_Patatrack` releases are installed locally:
 
@@ -107,12 +107,12 @@ $VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH -r cms.patatrack install -y cms+cmss
 
 ### `CMSSW_11_1_X_Patatrack` development branch
 
-#### Using `CMSSW_11_1_0_pre4_Patatrack` on CVMFS
+#### Using `CMSSW_11_1_0_pre5_Patatrack` on CVMFS
 The `CMSSW_11_1_X_Patatrack` releases are available on CVMFS, and can be used directly on lxplus.
 
-#### Install `CMSSW_11_1_0_pre4_Patatrack` and its dependencies
+#### Install `CMSSW_11_1_0_pre5_Patatrack` and its dependencies
 The `CMSSW_11_1_X_Patatrack` releases are available on the official repository,
 and can be installed directly:
 ```bash
-$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_11_1_0_pre4_Patatrack
+$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_11_1_0_pre5_Patatrack
 ```
