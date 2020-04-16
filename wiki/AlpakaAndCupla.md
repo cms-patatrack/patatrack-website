@@ -1,7 +1,7 @@
 # Alpaka and Cupla
 
 ## Alpaka
-From the Alpaka [README](https://github.com/ComputationalRadiationPhysics/alpaka/blob/develop/README.md):
+From the Alpaka [README](https://github.com/alpaka-group/alpaka/blob/develop/README.md):
 
 > The alpaka library is a header-only C++11 abstraction library for accelerator development.
 > 
@@ -19,25 +19,25 @@ From the Alpaka [README](https://github.com/ComputationalRadiationPhysics/alpaka
 > runtime.
 
 Relevant links:
-  - [Alpaka](https://github.com/ComputationalRadiationPhysics/alpaka) on GitHub
-  - Alpaka's [documentation](https://github.com/ComputationalRadiationPhysics/alpaka/blob/develop/doc/markdown/user/Introduction.md)
+  - [Alpaka](https://github.com/alpaka-group/alpaka) on GitHub
+  - Alpaka's [documentation](https://github.com/alpaka-group/alpaka/blob/develop/doc/markdown/user/Introduction.md)
 
-As of December 2019, the latest release of Alpaka is [version 0.4.0](https://github.com/ComputationalRadiationPhysics/alpaka/tree/0.4.0).
+As of December 2019, the latest release of Alpaka is [version 0.4.0](https://github.com/alpaka-group/alpaka/tree/0.4.0).
 
 ## Cupla
 
-From the Cupla [README](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/README.md):
+From the Cupla [README](https://github.com/alpaka-group/cupla/blob/master/README.md):
 
 > Cupla is a simple user interface for the platform independent parallel kernel acceleration library
 > Alpaka. It follows a similar concept as the NVIDIA® CUDA® API by providing a software layer to manage
 > accelerator devices. Alpaka is used as backend for Cupla.
 
 Relevant links:
-  - [Cupla](https://github.com/ComputationalRadiationPhysics/cupla) on GitHub
-  - Cupla's [porting guide](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/doc/PortingGuide.md)
-  - Cupla's [tuning guide](https://github.com/ComputationalRadiationPhysics/cupla/blob/master/doc/TuningGuide.md)
+  - [Cupla](https://github.com/alpaka-group/cupla) on GitHub
+  - Cupla's [porting guide](https://github.com/alpaka-group/cupla/blob/master/doc/PortingGuide.md)
+  - Cupla's [tuning guide](https://github.com/alpaka-group/cupla/blob/master/doc/TuningGuide.md)
 
-As of Feruary 2020, the latest release of Cupla is [version 0.2.0](https://github.com/ComputationalRadiationPhysics/cupla/tree/0.2.0),
+As of Feruary 2020, the latest release of Cupla is [version 0.2.0](https://github.com/alpaka-group/cupla/tree/0.2.0),
 which is compatible with Alpaka version 0.4.0.
 
 
@@ -62,14 +62,14 @@ NVCC_FLAGS="-ccbin $CXX -w -lineinfo --expt-extended-lambda --expt-relaxed-const
 
 ### To use the development versions
 ```bash
-git clone git@github.com:ComputationalRadiationPhysics/alpaka.git -b develop $ALPAKA_BASE
-git clone git@github.com:ComputationalRadiationPhysics/cupla.git  -b dev     $CUPLA_BASE
+git clone git@github.com:alpaka-group/alpaka.git -b develop $ALPAKA_BASE
+git clone git@github.com:alpaka-group/cupla.git  -b dev     $CUPLA_BASE
 ```
 
 ### To use the latest stable versions
 ```bash
-git clone git@github.com:ComputationalRadiationPhysics/alpaka.git -b 0.4.0 $ALPAKA_BASE
-git clone git@github.com:ComputationalRadiationPhysics/cupla.git  -b 0.2.0 $CUPLA_BASE
+git clone git@github.com:alpaka-group/alpaka.git -b 0.4.0 $ALPAKA_BASE
+git clone git@github.com:alpaka-group/cupla.git  -b 0.2.0 $CUPLA_BASE
 ```
 
 ## Remove the embedded version of Alpaka from Cupla
