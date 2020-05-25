@@ -27,7 +27,7 @@ supports both CUDA 10.1 and CUDA 10.2, with GCC 8.3.x.
 The current Patatrack development branch is based on `CMSSW_11_1_X`, and 
 supports CUDA 10.2 with GCC 8.3.x.
 
-`CMSSW_11_1_0_pre7_Patatrack` is available for the architecture(s)
+`CMSSW_11_1_0_pre8_Patatrack` is available for the architecture(s)
 
   - `slc7_amd64_gcc820`;
   - `slc7_aarch64_gcc820`.
@@ -92,12 +92,12 @@ The `CMSSW_11_1_X_Patatrack` releases are available directly on CVMFS, along
 with the standard CMSSW releases.
 
 
-### Set up a working area for `CMSSW_11_1_0_pre7_Patatrack`
+### Set up a working area for `CMSSW_11_1_0_pre8_Patatrack`
 ```bash
 # create a working area
-scram list CMSSW_11_1_0_pre7
-cmsrel CMSSW_11_1_0_pre7_Patatrack
-cd CMSSW_11_1_0_pre7_Patatrack/src
+scram list CMSSW_11_1_0_pre8
+cmsrel CMSSW_11_1_0_pre8_Patatrack
+cd CMSSW_11_1_0_pre8_Patatrack/src
 
 # load the environment
 cmsenv
@@ -107,7 +107,7 @@ git cms-init -x cms-patatrack
 git branch CMSSW_11_1_X_Patatrack --track cms-patatrack/CMSSW_11_1_X_Patatrack
 ```
 
-You should be able to work in the `from-CMSSW_11_1_0_pre7_Patatrack` branch as you
+You should be able to work in the `from-CMSSW_11_1_0_pre8_Patatrack` branch as you
 would in a normal CMSSW development area.
 
 
