@@ -51,7 +51,7 @@ be able to work as you would in a normal CMSSW development area.
 
 ```bash
 # checkout and build the CMSSW modules used in the tutorial
-git checkout Tutorial_December2019_part2
+git merge cms-patatrack/Tutorial_December2019_part2
 git cms-addpkg DataFormats/Math Patatrack/Tutorial
 scram b -j 4 -k
 
@@ -100,7 +100,11 @@ ___
 ¹ as long as CUDA is available, which today means: on Intel/AMD and ARMv8
 architectures, with CentOS 7 and CentOS 8, with GCC 7.x and 8.x; support for
 the IBM Power architecture is going to be added, and GCC 9.x should be 
-supported sometimes next year.
+supported sometimes next year.  
+**June 2020 Update**: `CMSSW_11_1_0_Patatrack` should use CUDA 11.0, which
+includes support for GCC 9.x; it will also be built and made available for
+the IBM Power architecture.
+
 
 ### `EDProducer`s and other framework plugins
 
@@ -120,6 +124,11 @@ instead we need to split it further, for example in:
 
 If "MyCUDAStuff" is used only by "MyEDProducer", one can also use the files
 `plugins/MyEDProducer.h` and `plugins/MyEDProducer.cu` forthe CUDA code.
+
+
+**June 2020 Update**: CUDA 11.0 does support c++17 in CUDA code.
+We are not taking advantage of it yet, but it should ship together with
+`CMSSW_11_1_0_Patatrack` later on.
 
 ### Error checking
 
@@ -229,9 +238,9 @@ See [Memory management](https://github.com/cms-patatrack/cmssw/blob/master/Heter
 Following the documentation about [Memory management](https://github.com/cms-patatrack/cmssw/blob/master/HeterogeneousCore/CUDACore/README.md#memory-allocation),
 update the `ConvertToCartesianVectorsCUDA` to allocate
 
-  - automatically reused GPU memory for GPU buffers, using `cudautils::make_device_unique`
+  - automatically reused GPU memory for GPU buffers, using `cms::cuda::make_device_unique`
   - [Write-Combining Memory](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#write-combining-memory)
-    for CPU-to-GPU copy buffers, using `cudautils::make_host_noncached_unique`
+    for CPU-to-GPU copy buffers, using `cms::cuda::make_host_noncached_unique`
 
 For the moment, use the [CUDA default stream](https://docs.nvidia.com/cuda/cuda-runtime-api/stream-sync-behavior.html)
 (`0` or `NULL` or `nullptr` or `cudaDefaultStream`) for the `stream` parameter
@@ -248,8 +257,10 @@ framework.
 An `EDProducer` that inherits from `edm::ExternalWork` splits the work usually
 run within `produce()` in three parts:
 
-  - a new method, `acquire()`, is called to setup and start an asynchronous operation;
-  - a callback mechanism is used to signal the framework when the operation is complete;
+  - a new method, `acquire()`, is called to setup and start an asynchronous
+    operation;
+  - a callback mechanism is used to signal the framework when the operation is
+    complete;
   - the `produce()` method is called to finalise the operation and "put" the
     results in the `Event`.
 
@@ -261,14 +272,14 @@ schedule some other work on the CPU.
 
 On a single machine there can bu multiple GPUs available. When offloading
 consecutive algorithms (e.g. the unpacker followed by the local reconstruction)
-we want to run them on the same GPU, to avoid transferring the intermediate data
-across different GPUs. We also want to schedule them in the same "CUDA stream",
-to guarantee that the second algorithms runs only after the first one has
-completed without explicit synchronisations on the CPU side.
+we want to run them on the same GPU, to avoid transferring the intermediate
+data across different GPUs. We also want to schedule them in the same "CUDA
+stream", to guarantee that the second algorithm runs only after the first one
+has completed, without an explicit synchronisation on the CPU side.
 
-To set the GPU device and CUDA stream one should use a "CUDAScopedContext",
-using the `CUDAScopedContextAcquire` and `CUDAScopedContextProduce` classes in
-the `acquire()` and `produce()` methods, respectively.
+To set the GPU device and CUDA stream one should use a "cms::cuda::ScopedContext",
+using the `cms::cuda::ScopedContextAcquire` and `cms::cuda::ScopedContextProduce`
+classes in the `acquire()` and `produce()` methods, respectively.
 
 
 ### Exercise B.3
@@ -297,3 +308,16 @@ Test it by setting `CUDA_VISIBLE_DEVICES` to an empty value, e.g.
 # this should run without any GPUs
 CUDA_VISIBLE_DEVICES= cmsRun ...
 ```
+
+## Solutions to the exercises
+
+Possible solutions for the four exercises are available in the same repository:
+
+  - [solution](https://github.com/cms-patatrack/cmssw/commits/Tutorial_December2019_part2-solution1) to the first exercise;
+  - [solution](https://github.com/cms-patatrack/cmssw/commits/Tutorial_December2019_part2-solution2) to the second exercise;
+  - [solution](https://github.com/cms-patatrack/cmssw/commits/Tutorial_December2019_part2-solution3) to the third exercise;
+  - [solution](https://github.com/cms-patatrack/cmssw/commits/Tutorial_December2019_part2-solution4) to the fourth exercise.
+
+**June 2020 Update**: The names and namespaces of some of the CUDA utilities
+used in CMSSW changed during the the CMSSW 11.1.x release cycle. The solutions
+may not reflect those changes.
