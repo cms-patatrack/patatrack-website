@@ -102,7 +102,7 @@ architectures, with CentOS 7 and CentOS 8, with GCC 7.x and 8.x; support for
 the IBM Power architecture is going to be added, and GCC 9.x should be 
 supported sometimes next year.
 
-### `EDProducer`s and other framewor plugins
+### `EDProducer`s and other framework plugins
 
 A second limitation is that `nvcc` supports c++03, c++11 and c++14 - but not
 c++17 yet. Since part of the CMS framework and ROOT are already using features
@@ -126,7 +126,7 @@ If "MyCUDAStuff" is used only by "MyEDProducer", one can also use the files
 All CUDA library functions have an error code as their return value.
 The safe approach is to wrap *all* calls tu CUDA library function in a wrapper
 that checks the return value, and throws an exception if there is an error:
-```
+```c++
 #include "HeterogeneousCore/CUDAUtilities/interface/cudaCheck.h"
 
 ...
@@ -150,7 +150,7 @@ The `Patatrack/Tutorial` package contains various plugins to
   - compare two collections of vectors in cartesian coordinates (`CompareCartesianVectors`)
   
 as well as some configuration files that can be use to run them. For example:
-```
+```bash
 cd Patatrack/Tutorial
 
 # generate 1200 events wih 10k random vectors
@@ -172,12 +172,12 @@ cmsRun test/compareCartesianVectors.py
 For the first exercise:
 
   - read the `ConvertToCartesianVectors` `EDProducer`
-  - using the skeleton privided in `Patatrack/Tutorial/plugins/ConvertToCartesianVectorsCUDA.cc`
+  - using the skeleton provided in `Patatrack/Tutorial/plugins/ConvertToCartesianVectorsCUDA.cc`
     and `Patatrack/Tutorial/plugins/cudavectors.h`, write a `ConvertToCartesianVectorsCUDA`
     `EDProducer` that does the same conversion on the GPU
   - use `cmsRun test/compareCartesianVectors.py` to compare the results of the
     conversion of the CPU and on the GPU; what do you expect ? 
-  - vary the precision of the comparison; what do yu see ?
+  - vary the precision of the comparison; what do you see ?
 
 #### Bonus points
 
@@ -199,18 +199,18 @@ During the Patatrack development some common patterns emerged:
 
   - all CUDA functions should be checked for errors, and the preferred way to
     report errors in CMSSW is to throw an exception (see `cudaCheck()` above);
-  - reusing host and GPU memory is more efficienct than calling `cudaMalloc()`/`cudaFree()`
+  - reusing host and GPU memory is more efficient than calling `cudaMalloc()`/`cudaFree()`
     for every event;
-  - GPU operations should be **asynchronous** with respecto to CPU operations,
+  - GPU operations should be **asynchronous** with respect to CPU operations,
     to avoid blocking the CPU and allow the framework to schedule other modules
     on the CPU while the GPU is busy;
   - consecutive GPU operations should be scheduled in the same "CUDA stream"
     and on the same device, with minimal synchronisation with the CPU tasks;
   - it is highly desirable to have a CPU and GPU version of the same module
-    available in the configuration, and let `cmsRun` choose at runtime which
+    available in the configuration, and let `cmsRun` choose at run time which
     one to use.
 
-These will be the topic of the next exercises, toghether with the tools and
+These will be the topic of the next exercises, together with the tools and
 utilities that have been (and are being) developed to address them.
 
 For more information, details and examples, please read
@@ -246,7 +246,7 @@ mechanism to run part of an `EDProducer` asynchronously with respect of the
 framework.
 
 An `EDProducer` that inherits from `edm::ExternalWork` splits the work usually
-run witihn `produce()` in three parts:
+run within `produce()` in three parts:
 
   - a new method, `acquire()`, is called to setup and start an asynchronous operation;
   - a callback mechanism is used to signal the framework when the operation is complete;
@@ -264,7 +264,7 @@ consecutive algorithms (e.g. the unpacker followed by the local reconstruction)
 we want to run them on the same GPU, to avoid transferring the intermediate data
 across different GPUs. We also want to schedule them in the same "CUDA stream",
 to guarantee that the second algorithms runs only after the first one has
-completed without explicit sunchronisations on the CPU side.
+completed without explicit synchronisations on the CPU side.
 
 To set the GPU device and CUDA stream one should use a "CUDAScopedContext",
 using the `CUDAScopedContextAcquire` and `CUDAScopedContextProduce` classes in
@@ -292,7 +292,7 @@ of the `SwitchProducer` mechanism.
 Write a python configuration that can automatically choose to run `ConvertToCartesianVectorsCUDA`
 if there is a GPU available, and fall back to `ConvertToCartesianVectors` otherwise.
 
-Test it by setting `CUDA_VISIBLE_DEVICES` to an empy value, e.g.
+Test it by setting `CUDA_VISIBLE_DEVICES` to an empty value, e.g.
 ```bash
 # this should run without any GPUs
 CUDA_VISIBLE_DEVICES= cmsRun ...
