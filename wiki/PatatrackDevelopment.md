@@ -14,20 +14,35 @@ activity:  instructions
 The Patatrack stable branch is based on `CMSSW_11_1_X`, and
 supports CUDA 11.0.x and GCC 8.3.x.
 
-`CMSSW_11_1_0_Patatrack` is available for the architectures:
+`CMSSW_11_1_2_Patatrack` is available for the architectures:
 
-  - `slc7_amd64_gcc820`
-  - `slc7_aarch64_gcc820`
-  - `cc8_amd64_gcc8`
+  - `slc7_amd64_gcc820` (Intel/AMD, CentOS 7, GCC 8)
+  - `slc7_aarch64_gcc820` (ARM, CentOS 7, GCC 8)
+  - `slc7_ppc64le_gcc820` (Power,  CentOS 7, GCC 8)
+  - `cc8_amd64_gcc8` (Intel/AMD, CentOS 8, GCC 8)
+
+
+### `CMSSW_11_2_X_Patatrack` developments releases
+
+The Patatrack development branch is based on `CMSSW_11_2_X`, and
+supports CUDA 11.0.x and GCC 8.3.x.
+
+`CMSSW_11_2_0_pre3_Patatrack` is available for the architectures:
+
+  - `slc7_amd64_gcc820` (Intel/AMD, CentOS 7, GCC 8)
+  - `slc7_aarch64_gcc820` (ARM, CentOS 7, GCC 8)
+  - `slc7_ppc64le_gcc820` (Power,  CentOS 7, GCC 8)
+  - `cc8_amd64_gcc8` (Intel/AMD, CentOS 8, GCC 8)
+
 
 ### Installation area
 
-The `CMSSW_11_1_X_Patatrack` and later releases are available on CVMFS,
-along with the standard CMSSW releases:
+The `CMSSW_11_1_X_Patatrack` and later releases are available on CVMFS, along
+with the standard CMSSW releases:
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc820
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-scram list CMSSW_11_1_0_Patatrack
+scram list CMSSW_11_1_2_Patatrack
 
 Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 
@@ -35,8 +50,20 @@ Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 | Project Name  | Project Version          | Project Location                  |
 --------------------------------------------------------------------------------
 
-  CMSSW           CMSSW_11_1_0_Patatrack
-                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_1_0_Patatrack
+  CMSSW           CMSSW_11_1_2_Patatrack
+                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_1_2_Patatrack
+```
+```bash
+scram list CMSSW_11_2_0_pre3_Patatrack
+
+Listing installed projects available for platform >> slc7_amd64_gcc820 <<
+
+--------------------------------------------------------------------------------
+| Project Name  | Project Version          | Project Location                  |
+--------------------------------------------------------------------------------
+
+  CMSSW           CMSSW_11_2_0_pre3_Patatrack
+                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_2_0_pre3_Patatrack
 ```
 
 ## Create a working area for a Patatrack 11.1.x or later release
@@ -45,11 +72,11 @@ Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 # set up the CMSSW environment
 export SCRAM_ARCH=slc7_amd64_gcc820
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-scram list CMSSW_11_1_0_Patatrack
+scram list CMSSW_11_1_2_Patatrack
 
 # create a working area
-cmsrel CMSSW_11_1_0_Patatrack
-cd CMSSW_11_1_0_Patatrack/src
+cmsrel CMSSW_11_1_2_Patatrack
+cd CMSSW_11_1_2_Patatrack/src
 
 # load the environment
 cmsenv
@@ -59,37 +86,55 @@ git cms-init -x cms-patatrack
 git branch CMSSW_11_1_X_Patatrack --track cms-patatrack/CMSSW_11_1_X_Patatrack
 ```
 
-You should be able to work in the `from-CMSSW_11_1_0_Patatrack` branch as you
+You should be able to work in the `from-CMSSW_11_1_2_Patatrack` branch as you
 would in a normal CMSSW development area.
 
+However, it is recommended to always use the `HEAD` of the chosen branch:
+```bash
+git checkout CMSSW_11_1_X_Patatrack
+
+# check out the modified packages and their dependencies
+git diff CMSSW_11_1_2_Patatrack --name-only --no-renames | cut -d/ -f-2 | uniq | xargs -r git cms-addpkg
+git cms-checkdeps -a
+
+scram b -j
+```
+
+If one of the local packages causes CUDA-related problems at runtime, it may be
+necessary to rebuild all CUDA packages with:
+```
+cmsCudaRebuild.sh
+```
 
 ## Working with older GPUs
-CUDA is configured in CMSSW to support GPUs with Kepler (e.g. Tesla K40), Pascal
-(e.g. GeForce GTX 1080, Tesla P100, ...), Volta (e.g. Titan V, Tesla V100), and
-Turing (e.g. RTX 2080, Tesla T4, ...) architectures.
-To work with GPUs based on different architectures, you need to reconfigure
-CUDA and rebuild all CUDA code in CMSSW with:
+CUDA is configured in CMSSW to support GPUs with Pascal (e.g. GeForce GTX 1080,
+Tesla P100, ...), Volta (e.g. Titan V, Tesla V100), and Turing (e.g. RTX 2080,
+Tesla T4, ...) architectures.
+To work with GPUs based on older architectures, you need to reconfigure CUDA and
+rebuild all CUDA code in CMSSW with:
 ```bash
 cmsenv
 cmsCudaSetup.sh
-cmsCudarebuild.sh
+cmsCudaRebuild.sh
 ```
 
 
 ## Developing with the Patatrack branch
-To work on further developments, it is advised to start from the HEAD of the
-`CMSSW_11_1_X_Patatrack` branch.
+To work on further developments, it is recommended to start from the HEAD of the
+`CMSSW_11_2_X_Patatrack` branch.
 
 ### Checkout the HEAD of the development branch
 
 ```bash
 cmsenv
-git checkout cms-patatrack/CMSSW_11_1_X_Patatrack -b my_development_branch
+git checkout cms-patatrack/CMSSW_11_2_X_Patatrack -b my_development_branch
 
 # check out the modified packages and their dependencies
 git diff $CMSSW_VERSION --name-only --no-renames | cut -d/ -f-2 | sort -u | xargs -r git cms-addpkg
 git cms-checkdeps -a
-scram b -j
+
+# rebuild all CUDA code in the release
+cmsCudaRebuild.sh
 ```
 
 
@@ -130,5 +175,6 @@ git push -u my-cmssw HEAD:my_development_branch
   - click on it, and create a pull request as usual:
     ![Create a pull request](screenshot2.png "Create a request")
 
-  - make sure to choose `CMSSW_11_1_X_Patatrack` as the target branch, **not**
+  - make sure to choose `CMSSW_11_2_X_Patatrack` as the target branch, **not**
     the `master` branch
+
