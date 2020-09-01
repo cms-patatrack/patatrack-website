@@ -14,7 +14,7 @@ activity:  instructions
 The Patatrack stable branch is based on `CMSSW_11_1_X`, and
 supports CUDA 11.0.x and GCC 8.3.x.
 
-`CMSSW_11_1_2_Patatrack` is available for the architectures:
+`CMSSW_11_1_3_Patatrack` is available for the architectures:
 
   - `slc7_amd64_gcc820` (Intel/AMD, CentOS 7, GCC 8)
   - `slc7_aarch64_gcc820` (ARM, CentOS 7, GCC 8)
@@ -27,7 +27,7 @@ supports CUDA 11.0.x and GCC 8.3.x.
 The Patatrack development branch is based on `CMSSW_11_2_X`, and
 supports CUDA 11.0.x and GCC 8.3.x.
 
-`CMSSW_11_2_0_pre3_Patatrack` is available for the architectures:
+`CMSSW_11_2_0_pre5_Patatrack` is available for the architectures:
 
   - `slc7_amd64_gcc820` (Intel/AMD, CentOS 7, GCC 8)
   - `slc7_aarch64_gcc820` (ARM, CentOS 7, GCC 8)
@@ -42,7 +42,7 @@ with the standard CMSSW releases:
 ```bash
 export SCRAM_ARCH=slc7_amd64_gcc820
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-scram list CMSSW_11_1_2_Patatrack
+scram list CMSSW_11_1_3_Patatrack
 
 Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 
@@ -50,11 +50,11 @@ Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 | Project Name  | Project Version          | Project Location                  |
 --------------------------------------------------------------------------------
 
-  CMSSW           CMSSW_11_1_2_Patatrack
-                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_1_2_Patatrack
+  CMSSW           CMSSW_11_1_3_Patatrack
+                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_1_3_Patatrack
 ```
 ```bash
-scram list CMSSW_11_2_0_pre3_Patatrack
+scram list CMSSW_11_2_0_pre5_Patatrack
 
 Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 
@@ -62,8 +62,8 @@ Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 | Project Name  | Project Version          | Project Location                  |
 --------------------------------------------------------------------------------
 
-  CMSSW           CMSSW_11_2_0_pre3_Patatrack
-                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_2_0_pre3_Patatrack
+  CMSSW           CMSSW_11_2_0_pre5_Patatrack
+                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_2_0_pre5_Patatrack
 ```
 
 ## Create a working area for a Patatrack 11.1.x or later release
@@ -72,11 +72,11 @@ Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 # set up the CMSSW environment
 export SCRAM_ARCH=slc7_amd64_gcc820
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-scram list CMSSW_11_1_2_Patatrack
+scram list CMSSW_11_1_3_Patatrack
 
 # create a working area
-cmsrel CMSSW_11_1_2_Patatrack
-cd CMSSW_11_1_2_Patatrack/src
+cmsrel CMSSW_11_1_3_Patatrack
+cd CMSSW_11_1_3_Patatrack/src
 
 # load the environment
 cmsenv
@@ -86,7 +86,7 @@ git cms-init -x cms-patatrack
 git branch CMSSW_11_1_X_Patatrack --track cms-patatrack/CMSSW_11_1_X_Patatrack
 ```
 
-You should be able to work in the `from-CMSSW_11_1_2_Patatrack` branch as you
+You should be able to work in the `from-CMSSW_11_1_3_Patatrack` branch as you
 would in a normal CMSSW development area.
 
 However, it is recommended to always use the `HEAD` of the chosen branch:
@@ -94,7 +94,7 @@ However, it is recommended to always use the `HEAD` of the chosen branch:
 git checkout CMSSW_11_1_X_Patatrack
 
 # check out the modified packages and their dependencies
-git diff CMSSW_11_1_2_Patatrack --name-only --no-renames | cut -d/ -f-2 | uniq | xargs -r git cms-addpkg
+git diff CMSSW_11_1_3_Patatrack --name-only --no-renames | cut -d/ -f-2 | uniq | xargs -r git cms-addpkg
 git cms-checkdeps -a
 
 scram b -j
