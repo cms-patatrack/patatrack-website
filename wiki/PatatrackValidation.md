@@ -59,9 +59,9 @@ the summary is saved in `profile.profile` and the NVVP report in `profile.nvvp`.
 The `validate` script can be used to run the same tests, with more extensive comparisons across different releases.
 
 By default, it will create a new directory, where it will generate and run
-  - the 10824.5 workflow in a "reference" release (e.g. `CMSSW_11_2_0_pre5`);
-  - all 10824.5, 10824.52, 10824.51, 10824.53 workflows on a "development" release (e.g. CMSSW_11_2_0_pre5_Patatrack, updated to
-  the HEAD of the CMSSW_11_2_X_Patatrack branch).
+  - the 10824.5 workflow in a "reference" release (e.g. `CMSSW_11_2_0_pre7`);
+  - all 10824.5, 10824.52, 10824.51, 10824.53 workflows on a "development" release (e.g. `CMSSW_11_2_0_pre7_Patatrack`, updated to
+  the HEAD of the `CMSSW_11_2_X_Patatrack` branch).
 
 If one or more [pull reqest](https://github.com/cms-patatrack/cmssw/pulls/) numbers are passed on the command line, an
 extra set of workflows is run in a "testing" area, where the pull requests are merged on top of the "development" release.
