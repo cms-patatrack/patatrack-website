@@ -54,39 +54,39 @@ process.NVProfilerService = cms.Service("NVProfilerService")
 ```
 #### Profiling workflow
 
-Removes DQM and VALIDATION, replaces output module with a dummy `AsciiOutputModule`.
+Removes DQM and VALIDATION, replaces the output module with a `GenericConsumer`.
 
 ```bash
-cmsDriver.py ... --customise RecoPixelVertexing/Configuration/customizePixelTracksForProfiling.customizePixelTracksForProfiling
+cmsDriver.py ... --customise RecoTracker/Configuration/customizePixelOnlyForProfiling.customizePixelOnlyForProfiling
 ```
 
 ```python
-from RecoPixelVertexing.Configuration.customizePixelTracksForProfiling import customizePixelTracksForProfiling
-process = customizePixelTracksForProfiling(process)
+from RecoTracker.Configuration.customizePixelOnlyForProfiling import customizePixelOnlyForProfiling
+process = customizePixelOnlyForProfiling(process)
 ```
 
-#### Disable SOA->legacy conversion
+#### Disable the SoA -> legacy conversion
 
-In addition to the profiling workflow above disables the "conversion to legacy formats".
+In addition to the profiling workflow above, disables the conversion from SoAs/PODs to legacy EDM formats.
 
 ```bash
-cmsDriver.py ... --customise RecoPixelVertexing/Configuration/customizePixelTracksForProfiling.customizePixelTracksForProfilingDisableConversion
+cmsDriver.py ... --customise RecoTracker/Configuration/customizePixelOnlyForProfiling.customizePixelOnlyForProfilingGPUWithHostCopy
 ```
 
 ```python
-from RecoPixelVertexing.Configuration.customizePixelTracksForProfiling import customizePixelTracksForProfilingDisableConversion
-process = customizePixelTracksForProfilingDisableConversion(process)
+from RecoTracker.Configuration.customizePixelOnlyForProfiling import customizePixelOnlyForProfilingGPUWithHostCopy
+process = customizePixelOnlyForProfilingGPUWithHostCopy(process)
 ```
 
-#### Disable GPU->CPU transfers
+#### Disable the GPU -> CPU transfers
 
-In addition to disabling the "conversion to legacy" above disables the GPU->CPU transfers altogether.
+In addition to disabling the conversion to legacy EDM formats, disables the GPU->CPU transfers altogether.
 
 ```bash
-cmsDriver.py ... --customise RecoPixelVertexing/Configuration/customizePixelTracksForProfiling.customizePixelTracksForProfilingDisableTransfer
+cmsDriver.py ... --customise RecoTracker/Configuration/customizePixelOnlyForProfiling.customizePixelOnlyForProfilingGPUOnly
 ```
 
 ```python
-from RecoPixelVertexing.Configuration.customizePixelTracksForProfiling import customizePixelTracksForProfilingDisableTransfer
-process = customizePixelTracksForProfilingDisableTransfer(process)
+from RecoTracker.Configuration.customizePixelOnlyForProfiling import customizePixelOnlyForProfilingGPUOnly
+process = customizePixelOnlyForProfilingGPUOnly(process)
 ```
