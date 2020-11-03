@@ -12,8 +12,8 @@ compilation-website:
   stage: build-website
   before_script:
   - bundle install
-  - bundle update kramdown
   script:
+  - bundle update kramdown
   - bundle exec jekyll build -d public
   artifacts:
     paths:
