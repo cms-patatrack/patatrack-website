@@ -27,7 +27,7 @@ supports CUDA 11.0.x and GCC 8.3.x.
 The Patatrack development branch is based on `CMSSW_11_2_X`, and
 supports CUDA 11.0.x and GCC 8.3.x.
 
-`CMSSW_11_2_0_pre8_Patatrack` is available for the architectures:
+`CMSSW_11_2_0_pre9_Patatrack` is available for the architectures:
 
   - `slc7_amd64_gcc820` (Intel/AMD, CentOS 7, GCC 8)
   - `slc7_aarch64_gcc820` (ARM, CentOS 7, GCC 8)
@@ -54,7 +54,7 @@ Listing installed projects available for platform >> slc7_amd64_gcc820 <<
                                          --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_1_3_Patatrack
 ```
 ```bash
-scram list CMSSW_11_2_0_pre8_Patatrack
+scram list CMSSW_11_2_0_pre9_Patatrack
 
 Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 
@@ -62,8 +62,8 @@ Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 | Project Name  | Project Version          | Project Location                  |
 --------------------------------------------------------------------------------
 
-  CMSSW           CMSSW_11_2_0_pre8_Patatrack
-                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_2_0_pre8_Patatrack
+  CMSSW           CMSSW_11_2_0_pre9_Patatrack
+                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_2_0_pre9_Patatrack
 ```
 
 ## Installing "Patatrack" CMSSW releases
@@ -117,5 +117,5 @@ $VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_11_1_3_Pa
 The `CMSSW_11_2_X_Patatrack` releases are available on the official repository,
 and can be installed directly with:
 ```bash
-$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_11_2_0_pre8_Patatrack
+$VO_CMS_SW_DIR/common/cmspkg -a $SCRAM_ARCH install -y cms+cmssw+CMSSW_11_2_0_pre9_Patatrack
 ```
