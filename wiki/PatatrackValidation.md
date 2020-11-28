@@ -12,7 +12,7 @@ activity:  instructions
 After setting up a Patatrack release and preparing some developing, before submitting a pull request it is good practice to run the
 standard validation workflow.
 
-On **vinavx2** this is as easy as running
+**This part is currently not working! PRs to https://github.com/cms-patatrack/patatrack-validation/ with a fix are welcome!**
 
 ```bash
 cd $CMSSW_BASE
@@ -24,13 +24,13 @@ To run on a different machine, see "Running on a different machine" below.
 
 This will create the workflows
   - 10824.5: pixel-only reconstruction, running on the CPU
-  - 10824.52: pixel-only reconstruction, running on the GPU
-  - 10824.51: pixel-only reconstruction with Riemann fit, running on the CPU
-  - 10824.53: pixel-only reconstruction running on the CPU, with Riemann fit running on the GPU
+  - 10824.501: pixel-only reconstruction with Patatrack developments, running on the CPU
+  - 10824.502: pixel-only reconstruction with Patatrack developments, running on the GPU
 
 and run them over
-  - 200 events from a Zmumu sample without pileup
   - 100 events from a TTbar sample with pileup 50
+  - 200 events from a Zmumu sample without pileup
+  - 200 events from a Zee sample without pileup
 
 The "step1" (GEN-SIM) and "step2" (DIGI) jobs are skipped; the RAW data is read directly from the existing relval samples.
 The `step3.py` configuration is modified to include the `NVProfilerService` and to print the messages from the `CUDAService`.  
@@ -40,7 +40,7 @@ The "step4" (HARVESTING) job is then run to produce the final DQM results.
 Then, for each sample, the `makeTrackValidationPlots.py` is used to create the standard tracking validation plots in the
 `$CMSSW_BASE/plots` directory.
 
-For the CUDA-enabled workflows (10824.52 and 10824.53) the "step3" job is also run multiple times under `cuda-memcheck`, with
+For the CUDA-enabled workflows (10824.502 *etc.*) the "step3" job is also run multiple times under `cuda-memcheck`, with
 different options:
   - `cuda-memcheck --tool initcheck`
   - `cuda-memcheck --tool memcheck --leak-check full --report-api-errors all`
@@ -49,7 +49,7 @@ different options:
 The results are saved in `cuda-initcheck.log`, `cuda-memcheck.log` and `cuda-synccheck.log`.
 
 As these workflow include the DQM and Validation steps, they are not suited for profiling and benchmarks.  
-For the 10824.5 and 10824.52 workflows a simplified configuration is created: `profile.py`.  
+For the 10824.5 and 10824.502 workflows a simplified configuration is created: `profile.py`.  
 This includes the same customisations for the `NVProfilerService` and `CUDAService`, and is run in the same way under `nvprof`;
 the summary is saved in `profile.profile` and the NVVP report in `profile.nvvp`.
 
@@ -59,8 +59,8 @@ the summary is saved in `profile.profile` and the NVVP report in `profile.nvvp`.
 The `validate` script can be used to run the same tests, with more extensive comparisons across different releases.
 
 By default, it will create a new directory, where it will generate and run
-  - the 10824.5 workflow in a "reference" release (e.g. `CMSSW_11_2_0_pre9`);
-  - all 10824.5, 10824.52, 10824.51, 10824.53 workflows on a "development" release (e.g. `CMSSW_11_2_0_pre9_Patatrack`, updated to
+  - the 10824.5 workflow in a "reference" release (e.g. `CMSSW_11_2_0_pre10`);
+  - the 10824.5, 10824.501, 10824.502 etc. workflows on a "development" release (e.g. `CMSSW_11_2_0_pre10_Patatrack`, updated to
   the HEAD of the `CMSSW_11_2_X_Patatrack` branch).
 
 If one or more [pull reqest](https://github.com/cms-patatrack/cmssw/pulls/) numbers are passed on the command line, an
@@ -77,10 +77,12 @@ automatically posted on GitHub as a comment to the pull request.
 
 ## Customising the samples being used
 
-To change the number of events, set the variables `TTBAR_NUMEVENTS` and `ZMUMU_NUMEVENTS` to the desired values.
+The file `input.sh` describes the datasets used for the validation.
+
+To change the number of events, set the variables `TTBAR_NUMEVENTS`, `ZMUMU_NUMEVENTS`, `ZEE_NUMEVENTS` to the desired values.
 
 To change the dataset being used (for example, to pick a more recent set of relvals), update the dataset names in the variables
-`TTBAR` and `ZMUMU`.
+`TTBAR`, `ZMUMU` and `ZEE`.
 
 The relval samples should automatically be read via xrootd (from EOS if they are avaibale at CERN); they can also be cached on
 the local machine for faster access (see "Running on a different machine" below).
@@ -88,9 +90,10 @@ the local machine for faster access (see "Running on a different machine" below)
 
 ## Running on a different machine
 
-The `validate` and `validate.local` scripts are set up for **vinavx2**.  
-On a different machine one should:
-  - change `TTBAR_CACHE_PATH` and `ZMUMU_CACHE_PATH` to point to local directories;
-  - copy to these directories the files mentoned in `TTBAR_CACHE_FILE` and `ZMUMU_CACHE_FILE`, respectively.
+The file `local.sh` describes the environment and file system of the local machine.
 
-For `validate`, one should additionally set `VO_CMS_SW_DIR` to the location of the `cmsset_default.sh` script.
+The `validate` scripts are set up for the online machines. 
+On a different machine one should modify the content of `local.sh` to reflect the local environment and file system:
+  - set `VO_CMS_SW_DIR` to the location of the `cmsset_default.sh` script;
+  - set `LOCAL_CACHE_PATH` to the directory containing a local copy of the datasets.
+
