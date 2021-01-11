@@ -29,9 +29,8 @@ supports CUDA 11.1 and GCC 8 and later.
 There is a known problem using CUDA 11.1 with GCC 10 in C++17 mode;
 NVIDIA is aware and working on a fix.
 
-`CMSSW_11_2_0_pre10_Patatrack` is available for the architectures:
+`CMSSW_11_2_0_Patatrack` is available for the architectures:
 
-  - `slc7_amd64_gcc820` (Intel/AMD, CentOS 7, GCC 8)
   - `slc7_amd64_gcc900` (Intel/AMD, CentOS 7, GCC 9)
   - `slc7_aarch64_gcc9` (ARM, CentOS 7, GCC 9)
   - `slc7_ppc64le_gcc9` (Power,  CentOS 7, GCC 9)
@@ -57,7 +56,7 @@ Listing installed projects available for platform >> slc7_amd64_gcc820 <<
                                          --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_1_3_Patatrack
 ```
 ```bash
-scram list CMSSW_11_2_0_pre10_Patatrack
+scram list CMSSW_11_2_0_Patatrack
 
 Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 
@@ -65,8 +64,8 @@ Listing installed projects available for platform >> slc7_amd64_gcc820 <<
 | Project Name  | Project Version          | Project Location                  |
 --------------------------------------------------------------------------------
 
-  CMSSW           CMSSW_11_2_0_pre10_Patatrack
-                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_2_0_pre10_Patatrack
+  CMSSW           CMSSW_11_2_0_Patatrack
+                                         --> /cvmfs/cms.cern.ch/slc7_amd64_gcc820/cms/cmssw/CMSSW_11_2_0_Patatrack
 ```
 
 ## Create a working area for a Patatrack 11.1.x or later release
