@@ -13,7 +13,7 @@ markdown: kramdown
     {% if page.resource == true %}
       {% for pc in page.categories %}
         {% if pc == "jobs-ads" %}
-          <li><a href="{{site.baseurl}}/{{ page.url }}">{{ page.title }}: {{ page.description }}</a></li>
+          <li><a href="{{site.baseurl}}/{{ page.url }}">{{ page.title }} </a><br> {{ page.description }}</li>
         {% endif %}   <!-- cat-match-p -->
       {% endfor %}  <!-- page-category -->
     {% endif %}   <!-- resource-p -->
