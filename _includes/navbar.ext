@@ -30,14 +30,12 @@
               <a class="dropdown-toggle" data-toggle="dropdown" href="{{site.baseurl}}/index.html" id="education_menu">Education<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="education_menu">
                   <li><a href="{{site.baseurl}}/projects_for_students.html">Projects for students</a></li>
-                  <!-- <li><a href="{{site.baseurl}}/training.html">Training</a></li> -->
                 </ul>
             </li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="{{site.baseurl}}/index.html" id="education_menu">Collaborate with us<span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="education_menu">
-                  <li><a href="{{site.baseurl}}/jobs.html">Projects for students</a></li>
-                  <!-- <li><a href="{{site.baseurl}}/training.html">Training</a></li> -->
+                  <li><a href="{{site.baseurl}}/jobs.html">Jobs</a></li>
                 </ul>
             </li>
             <li class="dropdown">
