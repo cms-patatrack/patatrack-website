@@ -24,7 +24,7 @@ The appointments are initially for one year and renewable annually, subject to m
 
 Extended residence at CERN will be necessary, or frequent travel to CERN if the applicant prefers to be based in Görlitz.
 
-Expressions of interest and CV can be sent to felice.pantaleo@cern.ch and andrea.bocci@cern.ch 
+Expressions of interest and CV can be sent to <felice.pantaleo@cern.ch> and <andrea.bocci@cern.ch>
 
 ### Functions:
 You will play an important role in the development of the heterogeneous algorithms applied to HEP event reconstruction, by designing and developing innovative, fast and portable algorithms for data processing. 
