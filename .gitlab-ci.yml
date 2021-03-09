@@ -1,0 +1,45 @@
+image: ruby:2.7
+
+variables:
+  JEKYLL_ENV: production
+stages:
+  - build-website
+  - build-wiki
+  - deploy
+
+
+compilation-website:
+  stage: build-website
+  before_script:
+  - bundle install
+  script:
+  - bundle update kramdown
+  - bundle exec jekyll build -d public
+  artifacts:
+    paths:
+    - public
+    
+compilation-wiki:
+  stage: build-wiki
+  image: python:latest
+  before_script:
+  - pip3 install mkdocs mkdocs-material pygments pymdown-extensions
+  script:
+  - mkdocs build
+  artifacts:
+    paths:
+    - public/wiki
+
+
+pages:
+  stage: deploy
+  # Docker image with tools to deploy to EOS
+  image: gitlab-registry.cern.ch/ci-tools/ci-web-deployer:latest
+  script:
+  - deploy-eos
+  dependencies:
+    - compilation-website
+    - compilation-wiki
+  only:
+  - master@websites/patatrack-website
+

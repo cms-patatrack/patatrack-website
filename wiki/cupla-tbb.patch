@@ -1,0 +1,35 @@
+commit b463a25798a3b3e1735335d8b90e4a4acd76b669 (fwyzard/tbb_IsThreadSeqAcc, tbb_IsThreadSeqAcc)
+Author: Andrea Bocci <andrea.bocci@cern.ch>
+Date:   Thu Apr 18 18:44:44 2019 +0200
+
+    Mark the TBB backend as "thread sequential"
+    
+    This lets CUPLA_KERNEL_OPTI swap the threads and elements when using the TBB
+    backend, as it does for the serial and OpenMP ones.
+
+diff --git a/include/cupla/traits/IsThreadSeqAcc.hpp b/include/cupla/traits/IsThreadSeqAcc.hpp
+index eefb8a6..07d13f3 100644
+--- a/include/cupla/traits/IsThreadSeqAcc.hpp
++++ b/include/cupla/traits/IsThreadSeqAcc.hpp
+@@ -72,5 +72,21 @@ namespace traits
+     };
+ #endif
+ 
++#ifdef ALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED
++    template<
++        typename T_KernelDim,
++        typename T_IndexType
++    >
++    struct IsThreadSeqAcc<
++        ::alpaka::acc::AccCpuTbbBlocks<
++            T_KernelDim,
++            T_IndexType
++        >
++    >
++    {
++        static constexpr bool value = true;
++    };
++#endif
++
+ }  // namespace traits
+ } // namespace cupla

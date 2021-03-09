@@ -1,0 +1,553 @@
+{ "label": "TIME", "weight": 264.544, "groups": [
+  { "label": "other", "color": "#ffffff", "weight": 6.70625, "groups": [
+    { "label": "other", "color": "#ffffff", "weight": 6.70625, "groups": [
+      { "label": "other", "color": "#ffffff", "weight": 6.70625 }
+    ]}
+  ]},
+  { "label": "Tracking", "color": "#009900", "weight": 83.4188, "groups": [
+    { "label": "PixelInactiveAreaTrackingRegionsSeedingLayersProducer", "weight": 0.3, "groups": [
+      { "label": "hltDoubletRecoveryPixelLayersAndRegionsTauReg", "weight": 0.1 },
+      { "label": "hltDoubletRecoveryPixelLayersAndRegionsForBTag", "weight": 0.1 },
+      { "label": "hltDoubletRecoveryPixelLayersAndRegions", "weight": 0.1 }
+    ]},
+    { "label": "CkfTrajectoryMaker", "weight": 3.775, "groups": [
+      { "label": "hltL3NoFiltersTrackCandidateFromL2OIHitNoVtx", "weight": 0.1 },
+      { "label": "hltL3TrackCandidateFromL2OIStateNoVtx", "weight": 0.3 },
+      { "label": "hltL3TrackCandidateFromL2IOHit", "weight": 0.5 },
+      { "label": "hltL3NoFiltersTrackCandidateFromL2IOHitNoVtx", "weight": 2.775 },
+      { "label": "hltL3TrackCandidateFromL2OIState", "weight": 0.1 }
+    ]},
+    { "label": "SiStripClusterizerFromRaw", "weight": 0.1, "groups": [
+      { "label": "hltSiStripRawToClustersFacility", "weight": 0.1 }
+    ]},
+    { "label": "MeasurementTrackerEventProducer", "weight": 0.3, "groups": [
+      { "label": "hltSiStripClusters", "weight": 0.3 }
+    ]},
+    { "label": "PixelTripletHLTEDProducer", "weight": 0.2, "groups": [
+      { "label": "hltIter0HighPtTkMuPixelTracksHitTriplets", "weight": 0.2 }
+    ]},
+    { "label": "SeedCreatorFromRegionConsecutiveHitsEDProducer", "weight": 12.6375, "groups": [
+      { "label": "hltIter1PFlowPixelSeedsTauReg", "weight": 0.2 },
+      { "label": "hltDoubletRecoveryPFlowPixelSeeds", "weight": 0.71875 },
+      { "label": "hltIter3IterL3FromL1MuonPixelSeeds", "weight": 0.4 },
+      { "label": "hltElePixelSeedsDoublets", "weight": 9.91875 },
+      { "label": "hltDoubletRecoveryPFlowPixelSeedsForBTag", "weight": 0.1 },
+      { "label": "hltElePixelSeedsDoubletsUnseeded", "weight": 0.5 },
+      { "label": "hltIter3IterL3MuonPixelSeeds", "weight": 0.2 },
+      { "label": "hltIter2HighPtTkMuPixelSeeds", "weight": 0.1 },
+      { "label": "hltElePixelSeedsTriplets", "weight": 0.5 }
+    ]},
+    { "label": "SeedCreatorFromRegionConsecutiveHitsTripletOnlyEDProducer", "weight": 0.7, "groups": [
+      { "label": "hltIter2PFlowPixelSeeds", "weight": 0.3 },
+      { "label": "hltIter2IterL3FromL1MuonPixelSeeds", "weight": 0.2 },
+      { "label": "hltIter2PFlowPixelSeedsForBTag", "weight": 0.2 }
+    ]},
+    { "label": "TrackListMerger", "weight": 0.5, "groups": [
+      { "label": "hltPFMuonMerging", "weight": 0.1 },
+      { "label": "hltPixelTracksMergedRegL1TauSeeded", "weight": 0.1 },
+      { "label": "hltIter2Merged", "weight": 0.1 },
+      { "label": "hltMergedTracks", "weight": 0.1 },
+      { "label": "hltIter1Merged", "weight": 0.1 }
+    ]},
+    { "label": "TrackIPProducer", "weight": 0.1, "groups": [
+      { "label": "hltImpactParameterTagInfos", "weight": 0.1 }
+    ]},
+    { "label": "TrackProducer", "weight": 6.93125, "groups": [
+      { "label": "hltIter0PFlowCtfWithMaterialTracksTauReg", "weight": 0.1625 },
+      { "label": "hltIter3IterL3FromL1MuonCtfWithMaterialTracks", "weight": 0.2 },
+      { "label": "hltIter1PFlowCtfWithMaterialTracksForBTag", "weight": 0.1 },
+      { "label": "hltIter2PFlowCtfWithMaterialTracksTauReg", "weight": 0.1 },
+      { "label": "hltIter2PFlowCtfWithMaterialTracks", "weight": 0.8 },
+      { "label": "hltIter3IterL3MuonCtfWithMaterialTracks", "weight": 0.11875 },
+      { "label": "hltIter0PFlowCtfWithMaterialTracksForBTag", "weight": 0.1 },
+      { "label": "hltIter2PFlowCtfWithMaterialTracksForBTag", "weight": 0.5 },
+      { "label": "hltIter1PFlowCtfWithMaterialTracks", "weight": 1.05625 },
+      { "label": "hltIter2HighPtTkMuCtfWithMaterialTracks", "weight": 0.1 },
+      { "label": "hltIter0PFlowCtfWithMaterialTracks", "weight": 0.9 },
+      { "label": "hltIterL3OIMuCtfWithMaterialTracks", "weight": 0.2 },
+      { "label": "hltL3NoFiltersTkTracksFromL2IOHitNoVtx", "weight": 0.1 },
+      { "label": "hltIter1PFlowCtfWithMaterialTracksTauReg", "weight": 0.5 },
+      { "label": "hltIter2IterL3MuonCtfWithMaterialTracksNoVtx", "weight": 0.1 },
+      { "label": "hltDoubletRecoveryPFlowCtfWithMaterialTracks", "weight": 0.9 },
+      { "label": "hltIter0HighPtTkMuCtfWithMaterialTracks", "weight": 0.1 },
+      { "label": "hltDoubletRecoveryPFlowCtfWithMaterialTracksForBTag", "weight": 0.2 },
+      { "label": "hltIterL3OIMuCtfWithMaterialTracksNoVtx", "weight": 0.1 },
+      { "label": "hltIter1L3MuonCtfWithMaterialTracksNoVtx", "weight": 0.1 },
+      { "label": "hltIter2IterL3FromL1MuonCtfWithMaterialTracks", "weight": 0.39375 },
+      { "label": "hltIter2IterL3MuonCtfWithMaterialTracks", "weight": 0.1 }
+    ]},
+    { "label": "CkfTrackCandidateMaker", "weight": 57.4938, "groups": [
+      { "label": "hltIter2HighPtTkMuCkfTrackCandidates", "weight": 1.2 },
+      { "label": "hltIter2PFlowCkfTrackCandidates", "weight": 4.28125 },
+      { "label": "hltIter1L3MuonCkfTrackCandidates", "weight": 0.1 },
+      { "label": "hltDoubletRecoveryPFlowCkfTrackCandidatesForBTag", "weight": 0.9375 },
+      { "label": "hltIterL3OITrackCandidates", "weight": 8.475 },
+      { "label": "hltIter1PFlowCkfTrackCandidatesForBTag", "weight": 0.2 },
+      { "label": "hltIter0HighPtTkMuCkfTrackCandidates", "weight": 0.2 },
+      { "label": "hltIter0IterL3MuonCkfTrackCandidates", "weight": 0.1 },
+      { "label": "hltIter2PFlowCkfTrackCandidatesTauReg", "weight": 0.3 },
+      { "label": "hltDoubletRecoveryPFlowCkfTrackCandidatesTauReg", "weight": 0.2 },
+      { "label": "hltIter2IterL3FromL1MuonCkfTrackCandidates", "weight": 2.4375 },
+      { "label": "hltIter1L3MuonCkfTrackCandidatesNoVtx", "weight": 0.5 },
+      { "label": "hltIter0PFlowCkfTrackCandidatesForBTag", "weight": 0.3 },
+      { "label": "hltMuCkfTrackCandidates", "weight": 0.1 },
+      { "label": "hltIter0IterL3FromL1MuonCkfTrackCandidates", "weight": 0.1 },
+      { "label": "hltIter0IterL3MuonCkfTrackCandidatesNoVtx", "weight": 0.1 },
+      { "label": "hltIter2IterL3MuonCkfTrackCandidates", "weight": 0.4375 },
+      { "label": "hltIter1PFlowCkfTrackCandidatesTauReg", "weight": 3.875 },
+      { "label": "hltIter2PFlowCkfTrackCandidatesForBTag", "weight": 3.14375 },
+      { "label": "hltIter0PFlowCkfTrackCandidatesTauReg", "weight": 0.4 },
+      { "label": "hltIter2IterL3MuonCkfTrackCandidatesNoVtx", "weight": 0.5 },
+      { "label": "hltIter2L3MuonCkfTrackCandidatesNoVtx", "weight": 0.1 },
+      { "label": "hltIterL3OITrackCandidatesNoVtx", "weight": 7.93125 },
+      { "label": "hltIter3IterL3MuonCkfTrackCandidates", "weight": 3.2 },
+      { "label": "hltIter0PFlowCkfTrackCandidates", "weight": 2.275 },
+      { "label": "hltIter2IterL3FromL1MuonCkfTrackCandidatesNoVtx", "weight": 0.1 },
+      { "label": "hltIter3IterL3FromL1MuonCkfTrackCandidates", "weight": 5.91875 },
+      { "label": "hltDoubletRecoveryPFlowCkfTrackCandidates", "weight": 6.48125 },
+      { "label": "hltIterL3OITrackCandidatesOpenMu", "weight": 0.40625 },
+      { "label": "hltIter1PFlowCkfTrackCandidates", "weight": 2.99375 },
+      { "label": "hltEgammaCkfTrackCandidatesForGSF", "weight": 0.2 }
+    ]},
+    { "label": "SeedGeneratorFromProtoTracksEDProducer", "weight": 0.38125, "groups": [
+      { "label": "hltMuTrackSeeds", "weight": 0.1 },
+      { "label": "hltIter1PFLowPixelSeedsFromPixelTracks", "weight": 0.18125 },
+      { "label": "hltIter0PFLowPixelSeedsFromPixelTracks", "weight": 0.1 }
+    ]}
+  ]},
+  { "label": "ECAL", "color": "#4ddbff", "weight": 18.3875, "groups": [
+    { "label": "PFECALSuperClusterProducer", "weight": 0.8, "groups": [
+      { "label": "hltParticleFlowSuperClusterECALL1Seeded", "weight": 0.4 },
+      { "label": "hltParticleFlowSuperClusterECALUnseeded", "weight": 0.4 }
+    ]},
+    { "label": "HLTEcalRecHitInAllL1RegionsProducer", "weight": 0.6, "groups": [
+      { "label": "hltRechitInRegionsES", "weight": 0.4 },
+      { "label": "hltRechitInRegionsECAL", "weight": 0.2 }
+    ]},
+    { "label": "CorrectedECALPFClusterProducer", "weight": 2.2125, "groups": [
+      { "label": "hltParticleFlowClusterECALUnseeded", "weight": 1.9 },
+      { "label": "hltParticleFlowClusterECALL1Seeded", "weight": 0.3125 }
+    ]},
+    { "label": "EcalRawToDigi", "weight": 1.88125, "groups": [
+      { "label": "hltEcalDigis", "weight": 1.88125 }
+    ]},
+    { "label": "EcalRecHitProducer", "weight": 0.8, "groups": [
+      { "label": "hltEcalRecHit", "weight": 0.8 }
+    ]},
+    { "label": "ESRawToDigi", "weight": 0.2125, "groups": [
+      { "label": "hltEcalPreshowerDigis", "weight": 0.2125 }
+    ]},
+    { "label": "EcalDetIdToBeRecoveredProducer", "weight": 0.1, "groups": [
+      { "label": "hltEcalDetIdToBeRecovered", "weight": 0.1 }
+    ]},
+    { "label": "EcalUncalibRecHitProducer", "weight": 10.9812, "groups": [
+      { "label": "hltEcalUncalibRecHit", "weight": 10.9812 }
+    ]},
+    { "label": "ESRecHitProducer", "weight": 0.8, "groups": [
+      { "label": "hltEcalPreshowerRecHit", "weight": 0.8 }
+    ]}
+  ]},
+  { "label": "L1T", "color": "#cccccc", "weight": 1.98125, "groups": [
+    { "label": "L1TRawToDigi", "weight": 0.4, "groups": [
+      { "label": "hltGtStage2Digis", "weight": 0.4 }
+    ]},
+    { "label": "L1TGlobalProducer", "weight": 1.58125, "groups": [
+      { "label": "hltGtStage2ObjectMap", "weight": 1.58125 }
+    ]}
+  ]},
+  { "label": "HLT", "color": "#808080", "weight": 2.275, "groups": [
+    { "label": "EventSetupRecordDataGetter", "weight": 0.1, "groups": [
+      { "label": "hltGetConditions", "weight": 0.1 }
+    ]},
+    { "label": "TriggerSummaryProducerRAW", "weight": 0.375, "groups": [
+      { "label": "hltTriggerSummaryRAW", "weight": 0.375 }
+    ]},
+    { "label": "TriggerSummaryProducerAOD", "weight": 1.2, "groups": [
+      { "label": "hltTriggerSummaryAOD", "weight": 1.2 }
+    ]},
+    { "label": "TriggerRatesMonitor", "weight": 0.5, "groups": [
+      { "label": "hltTriggerRatesMonitor", "weight": 0.5 }
+    ]},
+    { "label": "HLTScoutingPFProducer", "weight": 0.1, "groups": [
+      { "label": "hltScoutingPFPacker", "weight": 0.1 }
+    ]}
+  ]},
+  { "label": "Vertices", "color": "#006600", "weight": 1.59375, "groups": [
+    { "label": "FastPrimaryVertexWithWeightsProducer", "weight": 0.2, "groups": [
+      { "label": "hltFastPrimaryVertex", "weight": 0.2 }
+    ]},
+    { "label": "InclusiveVertexFinder", "weight": 0.3, "groups": [
+      { "label": "hltInclusiveVertexFinder", "weight": 0.3 }
+    ]},
+    { "label": "PrimaryVertexProducer", "weight": 0.8375, "groups": [
+      { "label": "hltVerticesPF", "weight": 0.3375 },
+      { "label": "hltVerticesL3", "weight": 0.5 }
+    ]},
+    { "label": "InclusiveCandidateVertexFinder", "weight": 0.2, "groups": [
+      { "label": "hltDeepInclusiveVertexFinderPF", "weight": 0.2 }
+    ]},
+    { "label": "PixelVertexProducer", "weight": 0.05625, "groups": [
+      { "label": "hltPixelVertices", "weight": 0.05625 }
+    ]}
+  ]},
+  { "label": "Jets/MET", "color": "#ee3300", "weight": 8.5125, "groups": [
+    { "label": "CaloMETProducer", "weight": 0.3, "groups": [
+      { "label": "hltMetClean", "weight": 0.1 },
+      { "label": "hltMet", "weight": 0.2 }
+    ]},
+    { "label": "FixedGridRhoProducerFastjet", "weight": 0.2, "groups": [
+      { "label": "hltFixedGridRhoFastjetAllCaloForMuons", "weight": 0.1 },
+      { "label": "hltFixedGridRhoFastjetAllCalo", "weight": 0.1 }
+    ]},
+    { "label": "FastjetJetProducer", "weight": 2.8, "groups": [
+      { "label": "hltAK8CaloJets", "weight": 0.2 },
+      { "label": "hltAK4CaloJets", "weight": 1.3 },
+      { "label": "hltAK4CaloJetsPF", "weight": 0.5 },
+      { "label": "hltAK4PFJetsReg", "weight": 0.2 },
+      { "label": "hltAK4PFJets", "weight": 0.4 },
+      { "label": "hltAK4PFJetsForTaus", "weight": 0.2 }
+    ]},
+    { "label": "CorrectedCaloJetProducer", "weight": 0.4, "groups": [
+      { "label": "hltAK4CaloJetsCorrectedIDPassed", "weight": 0.2 },
+      { "label": "hltAK4CaloJetsCorrected", "weight": 0.2 }
+    ]},
+    { "label": "HLTCaloJetIDProducer", "weight": 0.2, "groups": [
+      { "label": "hltAK4CaloJetsIDPassed", "weight": 0.2 }
+    ]},
+    { "label": "CaloTowersCreator", "weight": 4.1125, "groups": [
+      { "label": "hltTowerMakerForAll", "weight": 3.1125 },
+      { "label": "hltTowerMakerForECALMF", "weight": 0.3 },
+      { "label": "hltTowerMakerEcal", "weight": 0.2 },
+      { "label": "hltTowerMakerForHCAL", "weight": 0.5 }
+    ]},
+    { "label": "CorrectedPFJetProducer", "weight": 0.3, "groups": [
+      { "label": "hltAK4PFJetsLooseIDCorrected", "weight": 0.1 },
+      { "label": "hltAK4PFJetsTightIDCorrected", "weight": 0.1 },
+      { "label": "hltAK4PFJetsCorrected", "weight": 0.1 }
+    ]},
+    { "label": "HLTHcalTowerNoiseCleanerWithrechit", "weight": 0.2, "groups": [
+      { "label": "hltHcalTowerNoiseCleanerWithrechit", "weight": 0.2 }
+    ]}
+  ]},
+  { "label": "I/O", "color": "#222222", "weight": 5.86875, "groups": [
+    { "label": "FedRawDataInputSource", "weight": 2.70625, "groups": [
+      { "label": "source", "weight": 2.70625 }
+    ]},
+    { "label": "ShmStreamConsumer", "weight": 3.1625, "groups": [
+      { "label": "hltOutputPhysicsHLTPhysics4", "weight": 0.0875 },
+      { "label": "hltOutputPhysicsCommissioning", "weight": 0.05 },
+      { "label": "hltOutputPhysicsHLTPhysics1", "weight": 0.1 },
+      { "label": "hltOutputPhysicsHLTPhysics2", "weight": 0.1 },
+      { "label": "hltOutputPhysicsHLTPhysics3", "weight": 0.0625 },
+      { "label": "hltOutputScoutingCaloMuon", "weight": 0.1125 },
+      { "label": "hltOutputALCAP0", "weight": 0.275 },
+      { "label": "hltOutputALCALUMIPIXELS", "weight": 0.2375 },
+      { "label": "hltOutputExpressAlignment", "weight": 0.10625 },
+      { "label": "hltOutputDQM", "weight": 0.1375 },
+      { "label": "hltOutputDQMOnlineBeamspot", "weight": 0.03125 },
+      { "label": "hltOutputPhysicsHadronsTaus", "weight": 0.30625 },
+      { "label": "hltOutputALCAPHISYM", "weight": 0.00625 },
+      { "label": "hltOutputScoutingPF", "weight": 0.0125 },
+      { "label": "hltOutputExpress", "weight": 0.05 },
+      { "label": "hltOutputHLTMonitor", "weight": 0.05 },
+      { "label": "hltOutputPhysicsMuons", "weight": 0.30625 },
+      { "label": "hltOutputPhysicsZeroBias4", "weight": 0.025 },
+      { "label": "hltOutputPhysicsZeroBias1", "weight": 0.03125 },
+      { "label": "hltOutputPhysicsZeroBias2", "weight": 0.0125 },
+      { "label": "hltOutputPhysicsZeroBias3", "weight": 0.01875 },
+      { "label": "hltOutputPhysicsScoutingMonitor", "weight": 0.00625 },
+      { "label": "hltOutputPhysicsEGamma", "weight": 0.3625 },
+      { "label": "hltOutputRPCMON", "weight": 0.425 },
+      { "label": "hltOutputNanoDST", "weight": 0.25 }
+    ]}
+  ]},
+  { "label": "Taus", "color": "#800055", "weight": 1.6, "groups": [
+    { "label": "RecoTauProducer", "weight": 1.2, "groups": [
+      { "label": "hltHpsCombinatoricRecoTausReg", "weight": 0.8 },
+      { "label": "hltPFTausSansRef", "weight": 0.1 },
+      { "label": "hltHpsCombinatoricRecoTaus", "weight": 0.3 }
+    ]},
+    { "label": "RecoTauJetRegionProducer", "weight": 0.3, "groups": [
+      { "label": "hltTauPFJets08Region", "weight": 0.1 },
+      { "label": "hltTauPFJets08RegionReg", "weight": 0.2 }
+    ]},
+    { "label": "PFRecoTauChargedHadronProducer", "weight": 0.1, "groups": [
+      { "label": "hltHpsTauPFJetsRecoTauChargedHadronsWithNeutralsReg", "weight": 0.1 }
+    ]}
+  ]},
+  { "label": "Particle Flow", "color": "#ff66cc", "weight": 21.4625, "groups": [
+    { "label": "LightPFTrackProducer", "weight": 0.1, "groups": [
+      { "label": "hltLightPFTracks", "weight": 0.1 }
+    ]},
+    { "label": "PFBlockProducer", "weight": 8.7875, "groups": [
+      { "label": "hltParticleFlowBlockForTaus", "weight": 1.975 },
+      { "label": "hltParticleFlowBlockReg", "weight": 3.00625 },
+      { "label": "hltParticleFlowBlock", "weight": 3.80625 }
+    ]},
+    { "label": "PFClusterProducer", "weight": 7.7625, "groups": [
+      { "label": "hltParticleFlowClusterPSL1Seeded", "weight": 0.8 },
+      { "label": "hltParticleFlowClusterHBHERegForMuons", "weight": 0.10625 },
+      { "label": "hltParticleFlowClusterECALUncorrectedUnseeded", "weight": 0.5 },
+      { "label": "hltParticleFlowClusterHBHE", "weight": 1.1 },
+      { "label": "hltParticleFlowClusterHBHEForMuons", "weight": 0.6 },
+      { "label": "hltParticleFlowClusterHBHEForEgamma", "weight": 0.75625 },
+      { "label": "hltParticleFlowClusterPSUnseeded", "weight": 2.5 },
+      { "label": "hltParticleFlowClusterHF", "weight": 1.1 },
+      { "label": "hltParticleFlowClusterECALUncorrectedL1Seeded", "weight": 0.3 }
+    ]},
+    { "label": "PFMultiDepthClusterProducer", "weight": 0.29375, "groups": [
+      { "label": "hltParticleFlowClusterHCALForMuons", "weight": 0.09375 },
+      { "label": "hltParticleFlowClusterHCALForEgamma", "weight": 0.1 },
+      { "label": "hltParticleFlowClusterHCAL", "weight": 0.1 }
+    ]},
+    { "label": "PFProducer", "weight": 0.9, "groups": [
+      { "label": "hltParticleFlowForTaus", "weight": 0.2 },
+      { "label": "hltParticleFlow", "weight": 0.4 },
+      { "label": "hltParticleFlowReg", "weight": 0.3 }
+    ]},
+    { "label": "PFRecHitProducer", "weight": 3.61875, "groups": [
+      { "label": "hltParticleFlowRecHitPSL1Seeded", "weight": 0.3 },
+      { "label": "hltParticleFlowRecHitHF", "weight": 0.6 },
+      { "label": "hltParticleFlowRecHitHBHEForMuons", "weight": 0.3 },
+      { "label": "hltParticleFlowRecHitHBHE", "weight": 0.5 },
+      { "label": "hltParticleFlowRecHitECALUnseeded", "weight": 0.375 },
+      { "label": "hltParticleFlowRecHitECALL1Seeded", "weight": 0.2 },
+      { "label": "hltParticleFlowRecHitHBHEForEgamma", "weight": 0.4 },
+      { "label": "hltParticleFlowRecHitPSUnseeded", "weight": 0.94375 }
+    ]}
+  ]},
+  { "label": "HCAL", "color": "#b5a642", "weight": 31.6062, "groups": [
+    { "label": "HBHEPlan1Combiner", "weight": 0.8, "groups": [
+      { "label": "hltHbhereco", "weight": 0.8 }
+    ]},
+    { "label": "HFPhase1Reconstructor", "weight": 0.5125, "groups": [
+      { "label": "hltHfreco", "weight": 0.5125 }
+    ]},
+    { "label": "HFPreReconstructor", "weight": 1.1, "groups": [
+      { "label": "hltHfprereco", "weight": 1.1 }
+    ]},
+    { "label": "HcalNoiseInfoProducer", "weight": 0.8, "groups": [
+      { "label": "hltHcalNoiseInfoProducer", "weight": 0.8 }
+    ]},
+    { "label": "HBHEPhase1Reconstructor", "weight": 26.7937, "groups": [
+      { "label": "hltHbhePhase1Reco", "weight": 26.7937 }
+    ]},
+    { "label": "HcalRawToDigi", "weight": 1.2, "groups": [
+      { "label": "hltHcalDigis", "weight": 1.2 }
+    ]},
+    { "label": "HcalHitReconstructor", "weight": 0.4, "groups": [
+      { "label": "hltHoreco", "weight": 0.4 }
+    ]}
+  ]},
+  { "label": "Muons", "color": "#0040ff", "weight": 19.475, "groups": [
+    { "label": "TSGFromL2Muon", "weight": 1.7, "groups": [
+      { "label": "hltL3TrajSeedOIStateNoVtx", "weight": 0.1 },
+      { "label": "hltL3TrajSeedIOHit", "weight": 0.2 },
+      { "label": "hltL3NoFiltersNoVtxTrajSeedIOHit", "weight": 1.3 },
+      { "label": "hltL3TrajSeedOIState", "weight": 0.1 }
+    ]},
+    { "label": "DTRecHitProducer", "weight": 0.3, "groups": [
+      { "label": "hltDt1DRecHits", "weight": 0.3 }
+    ]},
+    { "label": "DTRecSegment4DProducer", "weight": 1.20625, "groups": [
+      { "label": "hltDt4DSegmentsMeanTimer", "weight": 0.60625 },
+      { "label": "hltDt4DSegments", "weight": 0.6 }
+    ]},
+    { "label": "RPCRecHitProducer", "weight": 0.1, "groups": [
+      { "label": "hltRpcRecHits", "weight": 0.1 }
+    ]},
+    { "label": "MuonSeedGenerator", "weight": 0.1, "groups": [
+      { "label": "hltL2OfflineMuonSeeds", "weight": 0.1 }
+    ]},
+    { "label": "CSCDCCUnpacker", "weight": 1, "groups": [
+      { "label": "hltMuonCSCDigis", "weight": 1 }
+    ]},
+    { "label": "CSCRecHitDProducer", "weight": 0.5, "groups": [
+      { "label": "hltCsc2DRecHits", "weight": 0.5 }
+    ]},
+    { "label": "MuonIdProducer", "weight": 8.4, "groups": [
+      { "label": "hltGlbTrkMuons", "weight": 0.1 },
+      { "label": "hltIterL3MuonsOpenMu", "weight": 0.1 },
+      { "label": "hltMuons", "weight": 1.71875 },
+      { "label": "hltGlbTrkMuonsLowPtIter01Merge", "weight": 0.2 },
+      { "label": "hltMuonsReg", "weight": 0.5 },
+      { "label": "hltIterL3MuonsNoVtx", "weight": 0.8 },
+      { "label": "hltGlbTrkMuonsNoVtx", "weight": 0.1 },
+      { "label": "hltIterL3MuonsNoID", "weight": 4.88125 }
+    ]},
+    { "label": "L2MuonSeedGeneratorFromL1T", "weight": 0.2, "groups": [
+      { "label": "hltL2CosmicMuonSeeds", "weight": 0.1 },
+      { "label": "hltL2MuonSeeds", "weight": 0.1 }
+    ]},
+    { "label": "L2MuonProducer", "weight": 1.8, "groups": [
+      { "label": "hltL2Muons", "weight": 1.2 },
+      { "label": "hltL2MuonsOpenMu", "weight": 0.1 },
+      { "label": "hltL2MuonsAllBx", "weight": 0.3 },
+      { "label": "hltL2CosmicMuons", "weight": 0.2 }
+    ]},
+    { "label": "DTuROSRawToDigi", "weight": 0.3, "groups": [
+      { "label": "hltMuonDTDigis", "weight": 0.3 }
+    ]},
+    { "label": "L3MuonProducer", "weight": 3.19375, "groups": [
+      { "label": "hltL3NoFiltersNoVtxMuonsOIHit", "weight": 0.1 },
+      { "label": "hltL3MuonsIterL3OI", "weight": 0.4 },
+      { "label": "hltL3NoFiltersNoVtxMuonsOIState", "weight": 0.1 },
+      { "label": "hltL3MuonsIterL3OINoVtx", "weight": 0.1 },
+      { "label": "hltL3MuonsIterL3IONoVtx", "weight": 0.3 },
+      { "label": "hltL3NoFiltersNoVtxMuonsIOHit", "weight": 0.2 },
+      { "label": "hltIterL3GlbMuon", "weight": 1.59375 },
+      { "label": "hltL3MuonsIterL3IO", "weight": 0.4 }
+    ]},
+    { "label": "MuonHLTRechitInRegionsProducer", "weight": 0.00625, "groups": [
+      { "label": "hltRecHitInRegionForMuonsESNoVtx", "weight": 0.00625 }
+    ]},
+    { "label": "TSGForOIFromL2", "weight": 0.3, "groups": [
+      { "label": "hltIterL3OISeedsFromL2Muons", "weight": 0.2 },
+      { "label": "hltIterL3OISeedsFromL2MuonsNoVtx", "weight": 0.1 }
+    ]},
+    { "label": "CSCSegmentProducer", "weight": 0.26875, "groups": [
+      { "label": "hltCscSegments", "weight": 0.26875 }
+    ]},
+    { "label": "RPCUnpackingModule", "weight": 0.1, "groups": [
+      { "label": "hltMuonRPCDigis", "weight": 0.1 }
+    ]}
+  ]},
+  { "label": "AlCa", "color": "#ff9999", "weight": 2.25625, "groups": [
+    { "label": "IsolatedPixelTrackCandidateL1TProducer", "weight": 0.4, "groups": [
+      { "label": "hltIsolPixelTrackProdHB", "weight": 0.2 },
+      { "label": "hltIsolPixelTrackProdHE", "weight": 0.2 }
+    ]},
+    { "label": "EvFFEDSelector", "weight": 0.2, "groups": [
+      { "label": "hltFEDSelectorL1", "weight": 0.1 },
+      { "label": "hltFEDSelector", "weight": 0.1 }
+    ]},
+    { "label": "HLTRegionalEcalResonanceFilter", "weight": 1.65625, "groups": [
+      { "label": "hltAlCaEtaRecHitsFilterEBonlyRegional", "weight": 0.45 },
+      { "label": "hltAlCaPi0RecHitsFilterEBonlyRegional", "weight": 0.4 },
+      { "label": "hltAlCaPi0RecHitsFilterEEonlyRegional", "weight": 0.4 },
+      { "label": "hltAlCaEtaRecHitsFilterEEonlyRegional", "weight": 0.40625 }
+    ]}
+  ]},
+  { "label": "E/Gamma", "color": "#ffee00", "weight": 13.7125, "groups": [
+    { "label": "EgammaHLTCaloTowerProducer", "weight": 0.3, "groups": [
+      { "label": "hltRegionalTowerForEgamma", "weight": 0.3 }
+    ]},
+    { "label": "SeedCombiner", "weight": 0.41875, "groups": [
+      { "label": "hltElePixelSeedsCombined", "weight": 0.41875 }
+    ]},
+    { "label": "EgammaHLTNxNClusterProducer", "weight": 0.2, "groups": [
+      { "label": "hltSimple3x3Clusters", "weight": 0.2 }
+    ]},
+    { "label": "GsfTrackProducer", "weight": 0.4125, "groups": [
+      { "label": "hltEgammaGsfTracks", "weight": 0.4125 }
+    ]},
+    { "label": "EgammaHLTBcHcalIsolationProducersRegional", "weight": 0.1, "groups": [
+      { "label": "hltEgammaHoverE", "weight": 0.1 }
+    ]},
+    { "label": "ElectronNHitSeedProducer", "weight": 12.2813, "groups": [
+      { "label": "hltEgammaElectronPixelSeedsUnseeded", "weight": 0.8 },
+      { "label": "hltEgammaElectronPixelSeeds", "weight": 11.4813 }
+    ]}
+  ]},
+  { "label": "Pixels", "color": "#33ff33", "weight": 45.6875, "groups": [
+    { "label": "PixelTrackProducer", "weight": 1.3, "groups": [
+      { "label": "hltIter1PixelTracks", "weight": 0.4 },
+      { "label": "hltPixelTracksFromTripletsRegL1TauSeeded", "weight": 0.3 },
+      { "label": "hltPixelTracks", "weight": 0.5 },
+      { "label": "hltPixelTracksFromTripletsRegForTau", "weight": 0.1 }
+    ]},
+    { "label": "CAHitTripletEDProducer", "weight": 0.9, "groups": [
+      { "label": "hltPixelTracksHitTripletsRegForTau", "weight": 0.1 },
+      { "label": "hltIter2IterL3FromL1MuonPixelHitTriplets", "weight": 0.1 },
+      { "label": "hltIter2PFlowPixelHitTripletsForBTag", "weight": 0.1 },
+      { "label": "hltPixelTracksHitTripletsRegL1TauSeeded", "weight": 0.4 },
+      { "label": "hltElePixelHitTriplets", "weight": 0.1 },
+      { "label": "hltIter2PFlowPixelHitTriplets", "weight": 0.1 }
+    ]},
+    { "label": "SiPixelClusterShapeCacheProducer", "weight": 2.4, "groups": [
+      { "label": "hltSiPixelClustersRegL1TauSeededCache", "weight": 0.1 },
+      { "label": "hltSiPixelClustersCache", "weight": 2.2 },
+      { "label": "hltSiPixelClustersRegForBTagCache", "weight": 0.1 }
+    ]},
+    { "label": "HitPairEDProducer", "weight": 16.5063, "groups": [
+      { "label": "hltIter1PFlowPixelHitDoubletsForBTag", "weight": 0.1 },
+      { "label": "hltDoubletRecoveryPFlowPixelHitDoublets", "weight": 2.225 },
+      { "label": "hltPixelTracksHitDoubletsRegForTau", "weight": 0.1 },
+      { "label": "hltIter2PFlowPixelHitDoubletsForBTag", "weight": 0.2 },
+      { "label": "hltIter1L3MuonPixelHitDoubletsNoVtx", "weight": 0.1 },
+      { "label": "hltPixelTracksHitDoubletsForSeedsL3MuonNoVtx", "weight": 0.1 },
+      { "label": "hltFastPVPixelTracksHitDoubletsRecover", "weight": 0.1 },
+      { "label": "hltPixelTracksHitDoublets", "weight": 1.925 },
+      { "label": "hltIter3IterL3FromL1MuonPixelHitDoublets", "weight": 0.3 },
+      { "label": "hltIter2IterL3MuonPixelHitDoublets", "weight": 0.2 },
+      { "label": "hltIter2PFlowPixelHitDoublets", "weight": 1.325 },
+      { "label": "hltDoubletRecoveryPFlowPixelHitDoubletsTauReg", "weight": 0.1 },
+      { "label": "hltIterL3MuonPixelTracksHitDoubletsNoVtx", "weight": 0.2 },
+      { "label": "hltIter2IterL3FromL1MuonPixelHitDoublets", "weight": 0.4 },
+      { "label": "hltElePixelHitDoubletsForTriplets", "weight": 0.64375 },
+      { "label": "hltIterL3FromL1MuonPixelTracksHitDoublets", "weight": 0.4 },
+      { "label": "hltIter3IterL3MuonPixelHitDoublets", "weight": 0.1 },
+      { "label": "hltPixelTracksHitDoubletsForNoPU", "weight": 0.1 },
+      { "label": "hltPixelTracksHitDoubletsL3Muon", "weight": 0.4 },
+      { "label": "hltPixelTracksHitDoubletsRegL1TauSeeded", "weight": 0.3 },
+      { "label": "hltIter2PFlowPixelHitDoubletsTauReg", "weight": 0.4 },
+      { "label": "hltElePixelHitDoublets", "weight": 0.8 },
+      { "label": "hltIterL3MuonPixelTracksHitDoublets", "weight": 0.1375 },
+      { "label": "hltIter1PFlowPixelHitDoublets", "weight": 2.65 },
+      { "label": "hltPixelTracksHitDoubletsL3MuonNoVtx", "weight": 0.8 },
+      { "label": "hltIterL3FromL1MuonPixelTracksHitDoubletsNoVtx", "weight": 0.1 },
+      { "label": "hltFastPVPixelTracksHitDoublets", "weight": 0.2 },
+      { "label": "hltIter2HighPtTkMuPixelHitDoublets", "weight": 0.1 },
+      { "label": "hltIter1PFlowPixelHitDoubletsTauReg", "weight": 0.7 },
+      { "label": "hltPixelTracksHitDoubletsForTripletsRegForTau", "weight": 0.1 },
+      { "label": "hltDoubletRecoveryPFlowPixelHitDoubletsForBTag", "weight": 0.4 },
+      { "label": "hltIter2L3MuonPixelHitDoubletsNoVtx", "weight": 0.1 },
+      { "label": "hltPixelTracksHitDoubletsForTripletsRegL1TauSeeded", "weight": 0.4 },
+      { "label": "hltIter2IterL3MuonPixelHitDoubletsNoVtx", "weight": 0.2 },
+      { "label": "hltIter0HighPtTkMuPixelTracksHitDoublets", "weight": 0.1 }
+    ]},
+    { "label": "SiPixelClusterProducer", "weight": 6.51875, "groups": [
+      { "label": "hltSiPixelClustersRegL1TauSeeded", "weight": 0.3 },
+      { "label": "hltSiPixelClusters", "weight": 5.81875 },
+      { "label": "hltSiPixelClustersRegForBTag", "weight": 0.3 },
+      { "label": "hltSiPixelClustersRegForTau", "weight": 0.1 }
+    ]},
+    { "label": "SiPixelRecHitConverter", "weight": 5.75625, "groups": [
+      { "label": "hltSiPixelRecHitsRegForTau", "weight": 0.1 },
+      { "label": "hltSiPixelRecHitsRegForBTag", "weight": 0.3 },
+      { "label": "hltSiPixelRecHitsRegL1TauSeeded", "weight": 0.24375 },
+      { "label": "hltSiPixelRecHits", "weight": 5.1125 }
+    ]},
+    { "label": "CAHitQuadrupletEDProducer", "weight": 4.48125, "groups": [
+      { "label": "hltFastPVPixelTracksHitQuadrupletsRecover", "weight": 0.1 },
+      { "label": "hltPixelTracksHitQuadrupletsRegForTau", "weight": 0.1 },
+      { "label": "hltPixelTracksHitQuadrupletsL3MuonNoVtx", "weight": 0.2 },
+      { "label": "hltIter1PFlowPixelHitQuadrupletsTauReg", "weight": 0.1 },
+      { "label": "hltPixelTracksHitQuadrupletsRegL1TauSeeded", "weight": 0.2 },
+      { "label": "hltPixelTracksHitQuadrupletsL3Muon", "weight": 0.1 },
+      { "label": "hltIterL3FromL1MuonPixelTracksHitQuadruplets", "weight": 0.1 },
+      { "label": "hltIter1PFlowPixelHitQuadruplets", "weight": 0.4 },
+      { "label": "hltPixelTracksHitQuadruplets", "weight": 3.18125 }
+    ]},
+    { "label": "SeedingLayersEDProducer", "weight": 1.6, "groups": [
+      { "label": "hltIter2IterL3MuonPixelLayerTriplets", "weight": 0.2 },
+      { "label": "hltIter3IterL3FromL1MuonPixelLayerPairs", "weight": 0.2 },
+      { "label": "hltIterL3MuonPixelLayerQuadruplets", "weight": 0.1 },
+      { "label": "hltIter2IterL3FromL1MuonPixelLayerTripletsNoVtx", "weight": 0.1 },
+      { "label": "hltIter2IterL3MuonPixelLayerTripletsNoVtx", "weight": 0.1 },
+      { "label": "hltIter2PixelLayerTriplets", "weight": 0.1 },
+      { "label": "hltIter2IterL3FromL1MuonPixelLayerTriplets", "weight": 0.2 },
+      { "label": "hltPixelLayerQuadruplets", "weight": 0.1 },
+      { "label": "hltPixelLayerTriplets", "weight": 0.1 },
+      { "label": "hltIterL3FromL1MuonPixelLayerQuadruplets", "weight": 0.1 },
+      { "label": "hltIter3IterL3MuonPixelLayerPairs", "weight": 0.2 },
+      { "label": "hltIter1PixelLayerQuadruplets", "weight": 0.1 }
+    ]},
+    { "label": "SiPixelRawToDigi", "weight": 6.225, "groups": [
+      { "label": "hltSiPixelDigisRegL1TauSeeded", "weight": 1 },
+      { "label": "hltSiPixelDigis", "weight": 3.3125 },
+      { "label": "hltSiPixelDigisRegForBTag", "weight": 1.01875 },
+      { "label": "hltSiPixelDigisRegForTau", "weight": 0.89375 }
+    ]}
+  ]}
+]}
