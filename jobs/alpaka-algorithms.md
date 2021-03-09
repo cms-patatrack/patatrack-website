@@ -8,7 +8,7 @@ categories: jobs-ads
 ---
 ### Parallel and Portable CMS Reconstruction Algorithms with Alpaka 
 
-Do you have a computing engineer or applied physicist background with passion for heterogeneous computing? Join us and contribute to the development of high-performance event reconstruction algorithms. Take part!
+Play an important role in the development of the heterogeneous algorithms applied to HEP event reconstruction, by designing and developing innovative, fast and portable algorithms for data processing !
 
 The Center for Advanced Systems Understanding unites the partners Helmholtz-Zentrum Dresden – Rossendorf (HZDR), Helmholtz Center for Environmental Research (UFZ), Technische Universität Dresden (Technical University of Dresden – TUD) and Max Planck Institute of Molecular Cell Biology and Genetics (MPI-CBG). This makes it a unique combination of institutes of the Helmholtz Association and the Max Planck Society with the “University of Excellence” Technische Universität Dresden.
 

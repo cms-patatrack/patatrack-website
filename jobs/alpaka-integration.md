@@ -7,7 +7,8 @@ resource: true
 categories: jobs-ads
 ---
 ### Alpaka support in CMSSW
-Do you have a computing engineer or applied physicist background with passion for heterogeneous computing? Join us and contribute to the development of high-performance event reconstruction algorithms. Take part!
+Designing user-friendly interfaces for common tasks such as memory operations, work divisions optimisation, and kernel launches, to simplify the development of CMS software with Alpaka.
+Act as liaison between the CMS Experiment and the Alpaka developers !
 
 The Center for Advanced Systems Understanding unites the partners Helmholtz-Zentrum Dresden – Rossendorf (HZDR), Helmholtz Center for Environmental Research (UFZ), Technische Universität Dresden (Technical University of Dresden – TUD) and Max Planck Institute of Molecular Cell Biology and Genetics (MPI-CBG). This makes it a unique combination of institutes of the Helmholtz Association and the Max Planck Society with the “University of Excellence” Technische Universität Dresden.
 
