@@ -30,11 +30,11 @@ Exploration of innovative software and hardware technologies to bring smart soft
   {% for post in site.categories.announcements reversed %}
     {% assign stopdate = post.until | string_to_date | date: "%Y-%m-%d" %}
     {% if stopdate > sitedate %}
-<div class="row alert alert-warning">
-  <p class="lead">
-    <span class="glyphicon {{ post.symbol }}" aria-hidden="true"></span> {{ post.title }} (<a href="{{ post.link }}">more info</a>)
-  </p>
-</div>
+    <div class="row">
+      <p class="lead">
+        <span class="glyphicon {{ post.symbol }}" aria-hidden="true"></span> {{ post.content }} (<a href="{{ post.link }}">more info</a>)
+      </p>
+    </div>
     {% endif %}
   {% endfor %}
 

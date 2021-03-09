@@ -13,4 +13,4 @@ layout: default
 
 Interested in joining the CMS activities on real-time accelerated reconstruction software?
 
-Contact us at [patatrack-rd@cern.ch](mailto:patatrack-rd@cern.ch).
+Contact us at [cms-patatrack@cern.ch](mailto:cms-patatrack@cern.ch).
