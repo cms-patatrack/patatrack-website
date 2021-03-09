@@ -1,5 +1,5 @@
 ---
-title: "Projects for students"
+title: "Collaborate with us"
 author: "Felice Pantaleo"
 layout: default
 markdown: kramdown
