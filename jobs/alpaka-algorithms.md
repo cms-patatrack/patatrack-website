@@ -5,6 +5,7 @@ layout: default
 markdown: kramdown
 resource: true
 categories: jobs-ads
+description: "Play an important role in the development of the heterogeneous algorithms applied to HEP event reconstruction, by designing and developing innovative, fast and portable algorithms for data processing !"
 ---
 ### Parallel and Portable CMS Reconstruction Algorithms with Alpaka 
 
