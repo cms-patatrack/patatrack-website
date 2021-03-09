@@ -5,11 +5,10 @@ layout: default
 markdown: kramdown
 resource: true
 categories: jobs-ads
-description: "Play an important role in the development of the heterogeneous algorithms applied to HEP event reconstruction, by designing and developing innovative, fast and portable algorithms for data processing !"
+description: "Designing user-friendly interfaces for common tasks such as memory operations, work divisions optimisation, and kernel launches, to simplify the development of CMS software with Alpaka.
+Act as liaison between the CMS Experiment and the Alpaka developers !"
 ---
 ### Alpaka support in CMSSW
-Designing user-friendly interfaces for common tasks such as memory operations, work divisions optimisation, and kernel launches, to simplify the development of CMS software with Alpaka.
-Act as liaison between the CMS Experiment and the Alpaka developers !
 
 The Center for Advanced Systems Understanding unites the partners Helmholtz-Zentrum Dresden – Rossendorf (HZDR), Helmholtz Center for Environmental Research (UFZ), Technische Universität Dresden (Technical University of Dresden – TUD) and Max Planck Institute of Molecular Cell Biology and Genetics (MPI-CBG). This makes it a unique combination of institutes of the Helmholtz Association and the Max Planck Society with the “University of Excellence” Technische Universität Dresden.
 
