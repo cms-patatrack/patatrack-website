@@ -138,7 +138,7 @@ void scrambler_wrapper(const char * message, size_t length) {
 ```
 
 We can then call the wrapper from our `EDAnalyzer`:
-#####`Scrambler.cu`
+#####`Scrambler.cc`
 ```c++
 #include <string>
 #include <cuda_runtime.h>
@@ -177,7 +177,13 @@ private:
 DEFINE_FWK_MODULE(Scrambler);
 ```
 
-add a BuildFile.xml fragment for it
+The last three files (```ScramblerKernel.cuh```, ```ScramblerKernel.cu``` and ```Scrambler.cc```) must be placed inside the ```Package/Subpackage/plugins``` directory. A good way to create the correct subpackage folder skeleton is to follow the steps:
+
+- create your ```Package/``` folder (here called 'UserCode') if you have not done so yet: ```cd $CMSSW_BASE/src/; cmsenv; mkdir UserCode;```
+
+- run the built-in command: ```mkedanlzr <subpackage name>```
+
+Add the following BuildFile.xml fragment inside the ```plugins``` folder as well:
 #####`BuildFile.xml`
 ```xml
 <library name="HeterogeneousCoreExamplesScrambler" file="Scrambler.cc ScramblerKernel.cu">
@@ -187,7 +193,7 @@ add a BuildFile.xml fragment for it
 </library>
 ```
 
-and a python configuration file to test it:
+Finally, add a python configuration file to test the Analyzer:
 #####`scrambler.py`
 ```python
 import FWCore.ParameterSet.Config as cms
@@ -211,9 +217,9 @@ process.options = cms.untracked.PSet(
 )
 ```
 
-We can then build it and run out new module:
+you can store it under ```python```, but its exact location is not important. 
+We can then build the new module and run it:
 ```bash
 scram b
 cmsRun scrambler.py
 ```
-
