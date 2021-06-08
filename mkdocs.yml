@@ -43,10 +43,16 @@ nav:
     - Benchmarking the HLT:
         - HLT menu and data: HLTTiming.md
         - Using the DAQ source: DAQSource.md
-    - Portability:
+    - Performance Portability:
+        - Alpaka and Cupla: AlpakaAndCupla.md
+        - CUDA to cupla: cuda2cupla.md
+        - CUDA to Alpaka: cuda2alpaka.md
+        - CUDA to HIP: CUDAtoHIP.md
+        - SYCL LLVM compiler: SYCL.md
         - CUDA to cupla: cuda2cupla.md 
     - External libraries: 
         - Libraries: libraries.md
-        - Alpaka and Cupla: AlpakaAndCupla.md
-    - HGCAL:
-        - TICL Instructions: hgcal_ticl.md
+    - Training: 
+        - Tracker Knowledge Transfer (December 2019) - [part 1, CUDA]: cuda_training_dpg_12_2019.md
+        - Tracker Knowledge Transfer (December 2019) - [part 2, CMSSW] : cuda_training_dpg_12_2019_part2.md
+        - Tracker Knowledge Transfer (December 2019) - [part 3, CMSSW] : cuda_training_dpg_12_2019_part3.md
