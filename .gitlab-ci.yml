@@ -37,6 +37,9 @@ pages:
   image: gitlab-registry.cern.ch/ci-tools/ci-web-deployer:latest
   script:
   - deploy-eos
+  artifacts:
+    paths:
+    - public
   dependencies:
     - compilation-website
     - compilation-wiki
