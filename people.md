@@ -25,7 +25,7 @@ M. Pierini, V. Volkl (SFT), V. Khristenko (IT, openlab)​
 #### Website
 [INFN Bari](https://www.ba.infn.it/index.php/it/)
 #### People
-A. Di Florio, A. Di Pilato
+A. Di Florio
 
 -----
 ### ![SAHA]({{site.baseurl}}/images/saha-logo.gif){:height="100px"}  
@@ -36,6 +36,21 @@ A. Di Florio, A. Di Pilato
 
 S. Sarkar, S. Dutta, S. Roy Chowdhury, P. Mal​
 
+-----
+### ![CASUS]({{site.baseurl}}/images/CASUS-logo.png){:height="100px"}
+
+#### Website
+[CASUS](https://www.casus.science/)
+#### People
+A. Di Pilato
+
+-----
+### ![RWTH]({{site.baseurl}}/images/rwth_aachen_university-logo.png){:height="100px"}
+
+#### Website
+[RWTH AAchen University](https://www.rwth-aachen.de/)
+#### People
+W. Redjeb
 
 
 # Students

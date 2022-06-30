@@ -28,6 +28,7 @@
     * [Alpaka and Cupla](AlpakaAndCupla.md)
     * [CUDA to cupla](cuda2cupla.md)
     * [CUDA to Alpaka](cuda2alpaka.md)
+    * [CUDA to Alpaka rules](cuda2alpaka_rules.md)
     * [CUDA to HIP](CUDAtoHIP.md)
     * [SYCL LLVM compiler](SYCL.md)
 
