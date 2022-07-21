@@ -3,12 +3,13 @@
 ## CUDADataFormats to AlpakaDataFormats
 ### General rules
 - Include the following:
-```c++=
+```
 #include "AlpakaCore/alpakaConfig.h"
 ```
 
 - Wrap the class under the namespace ```ALPAKA_ACCELERATOR_NAMESPACE```
-```c++=+
+
+```
 namespace ALPAKA_ACCELERATOR_NAMESPACE {
     class MyClass {
      ...
@@ -43,11 +44,11 @@ The memory is pinned according to the device associated to the **queue**.
     - `cms::alpakatools::make_device_buffer<T[extent]>(queue)`: 1-dimensional buffer
     - `cms::alpakatools::make_device_buffer<T[]>(queue, extent)`: 1-dimensional buffer
 
-## NOTE
+## Note
 Currently, **the Alpaka buffers have not a default constructor.**.
 If you need a buffer object as a class member, you need to wrap it around `std::optional`. 
 #### std::optional
-```c++=
+```
 class MyClass {
 
     MyClass() = default;
@@ -63,7 +64,7 @@ class MyClass {
 **OR** delete the default constructor and define a new constructor and initialize the buffer
 #### delete default constructor
 
-```c++=
+```
 class MyClass {
 
     MyClass() = delete;
@@ -84,22 +85,18 @@ class MyClass {
 
 The `device` is obtained from the queue: `alpaka::getDev(queue)`
 
-:::warning
-Note: The view does not own the underlying memory, make sure that the view does not outlive its underlying memory!
-:::
+**Warning:** The view does not own the underlying memory, make sure that the view does not outlive its underlying memory!
 
 ## Memory copy / set
 - `alpaka::memcpy(queue, dest_buffer_or_view, source_buffer_or_view)`
 - `alpaka::memset(queue, buffer_or_view, value)` : set the whole buffer/view to `value`
 
-:::info
-The synchronization behavior in alpaka is defined by the **queue**, which has a *Blocking* or *NonBlocking* property (specified when the object is created).
-:::
+**Info:** The synchronization behavior in alpaka is defined by the **queue**, which has a *Blocking* or *NonBlocking* property (specified when the object is created).
 
 
 ## Usage example - Buffers 
 #### CUDA
-```c++=
+```
 #include "CUDACore/device_unique_ptr.h"
 #include "CUDACore/host_unique_ptr.h"
 
@@ -111,7 +108,7 @@ ptr_h{cms::cuda::make_host_buffer<Object>(/*extent*/, stream)};
 ```
 
 #### ALPAKA
-```c++=
+```
 #include <alpaka/alpaka.hpp>
 #include "AlpakaCore/alpakaConfig.h"
 #include "AlpakaCore/alpakaMemory.h"
@@ -128,7 +125,7 @@ cms::alpakatools::device_buffer<Device, Object> myDeviceBuf{
 ```
 
 ## Usage example - Views 
-```c++=
+```
 #include "AlpakaCore/alpakaConfig.h"
 #include "AlpakaCore/alpakaMemory.h"
 
@@ -141,7 +138,7 @@ auto x_buf_host = cms::alpakatools::make_host_buffer<int>(queue, extent);
 
 alpaka::memcpy(queue, x_buf_host, x_view_device);
 ```
-**Note**:
+**Note:**
 One can request the device from the queue using ```alpaka::getDev(queue)```!
 
 The same logic is applied using the`View` on the host and making the copy on the device. The copy can also happen between `View`s. 
@@ -150,7 +147,7 @@ The same logic is applied using the`View` on the host and making the copy on the
 ### CUDA
 Heterogeneous unique pointer interface:`HeterogeneousSOA`
 
-```c++=
+```
 #include "CUDADataFormats/HeterogeneousSoA.h"
 class SoA {
 ...
@@ -167,7 +164,7 @@ Different buffers for Host and Device
 In **AlpakaDataFormats**
 
 *AlpakaDataFormats/SoAObject.h*
-```c++=
+```
 class SoAObject{
     ...
 }
@@ -178,7 +175,7 @@ In **AlpakaDataFormats**
 
 *AlpakaDataFormats/SoAObjectHost.h*
 
-```c++=
+```
 #ifndef AlpakaDataFormats_SoAObject_h
 #define AlpakaDataFormats_SoAObject_h
 
@@ -192,11 +189,11 @@ using SoAObjectHost = cms::alpakatools::host_buffer<SoAObject>;
 ```
 
 #### Device specialization
-:::warning
-:exclamation: In **AlpakaDataFormats/alpaka/** :exclamation: 
-:::
+**Warning:**
+In **AlpakaDataFormats/alpaka/**
+
 *AlpakaDataFormats/alpaka/SoAObjectDevice.h*
-```c++=
+```
 #define AlpakaDataFormats_SoAObjectDevice_h
 #ifndef AlpakaDataFormats_SoAObjectDevice_h
 
@@ -239,7 +236,7 @@ Same logic applied in CUDA, conditions can be transferred to the device with the
 Define the `class`/`struct` in `CondFormats/`
 
 `CondFormats/ESProductExampleAlpaka.h`
-```c++=
+```
 #ifndef CondFormats_ESProductExampleAlpaka_H
 #define CondFormats_ESProductExampleAlpaka_H
 
@@ -259,7 +256,7 @@ struct ESProductExampleAlpaka {
 Define its wrapper in `CondFormats/alpaka/`. The corresponding ESProducer should produce objects of this type.
 
 `CondFormats/alpaka/ESProductExampleAlpakaWrapper.h`
-```c++=
+```
 #ifndef CondFormats_alpaka_ESProductExampleAlpakaWrapper_h
 #define CondFormats_alpaka_ESProductExampleAlpakaWrapper_h
 
@@ -337,7 +334,7 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 If the object to be produced uses Alpaka: Add the file in `plugin-MyPlugin/alpaka/` Wrap the class around `ALPAKA_ACCELERATOR_NAMESPACE`, define the Framework Module with: 
 ```DEFINE_FWK_ALPAKA_EVENTSETUP_MODULE(MyESProducer)```.
 
-```c++=
+```
 #include "AlpakaCore/alpakaConfig.h"
 #include "CondFormats/MyCondObject.h"
 #include "CondFormats/alpaka/MyAlpakaCondObject.h"
@@ -360,7 +357,7 @@ DEFINE_FWK_ALPAKA_EVENTSETUP_MODULE(MyESProducer);
 
 ### General rules
 Wrap the class around `ALPAKA_ACCELERATOR_NAMESPACE`
-```c++=
+```
 #include "AlpakaCore/Product.h"
 #include "AlpakaCore/ScopedContext.h"
 #include "AlpakaCore/alpakaConfig.h"
