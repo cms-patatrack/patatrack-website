@@ -50,6 +50,7 @@ nav:
         - CUDA to Alpaka rules: cuda2alpaka_rules.md
         - CUDA to HIP: CUDAtoHIP.md
         - SYCL LLVM compiler: SYCL.md
+        - CUDA to SYCL rules: cuda2sycl_rules.md
         - CUDA to cupla: cuda2cupla.md 
     - External libraries: 
         - Libraries: libraries.md
