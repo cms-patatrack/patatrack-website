@@ -4,16 +4,10 @@
 
 ## SYCL Setup
 1. Install the Intel OneAPI DPCPP SYCL backend following the official instructions from [Intel oneAPI Base Kit](https://www.intel.com/content/www/us/en/developer/articles/guide/installation-guide-for-oneapi-toolkits.html). Tip: For Linux, package guided installation is easy. For WSL, you need to follow Linux installation.
-2. For compiling and running in Linux, the toolkit local variables need to be set on each new terminal session with the following command:
-```
-. /opt/intel/oneapi/setvars.sh
-```
-3. Try compiling a C++ file including sycl header files (```#include <CL/sycl.hpp>```) with the command:
-```
-dpcpp <source_file> -o <name_of_executable>
-```
-5. Everything is ready! 
-6. (optional) If you want to run code on an integrated Intel GPU while using WSL, you'll need a specific set of drivers and an additional installation package which can be found in [this repository](https://github.com/intel/compute-runtime/blob/master/WSL.md).
+2. For compiling and running in Linux, the toolkit local variables need to be set on each new terminal session with the following command: ```. /opt/intel/oneapi/setvars.sh```
+3. Try compiling a C++ file including sycl header files (```#include <CL/sycl.hpp>```) with the command: ```dpcpp <source_file> -o <name_of_executable>```
+4. Everything is ready! 
+5. (optional) If you want to run code on an integrated Intel GPU while using WSL, you'll need a specific set of drivers and an additional installation package which can be found in [this repository](https://github.com/intel/compute-runtime/blob/master/WSL.md).
 
 ## Execution model
 
@@ -28,6 +22,7 @@ dpcpp <source_file> -o <name_of_executable>
 The main difference between CUDA and SYCL is that the former has been developed specifically for GPUs, while the latter is oriented toward a broader set of architectures. The main goal of SYCL is to write the code once and being able to execute it on different backends. For this reason the processing elements (PE) in SYCL can represent other hardware on non-GPU architectures. This is implementation-specific, but allows for a conceptual equivalence between PEs and SM cores.
 
 Diving into the execution model, the main element in a SYCL thread hierarchy is the ND-range, that is a 1, 2 or 3 dimensional grid of work groups, that are equally sized groups of the same dimensionality. These work groups are in turn divided into work items. 
+
 - Work item : a single thread within the thread hierarchy.
 - Work group : a 1, 2 or 3 dimensional set of threads (work-items) within the thread hierarchy. 
 - ND-range : it's the representation of the thread hierarchy used by the SYCL runtime when executing work. It has three components: the global range, the local range and the number of work groups. The global range is the total number of work items within the thread hierarchy in each dimension; the local range is the number of work items in each work group in the thread hierarchy, and the number of work groups is the total number of work groups in the thread hierarchy, which can be derived from the global and local.
@@ -133,6 +128,7 @@ q.submit([&](sycl::handler& h)
 
 ### Synchronization
 In CUDA, there are two synchronization levels:
+
 - ```cudaDeviceSynchronize()```: blocks the threads call until all the work on the device is completed
 - ```__syncthreads()```: wait for all the threads in a thread block to reach the same synchronization point
 
@@ -230,10 +226,12 @@ We note that the explicit allocation of memory through pointers doesn’t allow 
 
 Regarding the allocation of memory on the device, the migration from CUDA to SYCL is pretty simple. 
 In CUDA there are:
+
 - ```cudaMalloc()```: this function allocates a device pointer on the device and returns the address of the allocated memory. Then the memory can be initialized with ```cudaMemset()```, copied with ```cudaMemcpy()``` and freed with ```cudaFree()```.
 - ```cudaMemcpyAsync```: used for the asynchronous version of data transfer. It is non-blocking with respect to the host, so calling the function may return before completing the copy.
 
 On the other hand, in SYCL we have:
+
 - ```malloc_device()```: device allocations that can be read from or written to by kernels running on a device, but they cannot be directly accessed from code executing on the host. Data must be copied between host and device using the explicit USM memcpy mechanisms.
 - ```free()```: free memory allocated with *Malloc* functions
 - ```memcpy()```: copy memory between host and device
@@ -293,12 +291,14 @@ The allocation of memory on the host can be done with C++ methods in both cases,
 Finally, in SYCL there is no explicit mechanism to request zero-copy. If memory is allocated in pinned memory as described above, then the SYCL runtime will attempt to initialize with zero-copy if possible.
 
 The CUDA methods are:
+
 - ```cudaMallocHost()```: pinned host memory. A dev_ptr is passed to it and it is the host pointer accessible from the device. This memory is directly accessible from the device.
 - ```cudaHostAlloc()```: pinned host memory mapped into the device address space (zero-copy). It will avoid the explicit data movement between host and device. Although zero-copy improves the PCIe transfer rates, it is required to be synchronized whenever data is shared between host and device. 
 - ```cudaHostAllocPortable``` that allows to allocate memory that will be considered as pinned memory by all CUDA contexts, not just the one that performed the allocation.
 -```cudaHostGetDevicePointer```: this function provides the device pointer for mapped, pinned memory.
 
 In SYCL there are:
+
 - ```malloc_host()```: allocate memory on the host that is accessible on both the host and the device. These allocations cannot migrate to the device’s attached memory so kernels that read from or write to this memory do it remotely, often over a slower bus such as PCI-Express.
 - ```malloc_shared()```: like host allocations, shared allocations are accessible on both the host and device, but they are free to migrate between host memory and device attached memory automatically.
 
@@ -324,22 +324,25 @@ for (int i = 0; i < N; i++) {
 
 Summary of SYCL malloc methods:
 | FUNCTION CALL | DESCRIPTION                                            | ACCESSIBLE ON HOST | ACCESSIBLE ON DEVICE |
-| ------------- | ------------------------------------------------------ | ------------------ | -------------------- |
+| :-------------: | :------------------------------------------------------: | :------------------: | :--------------------: |
 | malloc_device | Allocation on device, explicit data movement           | NO                 | YES                  |
 | malloc_host   | Allocation on host, implicit data movement             | YES                | YES                  |
 | malloc_shared | Shared allocation, can migrate between host and device, implicit data movement | YES        | YES  |
 
-<!--## CUDADataFormats to SYCLDataFormats
-## EDProducer and EDProducerExternalWork-->
-
 ## References
-- [codeplay CUDA to SYCL](https://developer.codeplay.com/products/computecpp/ce/guides/sycl-for-cuda-developers)
-- CUDA
+[codeplay CUDA to SYCL](https://developer.codeplay.com/products/computecpp/ce/guides/sycl-for-cuda-developers)
+
+CUDA
+
   - [Documentation](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#heterogeneous-programming) 
-- SYCL
+
+SYCL
+
   - [Documentation](https://sycl.readthedocs.io/en/latest/index.html)
   - [Khronos doc](https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html)
   - [Data parallel C++](https://link.springer.com/content/pdf/10.1007%2F978-1-4842-5574-2.pdf)
-- OneAPI
+
+OneAPI
+
   - [Developer guide](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top.html)
   - [GPU optimization guide](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-gpu-optimization-guide/top.html)
