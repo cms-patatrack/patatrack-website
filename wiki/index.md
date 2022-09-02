@@ -31,6 +31,7 @@
     * [CUDA to Alpaka rules](cuda2alpaka_rules.md)
     * [CUDA to HIP](CUDAtoHIP.md)
     * [SYCL LLVM compiler](SYCL.md)
+    * [Building and Using Intel's LLVM Compiler](intelLLVMCompiler.md)
     * [CUDA to SYCL rules](cuda2sycl_rules.md)
 
 * [External libraries](libraries.md)
