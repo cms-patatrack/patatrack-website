@@ -1,13 +1,15 @@
-# Building and Using Intel's LLVM Compiler (Open Source DPC++)
+# Building with and Using the Intel's LLVM Compiler (Open Source DPC++)
 The open source DPC++ toolchain is Intel's project based on LLVM where the DPC++ features are developed and tested. Here you can find experimental features that have not been released to the commercial DPC++ compiler. However, it comes with  tradeoffs: you have to build the compiler yourself, install dependencies and there are some differences on functionality.
 
 This document provides guidance to build and use the compiler. For more information about SYCl, compilers and backends consult the [SYCL Guide](SYCL.md) or [CUDA2SYCL Porting Guide](cuda2sycl_rules.md).
+
 ## Building Compiler with Backends Support
 The compiler supports many experimental backends, such as NVPTX and HIP for targeting NVIDIA and AMD devices and they can be added by enabling building flags.
 
 This guide closely follows Intel's [Getting Started with oneAPI DPC++](https://intel.github.io/llvm-docs/GetStartedGuide.html) Guide.
 
 #### Prerequisites
+
 * Windows or Linux OS
 * git (tested with v2.31.1)
 * cmake v3.14.0+ (tested with v3.20.2)
@@ -19,6 +21,7 @@ Follow the [Getting Started Guide](https://intel.github.io/llvm-docs/GetStartedG
 
 ## Installing Backend's Low Level Runtimes
 For running and compiling SYCL programs it is necessary to have installed the corresponding runtimes. 
+
 * In case of CUDA, having the graphics driver and [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) is sufficient for compiling in AOT mode SYCL programs. **For doing JIT kernel compilation it is necessary to install a modern CUDA OpenCL implementation and link it.**
 * For compiling AOT, JIT and running on Intel CPU's it is necessary to instal the Low Level Runtime. This can be done by following the subsection "Install low level runtime" of the [Getting Started Guide](https://intel.github.io/llvm-docs/GetStartedGuide.html). Perform only the commands necesarry to install OpenCL CPU runtime (ocl_cpu_rt) and TBB library.
     * The links for the runtime binaries and libs can be found in the dependencies file in the Guide.
@@ -29,6 +32,7 @@ For running and compiling SYCL programs it is necessary to have installed the co
 DPC++ can either compile all the kernels to target all the backends at runtime (JIT) or during the compilation process (AOT). It is not possible to have a mix of both.
 
 For compiling a SYCL program it is first necessary to have the compiler bin and lib path in environment variables.
+
 ```
 export PATH=/usr/local/cuda/bin:/data/user/jolivera/sycl_workspace/build/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/data/user/jolivera/sycl_workspace/build/lib:$LD_LIBRARY_PATH
@@ -63,6 +67,7 @@ For compiling all of the program kernels to the target backends at compilation p
 
 #### LLVM compiler differences to DPCPP
 Intel LLVM's compiler is based on clang++ so it has natural differences with respect to DPC++ compiler in respect of non standard C++ features:
+
 * Flag *-fsycl* must always be enabled if the source code contains sycl code
 * DPC++ custom flags like *-fsycl-enable-function-pointers* are not supported by default (ask Intel maybe)
 * It doesn't include implicitly common c++ libraries like *\<optional\>*.
@@ -75,7 +80,8 @@ There are other extra considerations both general and specific for the NVidia ba
 
 #### Built Examples
 There are 2 built binaries of the LLVM compiler.
-* In *patatrack01* VM a built version supports: NVidia and Intel CPU's backend in AOT mode, and Intel GPU and CPU in JIT mode.
+
+* In *patatrack01* VM a built version supports: NVidia and Intel CPU and GPU backend in AOT mode, and Intel GPU and CPU in JIT mode.
 * In *patatrack02* VM a built version supports: NVidia backend in AOT mode.
 
 One can also follow this guide in a personal computer. It has been succesfully tested to build a compiler in a Windows 10 computer with WSL2 to support NVidia and Intel's CPU and GPU backends in AOT mode and Intel's CPU and GPU backend in JIT mode.
@@ -83,11 +89,13 @@ One can also follow this guide in a personal computer. It has been succesfully t
 ## References
 
 #### Guides:
+
 * [Getting Started with oneAPI DPC++](https://intel.github.io/llvm-docs/GetStartedGuide.html)
 * [SYCL Implementations](SYCL.md)
 * [CUDA2SYCL Porting Guide](cuda2sycl_rules.md)
 
 #### Github Repos:
+
 * [Intel DPC++ LLVM](https://github.com/intel/llvm)
 * [DPCT Github](https://github.com/oneapi-src/SYCLomatic)
 * [Other oneAPI Components](https://github.com/oneapi-src)
