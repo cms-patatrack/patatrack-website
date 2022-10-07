@@ -9,6 +9,12 @@
 4. Everything is ready! 
 5. (optional) If you want to run code on an integrated Intel GPU while using WSL, you'll need a specific set of drivers and an additional installation package which can be found in [this repository](https://github.com/intel/compute-runtime/blob/master/WSL.md).
 
+## Flags at compile time
+To see all the default falgs used, compile with ```-v```.
+Among those there are some math flags for optimization that can be disabled with ``` -fp-model=precise -fimf-arch-consistency=true -no-fma ```.
+Kernels usually are compiled at runtime once the device is chosen, but it is also possible to compile ahead of time if the device on which the program will run is already known.
+An example is the following to compile for the CPU and GPU on _olice-05_: ```-fsycl-targets=spir64_x86_64,spir64_gen -Xsycl-target-backend=spir64_gen "-device xe_hp_sdv"```
+
 ## Execution model
 
 |            CUDA            |          SYCL           |
@@ -47,6 +53,52 @@ queue.submit([&](sycl::handler &cgh){
   });
 ```
 Finally, to see how the warp concept is mapped on work group sizes it's possible to consult the SYCL or OpenCL implementation notes for the given GPU architecture. Any assumption of warp execution is not performance portable (although developers can select different kernels depending on the underlying architecture). 
+
+### Queues and devices
+In SYCL every queue is associated to a device and viceversa. The creation of a queue happens either with the deafult constructor that associates it with the default selector or specifying the device using one among the following: 
+
+| method                 | device selected        |
+| :--------------------: | :--------------------: |
+|default_selector()|Selects device according to implementation-defined heuristic or host device if no device can be found|
+| gpu_selector()         | Select a GPU           |
+| accelerator_selector() | Select an accelerator  |
+| cpu_selector()         | Select a CPU device    |
+| host_selector()        | Select the host device |
+
+It is always possible to create your own device selector with a derived class that defines the () operator.
+Finally the method ```queue.get_device()``` returns an object of type ```sycl::device``` that contains the device associated to that specific queue. 
+
+### SYCL queues and CUDA streams
+SYCL queues are similar, in principle, to CUDA streams. One key difference is found in the default implementation. In particular, SYCL queues are by default not in order, meaning that different kernels (i.e. ```queue::submit()```) can and will be executed at the same time whenever possible to improve performances.
+If the data used by different kernels is not independent, you should initialize a queue as in order passing an extra argument in the constructor as shown below:
+```cpp
+//Initialize an out-of-order queue
+auto not_in_order_q = sycl::queue(sycl::default_selector{});
+
+//Initialize an in-order queue
+auto in_order_q = sycl::queue(sycl::default_selector{}, sycl::property::queue::in_order());
+```
+Using an in-order queue corresponds exactly to adding a ```queue::wait()``` after each and every submit. In this way the queue behaves as the Stream '0' in CUDA: operations are exectuded in issue-order on the selected device.
+In case the code allows for some kernels to be executed in parallel while others have explicit dependencies, it is possible to use a default queue and specify the desired data dependencies using the member function ```handler::depends_on()``` which can take an event or an array of events as parameters. This is demonstrated in the example below:
+```cpp
+//Initialize an out-of-order queue
+auto q = sycl::queue(sycl::default_selector{});
+//Define an event
+auto e = q.submit([&](sycl::handler& h)
+                  {
+                      /* kernel */
+                  }
+q.submit([&](sycl::handler& h)
+         {
+             h.depends_on(e);
+             /* kernel */
+         });
+q.submit([&](sycl::handler& h)
+         {
+             /* kernel */
+         })
+```
+In this case, the second submit has an explicit dependency on the first, so the queue will wait and syncronize before executing it. However, the last submit can be executed as the same time as the first one since no data dependency is specified.
 
 ### Kernels execution
 
@@ -126,15 +178,20 @@ q.submit([&](sycl::handler& h)
 });
 ```
 
+To conclude, SYCL device code does not support virtual function calls, function pointers, exceptions, runtime type information and the full set of C++ libraries that may depend on these features or on features of a particular host compiler. 
+There is an experimental flag ```-fsycl-enable-function-pointers``` that enables function pointers and support for virtual functions.
+For the standard C++ math function, SYCL provides its own version that usually can be found in the ```sycl``` namespace.
+
 ### Synchronization
 In CUDA, there are two synchronization levels:
 
 - ```cudaDeviceSynchronize()```: blocks the threads call until all the work on the device is completed
 - ```__syncthreads()```: wait for all the threads in a thread block to reach the same synchronization point
 
-In SYCL, the only synchronization that is possible is across all work items within a work group using barriers which can be called within a kernel function:
-- ```mem_fence```: inserts a memory fence on global memory access or local memory access across all work items within a work group. It's the analog of CUDA ```__threadfence_block()```.
-- ```barrier```: like the previous one, but it also blocks the execution of each work item within a work group at that point until all of them have reached that point. 
+In SYCL, the only synchronization that is possible is across all work items within a work group using barriers which can be called within a kernel function using methods of ```sycl::nd_item```:
+
+- ```mem_fence()```: inserts a memory fence on global memory access or local memory access across all work items within a work group. It's the analog of CUDA ```__threadfence_block()```.
+- ```barrier()```: like the previous one, but it also blocks the execution of each work item within a work group at that point until all of them have reached that point. 
 
 We demonstrate the equivalence of CUDA and SYCL synchronization methods in the following snippet, taken from a parallel reduction kernel:
 
@@ -162,37 +219,7 @@ SYCL does not provide any memory fences or barriers across the entire kernel, on
 
 > **_NOTE:_**  In the example we show how to get the corresponding values of the indices ```tid``` and ```i```. While in CUDA the kernel has direct access to information about the number of threads and dimension of blocks, in SYCL you have to explicitly pass a ```nd_item``` corresponding to the ```nd_range``` which is the argument of the ```parallel_for```.
 
-SYCL queues are similar, in principle, to CUDA streams. One key difference is found in the default implementation. In particular, SYCL queues are by default not in order, meaning that different kernels (i.e. ```queue::submit()```) can and will be executed at the same time whenever possible to improve performances.
-If the data used by different kernels is not independent, you should initialize a queue as in order passing an extra argument in the constructor as shown below:
-
-```cpp
-// Initialize an out-of-order queue
-auto not_in_order_q = sycl::queue(sycl::default_selector{});
-
-// Initialize an in-order queue
-auto in_order_q = sycl::queue(sycl::default_selector{}, sycl::property::queue::in_order());
-```
-Using an in-order queue corresponds exactly to adding a ```queue::wait()``` after each and every submit. In this way the queue behaves as the Stream '0' in CUDA: operations are exectuded in issue-order on the selected device.
-In case the code allows for some kernels to be executed in parallel while others have explicit dependencies, it is possible to use a default queue and specify the desired data dependencies using the member function ```handler::depends_on()``` which can take an event or an array of events as parameters. This is demonstrated in the example below:
-```cpp
-// Initialize an out-of-order queue
-auto q = sycl::queue(sycl::default_selector{});
-// Define an event
-auto e = q.submit([&](sycl::handler& h)
-                  {
-                      /* kernel */
-                  }
-q.submit([&](sycl::handler& h)
-         {
-             h.depends_on(e);
-             /* kernel */
-         });
-q.submit([&](sycl::handler& h)
-         {
-             /* kernel */
-         })
-```
-In this case, the second submit has an explicit dependency on the first, so the queue will wait and syncronize before executing it. However, the last submit can be executed as the same time as the first one since no data dependency is specified.
+To obtain an event, the method ```ext_oneapi_submit_barrier()``` returns one and prevents any commands submitted afterward to the queue it is associated with from executing until all commands previously submitted to the queue are completed.
 
 ## Memory management
 
@@ -212,7 +239,7 @@ It is important to distinguish the different types of memory in SYCL which diffe
 - Local memory: contiguous region of memory allocated per work group and visible to all of the work items in that work group. This memory is allocated and accessed using an accessor and cannot be accessed from the host.
 - Global memory: pool of memory visible by all of the work groups of the device.
 
-We note that the explicit allocation of memory through pointers doesn’t allow specifying whether it should be local or private and defaults to private. At this time, the only way to allocate local memory is through the use of an accessor.
+We note that the explicit allocation of memory through pointers doesn’t allow specifying whether it should be local or private and defaults to private. At this time, the only way to allocate local memory is through the use of an accessor (see dedicated section).
 
 > **_NOTE:_** Although the methods are really similar, shared memory has different meanings in CUDA and SYCL. SYCL shared memory creates a single pointer which can be accessed both by the host and the device and allows to avoid the explicit copying of data between the two on supported devices. Shared memory in CUDA instead, is "shared" between the threads of a block.
 
@@ -233,11 +260,11 @@ In CUDA there are:
 On the other hand, in SYCL we have:
 
 - ```malloc_device()```: device allocations that can be read from or written to by kernels running on a device, but they cannot be directly accessed from code executing on the host. Data must be copied between host and device using the explicit USM memcpy mechanisms.
-- ```free()```: free memory allocated with *Malloc* functions
-- ```memcpy()```: copy memory between host and device
-- ```memeset()```: set memory allocated with *Malloc* functions 
-- ```copy()```: copy memory from src to dest
-- ```fill()```: fill the destination with values passed
+- ```free(ptr, queue)```: free memory allocated with *Malloc* functions
+- ```memcpy(dest, src, num_bytes)```: copy memory between host and device
+- ```memeset(ptr, value, num_bytes)```: set memory allocated with *Malloc* functions 
+- ```copy(src, dest, num_bytes)```: copy memory from src to dest
+- ```fill(ptr, value, num_bytes)```: fill the destination with values passed
 
 The last four methods are available also as members of the class ```sycl::handler```, so they can be used in the scope of the queue.
 An example is shown below:
@@ -247,6 +274,25 @@ Q.submit([&](handler &h) {
     h.memcpy(device_array, &host_array[0], N * sizeof(int));
     });
 Q.wait();
+```
+
+Two different ways were considered for allocation on device:
+```cpp
+void* sycl::malloc_device(size_t numBytes,
+                          const queue& syclQueue,
+                          const property_list &propList = {})
+    
+// Implementation
+void* i = sycl::malloc_device(sizeof(int), queue);
+```
+```cpp
+template <typename T>
+T* sycl::malloc_device(size_t count,
+                       const queue& syclQueue,
+                       const property_list &propList = {})
+
+// Implementation
+int* i = (int *)sycl::malloc_device<int>(1, stream);
 ```
 
 In the following example we show the explicit allocation, setting, copy and deallocation of memory first in CUDA and then in its equivalend SYCL form:
@@ -285,6 +331,7 @@ queue.memcpy(h_a.data(), d_b, N * sizeof(float)).wait();
 sycl::free(d_a, queue);
 sycl::free(d_b, queue);
 ```
+
 We note that in order to allocate in SYCL it is necessary to have declared a queue first, as to choose the device on which the memory should be allocated and data copied. Moreover, since copying is asynchronous by default, it is a good practice to always use ```sycl::queue::wait()``` after any group of copying actions to prevent segmentation faults or unexpected behaviours. Finally, in SYCL it is not necessary to specify the direction of copying (host-device, device-device, device-host) as it is deduced at runtime.
 
 The allocation of memory on the host can be done with C++ methods in both cases, but it will be virtual memory. CUDA allows us to allocate pinned host memory with specific methods, while SYCL runtime manages it on its own aiming at allocating memory in the most optimal way, so there is no explicit method to do it. However, users can manually allocate pinned memory on the host and hand it over to the SYCL implementation. This will often involve allocating host memory with a suitable alignment and multiple, and sometimes can be managed manually using OS specific operations such as mmap and munmap.
@@ -293,8 +340,7 @@ Finally, in SYCL there is no explicit mechanism to request zero-copy. If memory 
 The CUDA methods are:
 
 - ```cudaMallocHost()```: pinned host memory. A dev_ptr is passed to it and it is the host pointer accessible from the device. This memory is directly accessible from the device.
-- ```cudaHostAlloc()```: pinned host memory mapped into the device address space (zero-copy). It will avoid the explicit data movement between host and device. Although zero-copy improves the PCIe transfer rates, it is required to be synchronized whenever data is shared between host and device. 
-- ```cudaHostAllocPortable``` that allows to allocate memory that will be considered as pinned memory by all CUDA contexts, not just the one that performed the allocation.
+- ```cudaHostAlloc()```: pinned host memory mapped into the device address space (zero-copy). It will avoid the explicit data movement between host and device. Although zero-copy improves the PCIe transfer rates, it is required to be synchronized whenever data is shared between host and device. The flag ```cudaHostAllocPortable``` allows to allocate memory that will be considered as pinned memory by all CUDA contexts, not just the one that performed the allocation.
 -```cudaHostGetDevicePointer```: this function provides the device pointer for mapped, pinned memory.
 
 In SYCL there are:
@@ -328,6 +374,214 @@ Summary of SYCL malloc methods:
 | malloc_device | Allocation on device, explicit data movement           | NO                 | YES                  |
 | malloc_host   | Allocation on host, implicit data movement             | YES                | YES                  |
 | malloc_shared | Shared allocation, can migrate between host and device, implicit data movement | YES        | YES  |
+
+Inside the pixeltrack framework the correct way to allocate memory on device is to declare the variable as a unique pointer and then to use ```make_device_unique(dim, queue)``` or ```make_device_unique_uninitialized(dim, queue)``` if the first one is not supported. 
+```cpp
+cms::sycltools::device::unique_ptr<int[]> params;
+Params = cms::sycltools::make_device_unique<int[]>(10, stream);
+
+cms::sycltools::device::unique_ptr<DetParams> m_detParams;
+m_detParams = cms::sycltools::make_device_unique_uninitialized<DetParams>(stream);
+```
+Replace "device" with "host" everywhere to allocate memory on host.
+
+### Local variables declaration
+Local variables (shared variables in CUDA) can be declared in two ways. The first way is through the use of accessors. An accessor is defined as follows:
+```cpp
+template <typename dataT, 
+          int dimensions, 
+          sycl::access::mode accessmode,
+          sycl::access::target accessTarget = sycl::access::target::global_buffer,
+          sycl::access::placeholder isPlaceholder = sycl::access::placeholder::false_t>
+class accessor;
+```
+The arguments that must be passed are the data type, the dimension (0 for a boolean, 1 otherwise) and the access mode that can be: read, write, read_write (this is the one we want), discard_write, discard_read_write or atomic.
+It must be declared in the ```submit``` scope before the ```parallel_for``` and then its pointer is retrieved with ```get_pointer()```.
+A small example of the implementation is here:
+```cpp
+stream.submit([&](sycl::handler &cgh) {
+    sycl::accessor<uint8_t, 1, sycl::access_mode::read_write, sycl::access::target::local>
+              sum_acc(sycl::range<1>(sizeof(uint8_t)*32), cgh);
+    sycl::accessor<bool, 0, sycl::access_mode::read_write, sycl::access::target::local>
+              isDone_acc(cgh);
+    cgh.parallel_for(sycl::nd_range<1>(nblocks * sycl::range<1>(nthreads), sycl::range<1>(nthreads)),
+          [=](sycl::nd_item<3> item){ 
+                myKernel((uint8_t)sum_acc.get_pointer(), 
+                         isDone_acc.get_pointer(), 
+                         item)
+      });
+    });
+```
+
+Anyway, the use of accessors is not recommended unless really necessary as they appear to be broken sometimes.
+Another possibility to allocate local memory is using multi pointers. The allocation is done directly inside the kernel and the pointer is obtained with ```get()```:
+```cpp
+auto done_buff = sycl::ext::oneapi::group_local_memory_for_overwrite<int>(item.get_group());
+int* done = (int*)done_buff.get();
+```
+## Atomic operations
+To do atomic operations in SYCL the first thing to do is to declare and atomic object using
+```cpp
+sycl::atomic_ref<template T, 
+                 sycl::memory_order memOrder,
+                 sycl::memory_scope memScope,
+                 sycl::access::address_space addrSpace>(obj);
+//obj is of type T (not T*)
+```
+The ```memOrder``` can be relaxed, acquire, release, acq_rel or seq_cst. We used relaxed. The ```memScope``` can be work_item, sub_group, work_group, device or system. To be safe system is the best one but also the most expensive, the recommended one is device unless the kernel is written such that less synchronization is needed. In this case the user can choose the level of synchronization: among a work group, a sub group or in the work item.
+The ```addrSpace``` can be global_space, local_space, constant_space or private_space. Usually the used one is global space unless the atomic operation is done on accessors/multi pointers (i.e. local variables). In this case the correct one is local space.
+
+Then atomic operations can be done on the object.
+The possible ones are:
+
+- ```fetch_add(operand)```
+- ```fetch_sub(operand)```
+- ```fetch_max(operand)```
+- ```fetch_min(operand)```
+- ```compare_exchange_strong(old, value)```
+- ```compare_exchange_weak(old, value)```
+
+An example is:
+```cpp
+auto atm = sycl::atomic_ref<template T, 
+                            sycl::access::address_space::global_space,
+                            sycl::memory_scope::device,
+                 			sycl::memory_order::relaxed>(obj);
+atm.fetch_add(1);
+```
+
+## CUDADataFormats to SYCLDataFormats
+The namespace ```cms::cudacompat``` and its content is not needed beacause in SYCL the code is the same for all the devices, so the ```typename Traits``` in the SoA declaration can be dropped. 
+
+**CUDA**
+```cpp
+// in TrackingRecHit2DHeterogeneous.h
+#include "CUDADataFormats/TrackingRecHit2DSOAView.h"
+#include "CUDADataFormats/HeterogeneousSoA.h"
+
+template <typename Traits>
+class TrackingRecHit2DHeterogeneous {
+public:
+  template <typename T>
+  using unique_ptr = typename Traits::template unique_ptr<T>;
+  //...
+}
+
+using TrackingRecHit2DGPU = TrackingRecHit2DHeterogeneous<cms::cudacompat::GPUTraits>;
+using TrackingRecHit2DCUDA = TrackingRecHit2DHeterogeneous<cms::cudacompat::GPUTraits>;
+using TrackingRecHit2DCPU = TrackingRecHit2DHeterogeneous<cms::cudacompat::CPUTraits>;
+using TrackingRecHit2DHost = TrackingRecHit2DHeterogeneous<cms::cudacompat::HostTraits>;
+
+// in TrackingRecHit2DCUDA.h
+#include "CUDADataFormats/TrackingRecHit2DHeterogeneous.h"
+```
+**SYCL**
+```cpp
+// no need for TrackingRecHit2DHeterogeneous.h
+// in TrackingRecHit2DSYCL.h
+#include "SYCLDataFormats/TrackingRecHit2DSOAView.h"
+#include "SYCLCore/device_unique_ptr.h"
+#include "SYCLCore/host_unique_ptr.h"
+
+class TrackingRecHit2DSYCL {
+public:
+    //...
+}
+
+```
+
+## EDProducer 
+The main difference between CUDA and SYCL is that SYCL needs a queue to do an allocation. The queue can be obtained from the ```edm::Event``` that is an argument of ```produce```, method of the ```edm::EDProducer```. For this reason all the allocations done in the initialization of the ```EDProducer``` should be moved inside the ```produce``` method.
+
+**CUDA**
+```cpp
+class BeamSpotToCUDA : public edm::EDProducer {
+public:
+  explicit BeamSpotToCUDA(edm::ProductRegistry& reg);
+  ~BeamSpotToCUDA() override = default;
+
+  void produce(edm::Event& iEvent, const edm::EventSetup& iSetup) override;
+
+private:
+  const edm::EDPutTokenT<cms::cuda::Product<BeamSpotCUDA>> bsPutToken_;
+  cms::cuda::host::noncached::unique_ptr<BeamSpotPOD> bsHost;
+};
+
+BeamSpotToCUDA::BeamSpotToCUDA(edm::ProductRegistry& reg)
+    : bsPutToken_{reg.produces<cms::cuda::Product<BeamSpotCUDA>>()},
+      bsHost{cms::cuda::make_host_noncached_unique<BeamSpotPOD>(cudaHostAllocWriteCombined)} {}
+
+void BeamSpotToCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
+  *bsHost = iSetup.get<BeamSpotPOD>();
+    //...
+}
+```
+**SYCL**
+```cpp
+class BeamSpotToSYCL : public edm::EDProducer {
+public:
+  explicit BeamSpotToSYCL(edm::ProductRegistry& reg);
+  ~BeamSpotToSYCL() override = default;
+
+  void produce(edm::Event& iEvent, const edm::EventSetup& iSetup) override;
+
+private:
+  const edm::EDPutTokenT<cms::sycltools::Product<BeamSpotSYCL>> bsPutToken_;
+};
+
+BeamSpotToSYCL::BeamSpotToSYCL(edm::ProductRegistry& reg)
+    : bsPutToken_{reg.produces<cms::sycltools::Product<BeamSpotSYCL>>()} {} 
+
+void BeamSpotToSYCL::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
+  cms::sycltools::ScopedContextProduce ctx{iEvent.streamID()};
+  sycl::queue queue = ctx.stream();
+  cms::sycltools::host::unique_ptr<BeamSpotPOD> bsHost;
+  bsHost = cms::sycltools::make_host_unique<BeamSpotPOD>(queue);
+  *bsHost = iSetup.get<BeamSpotPOD>();
+  //...
+}
+```
+## Print inside kernels
+The standard ```std::cout``` and ```printf``` don't work inside kernels. There are two possibilities that have been tested.
+The first one is to use ```sycl::stream(totalBufferSize, workItemBufferSize, handler)```, defining a stream after the submit and passing it to the kernel. Using ```sycl::endl``` ends the buffer.
+
+```cpp
+queue.submit([&](sycl::handler &cgh) {
+    sycl::stream out(1024, 768, cgh);
+    cgh.parallel_for((numberOfBlocks * blockSize, blockSize),
+          [=](sycl::nd_item<1> item){ 
+                out << "This is a SYCL stream" << sycl::endl;
+      });
+    });
+```
+
+The second one is using ```sycl::ext::oneapi::experimental::printf```, an experimental function that should emulate ```printf```.
+The following is an example of a ```printf.h``` file that can be included in every file where some prints are needed and those can be done in the canonical way (```printf("%d\n", value)```).
+
+```cpp=
+#ifdef __SYCL_DEVICE_ONLY__
+#define CONSTANT __attribute__((opencl_constant))
+#else
+#define CONSTANT
+#endif
+
+#define printf(FORMAT, ...) \
+do { \
+  static const CONSTANT char format[] = FORMAT; \
+  sycl::ext::oneapi::experimental::printf(format, ##__VA_ARGS__); \
+} while (false)
+```
+
+## Other
+
+| CUDA                  | SYCL                                 |
+| :-------------------: |:------------------------------------:|
+| ```__forceinline__``` | ```__attribute__((always_inline))``` |
+
+### Known bugs
+
+1. On CPU the methods ```any_of_group``` and ```all_of_group``` don't work as expected. The only way to achieve the correct result for the moment is to put the work group size equal to the sub group size.
+2. The accessors most of the times behave in a weird way. Use multi pointers as much as possible.
 
 ## References
 [codeplay CUDA to SYCL](https://developer.codeplay.com/products/computecpp/ce/guides/sycl-for-cuda-developers)
